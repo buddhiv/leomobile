@@ -1,24 +1,19 @@
 import React from 'react';
-import {
-    View,
-    Text
-} from 'react-native';
-import Layout from "../../core/Layout";
+import {createStackNavigator} from "@react-navigation/stack";
+import ClubsScreen from "./ClubsScreen";
+import ClubDetailsScreen from "./ClubDetailsScreen";
 
-class ClubsMainScreen extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+const ClubsMainScreen: () => React$Node = (props) => {
+    const Stack = createStackNavigator();
 
-    render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-        return (
-            <Layout>
-                <View>
-                    <Text>Clubs Main screen</Text>
-                </View>
-            </Layout>
-        )
-    }
-};
+    return (
+        <>
+            <Stack.Navigator initialRouteName={'Clubs'}>
+                <Stack.Screen name="Clubs" component={ClubsScreen}/>
+                <Stack.Screen name="Club Details" component={ClubDetailsScreen}/>
+            </Stack.Navigator>
+        </>
+    )
+}
 
 export default ClubsMainScreen;

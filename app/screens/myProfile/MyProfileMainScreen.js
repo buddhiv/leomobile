@@ -1,24 +1,19 @@
 import React from 'react';
-import {
-    View,
-    Text
-} from 'react-native';
-import Layout from "../../core/Layout";
+import {createStackNavigator} from "@react-navigation/stack";
+import MyProfileScreen from "./MyProfileScreen";
+import MyHistoryScreen from "./MyHistoryScreen";
 
-class MyProfileMainScreen extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+const MyProfileMainScreen: () => React$Node = (props) => {
+    const Stack = createStackNavigator();
 
-    render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-        return (
-            <Layout>
-                <View>
-                    <Text>My Profile main screen</Text>
-                </View>
-            </Layout>
-        )
-    }
-};
+    return (
+        <>
+            <Stack.Navigator initialRouteName={'My Profile'}>
+                <Stack.Screen name="My Profile" component={MyProfileScreen}/>
+                <Stack.Screen name="My History" component={MyHistoryScreen}/>
+            </Stack.Navigator>
+        </>
+    )
+}
 
 export default MyProfileMainScreen;
