@@ -17,7 +17,8 @@ class Main extends React.Component {
 
         return (
             <NavigationContainer>
-                <Drawer.Navigator drawerType={'front'}>
+                <Drawer.Navigator drawerType={'front'} unmountOnBlur={true} backBehavior={'initialRoute'}
+                                  initialRouteName={'Projects'}>
                     <Drawer.Screen name="Projects" component={ProjectsMainScreen}/>
                     <Drawer.Screen name="Clubs" component={ClubsMainScreen}/>
                     <Drawer.Screen name="My Profile" component={MyProfileMainScreen}/>
