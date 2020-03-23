@@ -11,8 +11,8 @@ const ClubsListRowComponent: () => React$Node = (props) => {
         <>
             <TouchableNativeFeedback onPress={props.onPress}>
                 <View style={styles.rowStyle}>
-                    <Text style={styles.projectNameText}>Leo Club of University of Moratuwa</Text>
-                    <Text>Leo District 306 A2</Text>
+                    <Text style={styles.projectNameText}>{props.club.item.name}</Text>
+                    <Text>{props.club.item.leoDistrict.name}</Text>
                 </View>
             </TouchableNativeFeedback>
         </>

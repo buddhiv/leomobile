@@ -1,22 +1,28 @@
 import React from 'react';
 import {
     View,
-    Text, FlatList
+    Text, FlatList,
 } from 'react-native';
-import Layout from "../../core/Layout";
-import ClubsListRowComponent from "./ClubsListRowComponent";
-import {webservice} from "../../lib/webservice/webservice";
-import axios from "axios";
+import Layout from '../../core/Layout';
+import ClubsListRowComponent from './ClubsListRowComponent';
+import ClubsAPIService from './services/ClubsAPIService';
 
 class ClubsScreen extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+
+        this.state = {
+            clubsList: [],
+        };
     }
 
     componentDidMount(): void {
-        console.log('clubs did mount');
-        axios.get('https://demo1583219.mockable.io/leo_clubs').then((result) => {
-            console.log(result);
+        ClubsAPIService.getClubsListApi().then((result) => {
+            if (result.status === 200) {
+                this.setState({
+                    clubsList: result.data.data,
+                });
+            }
         });
     }
 
@@ -24,18 +30,18 @@ class ClubsScreen extends React.Component {
         this.props.navigation.navigate('Club Details');
     };
 
-    rowRenderer = (project) => {
-        return <ClubsListRowComponent item={project} onPress={this.goToClubDetailsScreen}/>;
+    rowRenderer = (club) => {
+        return <ClubsListRowComponent club={club} onPress={this.goToClubDetailsScreen}/>;
     };
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout>
                 <View>
-                    <FlatList data={[1, 2, 3]} renderItem={this.rowRenderer}/>
+                    <FlatList data={this.state.clubsList} renderItem={this.rowRenderer}/>
                 </View>
             </Layout>
-        )
+        );
     }
 };
 

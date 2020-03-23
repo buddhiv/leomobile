@@ -5,11 +5,19 @@ import ProjectsMainScreen from "../screens/projects/ProjectsMainScreen";
 import ClubsMainScreen from "../screens/clubs/ClubsMainScreen";
 import MyProfileMainScreen from "../screens/myProfile/MyProfileMainScreen";
 import MembersMainScreen from "../screens/members/MembersMainScreen";
-
+import InitService from '../lib/services/InitService';
 
 class Main extends React.Component {
     constructor(props) {
         super(props)
+    }
+
+    componentDidMount(): void {
+        InitService.setGlobalListeners();
+    }
+
+    componentWillUnmount(): void {
+        InitService.removeGlobalListeners()
     }
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
