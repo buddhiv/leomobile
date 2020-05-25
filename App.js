@@ -8,12 +8,12 @@
 
 import 'react-native-gesture-handler';
 import React from 'react';
-import Main from "./app/core/Main";
+import MainScreen from "./app/core/MainScreen";
 
 const App: () => React$Node = () => {
     return (
         <>
-            <Main/>
+            <MainScreen/>
         </>
     );
 };

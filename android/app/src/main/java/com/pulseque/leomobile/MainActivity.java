@@ -1,4 +1,4 @@
-package com.leomobile;
+package com.pulseque.leomobile;
 
 import com.facebook.react.ReactActivity;
 

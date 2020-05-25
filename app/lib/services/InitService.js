@@ -6,7 +6,7 @@ let netInfoListener = null;
 let eventEmitter = new EventEmitter();
 
 const InitService = {
-    getGlobalEventEmitter: () => {
+     getGlobalEventEmitter: () => {
         return eventEmitter;
     },
     setGlobalListeners: () => {

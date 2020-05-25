@@ -3,13 +3,13 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableNativeFeedback
+    TouchableWithoutFeedback
 } from 'react-native';
 
 const ProjectsListRowComponent: () => React$Node = (props) => {
     return (
         <>
-            <TouchableNativeFeedback onPress={props.onPress}>
+            <TouchableWithoutFeedback onPress={props.onPress}>
                 <View style={styles.rowStyle}>
                     <Text style={styles.projectNameText}>Mahesh Abeywickrama Debate Competetion</Text>
                     <Text>Leo Club of University of Moratuwa</Text>
@@ -20,7 +20,7 @@ const ProjectsListRowComponent: () => React$Node = (props) => {
                     </View>
 
                 </View>
-            </TouchableNativeFeedback>
+            </TouchableWithoutFeedback>
         </>
     );
 };

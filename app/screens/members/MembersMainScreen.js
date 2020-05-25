@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from "@react-navigation/stack";
-import SearchMemberScreen from "./SearchMemberScreen";
+import MembersScreen from "./MembersScreen";
 import MemberDetailsScreen from "./MemberDetailsScreen";
 
 const MembersMainScreen: () => React$Node = (props) => {
@@ -9,7 +9,7 @@ const MembersMainScreen: () => React$Node = (props) => {
     return (
         <>
             <Stack.Navigator initialRouteName={'Search Member'}>
-                <Stack.Screen name="Search Menber" component={SearchMemberScreen}/>
+                <Stack.Screen name="Members" component={MembersScreen}/>
                 <Stack.Screen name="Member Details" component={MemberDetailsScreen}/>
             </Stack.Navigator>
         </>

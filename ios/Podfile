@@ -34,6 +34,18 @@ target 'leomobile' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  #Firebase Pods
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+
+  pod 'GoogleSignIn', '~> 5.0.2'
+
+  pod 'RNGoogleSignin', :path => '../node_modules/@react-native-community/google-signin'
+
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
+  pod 'RNFBAuth', :path => '../node_modules/@react-native-firebase/auth'
+
   target 'leomobileTests' do
     inherit! :search_paths
     # Pods for testing

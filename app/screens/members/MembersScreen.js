@@ -4,45 +4,45 @@ import {
     Text, FlatList,
 } from 'react-native';
 import Layout from '../../core/Layout';
-import ClubsListRowComponent from './components/ClubsListRowComponent';
-import ClubsAPIService from './services/ClubsAPIService';
+import MembersAPIService from './services/MembersAPIService';
+import MembersListRowComponent from './components/MembersListRowComponent';
 
-class ClubsScreen extends React.Component {
+class MembersScreen extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            clubsList: [],
+            membersList: [],
             loading: true,
         };
     }
 
     componentDidMount(): void {
-        ClubsAPIService.getClubsListApi().then((result) => {
+        MembersAPIService.getMembersListApi().then((result) => {
             if (result.status === 200) {
                 this.setState({
-                    clubsList: result.data.data,
+                    membersList: result.data.data,
                     loading: false,
                 });
             }
         });
     }
 
-    goToClubDetailsScreen = (club) => {
-        this.props.navigation.navigate('Club Details', {
-            clubId: club.id,
+    goToMemberDetailsScreen = (member) => {
+        this.props.navigation.navigate('Member Details', {
+            memberId: member.id,
         });
     };
 
-    rowRenderer = (club) => {
-        return <ClubsListRowComponent club={club} onPress={this.goToClubDetailsScreen}/>;
+    rowRenderer = (member) => {
+        return <MembersListRowComponent member={member} onPress={this.goToMemberDetailsScreen}/>;
     };
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading}>
                 <View>
-                    <FlatList data={this.state.clubsList}
+                    <FlatList data={this.state.membersList}
                               renderItem={this.rowRenderer}
                               keyExtractor={(item, index) => {
                                   return item.id.toString();
@@ -54,4 +54,4 @@ class ClubsScreen extends React.Component {
     }
 };
 
-export default ClubsScreen;
+export default MembersScreen;

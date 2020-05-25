@@ -1,7 +1,7 @@
 import UrlHelper from '../helpers/URLHelper';
 import axios from 'axios';
 
-const apiLocation = 'https://1c0664c2.ngrok.io';
+const apiLocation = 'https://38caa5c4.ngrok.io';
 
 let getAxiosFunction = (api, method, params) => {
     let url = apiLocation + api;

@@ -3,18 +3,19 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableNativeFeedback
+    TouchableWithoutFeedback,
 } from 'react-native';
 
 const ClubsListRowComponent: () => React$Node = (props) => {
     return (
         <>
-            <TouchableNativeFeedback onPress={props.onPress}>
+            <TouchableWithoutFeedback onPress={() => {
+                props.onPress(props.club.item);
+            }}>
                 <View style={styles.rowStyle}>
                     <Text style={styles.projectNameText}>{props.club.item.name}</Text>
-                    <Text>{props.club.item.leoDistrict.name}</Text>
                 </View>
-            </TouchableNativeFeedback>
+            </TouchableWithoutFeedback>
         </>
     );
 };
@@ -27,11 +28,11 @@ const styles = StyleSheet.create({
     },
     projectNameText: {
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     secondRowText: {
-        flexDirection: 'row'
-    }
+        flexDirection: 'row',
+    },
 });
 
 export default ClubsListRowComponent;
