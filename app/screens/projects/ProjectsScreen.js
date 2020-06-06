@@ -22,11 +22,9 @@ class ProjectsScreen extends React.Component {
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout scrollEnabled={false}>
-                <View>
-                    <FlatList data={[1, 2, 3]} renderItem={this.rowRenderer} keyExtractor={(item, index) => {
-                        return index.toString();
-                    }}/>
-                </View>
+                <FlatList data={[1, 2, 3]} renderItem={this.rowRenderer} keyExtractor={(item, index) => {
+                    return index.toString();
+                }}/>
             </Layout>
         );
     }

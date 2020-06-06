@@ -2,7 +2,6 @@ import React from 'react';
 import {
     View,
     Text,
-    StyleSheet,
     TouchableWithoutFeedback,
 } from 'react-native';
 import MemberDetailsService from '../services/MemberDetailsService';
@@ -14,13 +13,15 @@ const MembersListRowComponent: () => React$Node = (props) => {
             <TouchableWithoutFeedback onPress={() => {
                 props.onPress(props.member.item);
             }}>
-                <View style={styles.rowStyle}>
+                <View style={{paddingVertical: 5, paddingHorizontal: 15, flexDirection: 'row'}}>
                     <View>
                         <MemberProfilePictureComponent size={40}/>
                     </View>
                     <View style={{paddingLeft: 10}}>
-                        <Text
-                            style={styles.memberNameText}>Leo {MemberDetailsService.getFullName(props.member.item)}</Text>
+                        <Text style={{
+                            fontSize: 16,
+                            fontWeight: 'bold',
+                        }}>Leo {MemberDetailsService.getFullName(props.member.item)}</Text>
                         <Text style={{}}>{props.member.item.email}</Text>
                     </View>
                 </View>
@@ -28,20 +29,5 @@ const MembersListRowComponent: () => React$Node = (props) => {
         </>
     );
 };
-
-const styles = StyleSheet.create({
-    rowStyle: {
-        paddingVertical: 5,
-        paddingHorizontal: 15,
-        flexDirection: 'row',
-    },
-    memberNameText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    secondRowText: {
-        flexDirection: 'row',
-    },
-});
 
 export default MembersListRowComponent;
