@@ -9,27 +9,62 @@ import MembersListRowComponent from './components/MembersListRowComponent';
 import CardComponent from '../../common/components/CardComponent';
 import IconComponent from '../../common/components/IconComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
+import MemberDetailsService from './services/MemberDetailsService';
+import GlobalService from '../../lib/services/GlobalService';
+import ClubsAPIService from '../clubs/services/ClubsAPIService';
 
 class MembersScreen extends React.Component {
     constructor(props) {
         super(props);
 
+        this.user = GlobalService.get('user');
+        console.log(this.user);
+
         this.state = {
             membersList: [],
+            clubsList: [],
+            filters: this.getDefaultFilter(),
             loading: true,
         };
     }
 
     componentDidMount(): void {
-        MembersAPIService.getMembersListApi().then((result) => {
-            if (result.status === 200) {
-                this.setState({
-                    membersList: result.data.data,
-                    loading: false,
-                });
-            }
-        });
+        this.getMembersList(true);
     }
+
+    getMembersList = async (isInitial) => {
+        try {
+            let membersResult = await MembersAPIService.getMembersListApi(this.state.filters);
+            let stateObj = {
+                membersList: membersResult.data.data,
+                loading: false,
+            };
+
+            if (isInitial) {
+                let clubsResult = await ClubsAPIService.getClubsListApi();
+                stateObj.clubsList = clubsResult.data.data;
+            }
+
+            this.setState(stateObj);
+        } catch (e) {
+            console.log(e);
+
+            this.setState({
+                loading: false,
+            });
+        }
+    };
+
+    getDefaultFilter = () => {
+        return {
+            filters: {
+                name: '',
+                gender: '',
+                clubId: this.user.leoClubId,
+                mylciId: '',
+            },
+        };
+    };
 
     goToMemberDetailsScreen = (member) => {
         this.props.navigation.navigate('Member Details', {
@@ -38,7 +73,26 @@ class MembersScreen extends React.Component {
     };
 
     goToFilters = () => {
-        this.props.navigation.navigate('Filter Members');
+        this.props.navigation.navigate('Filter Members', {
+            filters: this.state.filters,
+            clubsList: this.state.clubsList,
+            resetFiltersCallback: this.resetFiltersCallback,
+            searchCallback: this.searchCallback,
+        });
+    };
+
+    resetFiltersCallback = () => {
+        this.setState({filters: this.getDefaultFilter(), loading: true}, () => {
+            this.getMembersList();
+        });
+    };
+
+    searchCallback = (newFilters) => {
+        console.log('newFilters');
+        console.log(newFilters);
+        this.setState({filters: newFilters, loading: true}, () => {
+            this.getMembersList();
+        });
     };
 
     rowRenderer = (member) => {
@@ -56,7 +110,7 @@ class MembersScreen extends React.Component {
                         backgroundColor: 'white',
                     }}>
                         <View style={{flex: 1}}>
-                            <Text>{this.state.membersList.length} Results</Text>
+                            <Text>{this.state.membersList.length} Result(s)</Text>
                         </View>
                         <View style={{flexDirection: 'row'}}>
                             <View style={{marginRight: 10}}>

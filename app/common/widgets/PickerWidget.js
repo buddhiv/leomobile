@@ -12,12 +12,18 @@ const PickerWidget: () => React$Node = (props) => {
                 </View>
                 <View style={{borderBottomWidth: 1, borderBottomColor: 'black'}}>
                     <Picker
+                        selectedValue={props.selectedValue}
                         mode={'dropdown'}
                         onValueChange={(itemValue, itemIndex) => {
-
+                            props.onValueChange(itemValue, itemIndex);
                         }}>
-                        <Picker.Item label="Java" value="java"/>
-                        <Picker.Item label="JavaScript" value="js"/>
+
+                        {
+                            props.data.map((item, index) => {
+                                return <Picker.Item label={item.label} value={item.value} key={index}/>;
+                            })
+                        }
+
                     </Picker>
                 </View>
             </View>
@@ -26,7 +32,9 @@ const PickerWidget: () => React$Node = (props) => {
 };
 
 PickerWidget.propTypes = {
-    onChangeText: PropTypes.func,
+    onValueChange: PropTypes.func,
+    data: PropTypes.array,
+    selectedValue: PropTypes.any,
 };
 
 export default PickerWidget;

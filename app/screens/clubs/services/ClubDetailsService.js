@@ -13,6 +13,14 @@ const ClubDetailsService = {
             return directoryItem.leoMembers.length > 0;
         });
     },
+    formatClubsListForPicker: (clubsList) => {
+        return clubsList.map((club) => {
+            return {
+                label: club.name,
+                value: club.id,
+            };
+        });
+    },
 };
 
 export default ClubDetailsService;

@@ -1,8 +1,8 @@
 import WebService from '../../../lib/webservice/WebService';
 
 const MembersAPIService = {
-    getMembersListApi: () => {
-        return WebService.call('/api/v1/leoMember', 'GET');
+    getMembersListApi: (filters) => {
+        return WebService.call('/api/v1/leoMember', 'GET', filters);
     },
     getMemberDetailsApi: (memberId) => {
         return WebService.call('/api/v1/leoMember/' + memberId, 'GET');

@@ -10,7 +10,8 @@ const TextWidget: () => React$Node = (props) => {
                     <Text>{props.label}</Text>
                 </View>
                 <View style={{marginTop: -5, marginBottom: -10}}>
-                    <TextInput onChangeText={props.onChangeText}/>
+                    <TextInput value={props.value}
+                               onChangeText={props.onChangeText}/>
                 </View>
                 <View style={{borderTopWidth: 1, borderTopColor: 'black'}}>
                     {/*<Text style={{fontSize: 10}}>Required</Text>*/}
@@ -21,6 +22,7 @@ const TextWidget: () => React$Node = (props) => {
 };
 
 TextWidget.propTypes = {
+    value: PropTypes.any,
     onChangeText: PropTypes.func,
 };
 

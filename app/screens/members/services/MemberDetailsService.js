@@ -6,7 +6,10 @@ const MemberDetailsService = {
         return member.firstName + ' ' + member.lastName;
     },
     getClubName: (member) => {
-        return 'Leo Club of University of Moratuwa';
+        return member.leoClub.name;
+    },
+    getClubId: (member) => {
+        return member.leoClubId;
     },
 };
 
