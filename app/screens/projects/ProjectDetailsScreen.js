@@ -3,7 +3,7 @@ import {
     View,
     Text
 } from 'react-native';
-import Layout from "../../core/Layout";
+import Layout from "../../common/Layout";
 
 class ProjectDetailsScreen extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class ProjectDetailsScreen extends React.Component {
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
-            <Layout>
+            <Layout scrollEnabled={true}>
                 <View>
                     <Text>Project details screen</Text>
                 </View>

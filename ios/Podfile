@@ -46,6 +46,8 @@ target 'leomobile' do
 
   pod 'RNFBAuth', :path => '../node_modules/@react-native-firebase/auth'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'leomobileTests' do
     inherit! :search_paths
     # Pods for testing

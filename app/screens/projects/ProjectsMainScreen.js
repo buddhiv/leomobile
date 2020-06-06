@@ -1,7 +1,11 @@
 import React from 'react';
+import {TouchableWithoutFeedback, View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import ProjectsScreen from "./ProjectsScreen";
-import ProjectDetailsScreen from "./ProjectDetailsScreen";
+import ProjectsScreen from './ProjectsScreen';
+import ProjectDetailsScreen from './ProjectDetailsScreen';
+import {Text} from 'react-native';
+import IconComponent from '../../common/components/IconComponent';
+import DrawerLeftButtonComponent from '../../common/components/DrawerLeftButtonComponent';
 
 const ProjectsMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -9,11 +13,17 @@ const ProjectsMainScreen: () => React$Node = (props) => {
     return (
         <>
             <Stack.Navigator initialRouteName={'Projects'}>
-                <Stack.Screen name="Projects" component={ProjectsScreen}/>
+                <Stack.Screen name="Projects" component={ProjectsScreen}
+                              // options={({navigation}) => ({
+                              //     headerLeft: () => (
+                              //         <DrawerLeftButtonComponent onPress={navigation.toggleDrawer}/>
+                              //     ),
+                              // })}
+                />
                 <Stack.Screen name="Project Details" component={ProjectDetailsScreen}/>
             </Stack.Navigator>
         </>
-    )
-}
+    );
+};
 
 export default ProjectsMainScreen;

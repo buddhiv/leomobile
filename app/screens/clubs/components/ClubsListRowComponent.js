@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     Text,
@@ -13,20 +14,24 @@ const ClubsListRowComponent: () => React$Node = (props) => {
                 props.onPress(props.club.item);
             }}>
                 <View style={styles.rowStyle}>
-                    <Text style={styles.projectNameText}>{props.club.item.name}</Text>
+                    <Text style={styles.clubNameText}>{props.club.item.name}</Text>
                 </View>
             </TouchableWithoutFeedback>
         </>
     );
 };
 
+ClubsListRowComponent.propTypes = {
+    onPress: PropTypes.func,
+    club: PropTypes.object,
+};
+
 const styles = StyleSheet.create({
     rowStyle: {
         paddingVertical: 5,
         paddingHorizontal: 15,
-
     },
-    projectNameText: {
+    clubNameText: {
         fontSize: 16,
         fontWeight: 'bold',
     },

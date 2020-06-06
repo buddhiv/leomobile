@@ -3,9 +3,11 @@ import {
     View,
     Text, FlatList,
 } from 'react-native';
-import Layout from '../../core/Layout';
+import Layout from '../../common/Layout';
 import ClubsListRowComponent from './components/ClubsListRowComponent';
 import ClubsAPIService from './services/ClubsAPIService';
+import IconComponent from '../../common/components/IconComponent';
+import TouchableComponent from '../../common/components/TouchableComponent';
 
 class ClubsScreen extends React.Component {
     constructor(props) {
@@ -34,14 +36,34 @@ class ClubsScreen extends React.Component {
         });
     };
 
+    goToFilters = () => {
+
+    };
+
     rowRenderer = (club) => {
         return <ClubsListRowComponent club={club} onPress={this.goToClubDetailsScreen}/>;
     };
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
-            <Layout loading={this.state.loading}>
+            <Layout loading={this.state.loading} scrollEnabled={false}>
                 <View>
+                    <TouchableComponent onPress={this.goToFilters}>
+                        <View style={{
+                            flexDirection: 'row',
+                            paddingHorizontal: 15,
+                            paddingVertical: 10,
+                            backgroundColor: 'white',
+                        }}>
+                            <View style={{flex: 1}}>
+                                <Text>Change Filters</Text>
+                            </View>
+                            <View>
+                                <IconComponent.MaterialCommunityIcons name={'filter'} size={20}/>
+                            </View>
+                        </View>
+                    </TouchableComponent>
+
                     <FlatList data={this.state.clubsList}
                               renderItem={this.rowRenderer}
                               keyExtractor={(item, index) => {

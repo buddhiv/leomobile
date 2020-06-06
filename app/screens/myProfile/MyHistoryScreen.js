@@ -3,7 +3,7 @@ import {
     View,
     Text
 } from 'react-native';
-import Layout from "../../core/Layout";
+import Layout from "../../common/Layout";
 
 class MyHistoryScreen extends React.Component {
     constructor(props) {

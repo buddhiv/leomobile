@@ -3,11 +3,11 @@ import {
     View,
     Text, StyleSheet, Button,
 } from 'react-native';
-import Layout from './Layout';
+import Layout from '../../common/Layout';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin, GoogleSigninButton} from '@react-native-community/google-signin';
-import LoginService from '../lib/services/LoginService';
-import InitService from '../lib/services/InitService';
+import LoginService from '../../lib/services/LoginService';
+import InitService from '../../lib/services/InitService';
 import LoginAPIService from './services/LoginAPIService';
 
 class LoginScreen extends React.Component {
@@ -68,7 +68,7 @@ class LoginScreen extends React.Component {
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
-            <Layout>
+            <Layout loading={false} scrollEnabled={true}>
                 <View style={{flex: 1}}>
                     <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
                         <View style={{

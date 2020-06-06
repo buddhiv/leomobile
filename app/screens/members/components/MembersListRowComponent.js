@@ -6,6 +6,7 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 import MemberDetailsService from '../services/MemberDetailsService';
+import MemberProfilePictureComponent from './MemberProfilePictureComponent';
 
 const MembersListRowComponent: () => React$Node = (props) => {
     return (
@@ -14,9 +15,14 @@ const MembersListRowComponent: () => React$Node = (props) => {
                 props.onPress(props.member.item);
             }}>
                 <View style={styles.rowStyle}>
-                    <Text
-                        style={styles.projectNameText}>Leo {MemberDetailsService.getFullName(props.member.item)}</Text>
-                    <Text style={{}}>{props.member.item.email}</Text>
+                    <View>
+                        <MemberProfilePictureComponent size={40}/>
+                    </View>
+                    <View style={{paddingLeft: 10, height: 100}}>
+                        <Text
+                            style={styles.memberNameText}>Leo {MemberDetailsService.getFullName(props.member.item)}</Text>
+                        <Text style={{}}>{props.member.item.email}</Text>
+                    </View>
                 </View>
             </TouchableWithoutFeedback>
         </>
@@ -27,9 +33,9 @@ const styles = StyleSheet.create({
     rowStyle: {
         paddingVertical: 5,
         paddingHorizontal: 15,
-
+        flexDirection: 'row',
     },
-    projectNameText: {
+    memberNameText: {
         fontSize: 16,
         fontWeight: 'bold',
     },

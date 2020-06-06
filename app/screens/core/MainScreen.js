@@ -4,9 +4,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from './LoginScreen';
 import AppScreen from './AppScreen';
 import {StatusBar} from 'react-native';
-import InitService from '../lib/services/InitService';
-import LoginService from '../lib/services/LoginService';
-import GlobalService from '../lib/services/GlobalService';
+import InitService from '../../lib/services/InitService';
+import LoginService from '../../lib/services/LoginService';
+import GlobalService from '../../lib/services/GlobalService';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import LoginAPIService from './services/LoginAPIService';
@@ -46,6 +46,8 @@ class MainScreen extends React.Component {
     onAuthStateChanged = (user) => {
         console.log('onAuthStateChanged main');
         if (user) {
+            console.log(user);
+
             LoginAPIService.getAuthUserApi(user._user.email).then(async (response) => {
                 console.log('response');
                 console.log(response);

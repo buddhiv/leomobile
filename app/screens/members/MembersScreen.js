@@ -3,9 +3,12 @@ import {
     View,
     Text, FlatList,
 } from 'react-native';
-import Layout from '../../core/Layout';
+import Layout from '../../common/Layout';
 import MembersAPIService from './services/MembersAPIService';
 import MembersListRowComponent from './components/MembersListRowComponent';
+import CardComponent from '../../common/components/CardComponent';
+import IconComponent from '../../common/components/IconComponent';
+import TouchableComponent from '../../common/components/TouchableComponent';
 
 class MembersScreen extends React.Component {
     constructor(props) {
@@ -34,14 +37,35 @@ class MembersScreen extends React.Component {
         });
     };
 
+    goToFilters = () => {
+
+    };
+
     rowRenderer = (member) => {
         return <MembersListRowComponent member={member} onPress={this.goToMemberDetailsScreen}/>;
     };
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
-            <Layout loading={this.state.loading}>
+            <Layout loading={this.state.loading} scrollEnabled={false}>
                 <View>
+                    <TouchableComponent onPress={this.goToFilters}>
+                        <View style={{
+                            flexDirection: 'row',
+                            paddingHorizontal: 15,
+                            paddingVertical: 10,
+                            backgroundColor: 'white'
+                        }}>
+                            <View style={{flex: 1}}>
+                                <Text>Change Filters</Text>
+                            </View>
+                            <View>
+                                <IconComponent.MaterialCommunityIcons name={'filter'} size={20}/>
+                            </View>
+                        </View>
+                    </TouchableComponent>
+
+
                     <FlatList data={this.state.membersList}
                               renderItem={this.rowRenderer}
                               keyExtractor={(item, index) => {

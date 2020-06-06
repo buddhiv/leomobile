@@ -1,4 +1,4 @@
-import WebService from '../../lib/webservice/WebService';
+import WebService from '../../../lib/webservice/WebService';
 
 const LoginAPIService = {
     getAuthUserApi: (email) => {
