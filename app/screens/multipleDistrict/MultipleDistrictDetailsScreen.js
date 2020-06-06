@@ -1,40 +1,58 @@
 import React from 'react';
 import {
     View,
-    Text, StyleSheet,
+    Text,
 } from 'react-native';
 import Layout from '../../common/Layout';
-import ClubsAPIService from './services/ClubsAPIService';
+import moment from 'moment';
+import MultipleDistrictAPIService from './services/MultipleDistrictAPIService';
 import CardComponent from '../../common/components/CardComponent';
+import MultipleDistrictProfilePictureComponent from './components/MultipleDistrictProfilePictureComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
 import IconComponent from '../../common/components/IconComponent';
 import TableComponent from '../../common/components/TableComponent';
-import ClubProfilePictureComponent from './components/ClubProfilePictureComponent';
-import moment from 'moment';
-import ClubDirectoryItemComponent from './components/ClubDirectoryItemComponent';
-import ClubDetailsService from './services/ClubDetailsService';
+import GlobalService from '../../lib/services/GlobalService';
+import MemberDetailsScreen from '../members/MemberDetailsScreen';
+import MemberDetailsService from '../members/services/MemberDetailsService';
+import MembersAPIService from '../members/services/MembersAPIService';
 
-class ClubDetailsScreen extends React.Component {
+class MultipleDistrictDetailsScreen extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            clubId: props.route.params.clubId,
-            club: {},
+            multipleDistrict: {},
             directory: [],
             loading: true,
         };
     }
 
     componentDidMount(): void {
-        ClubsAPIService.getClubDetailsApi(this.state.clubId).then((result) => {
+        this.getMultipleDistrictDetails();
+    }
+
+    getMultipleDistrictDetails = async () => {
+        try {
+            let currentUser = GlobalService.get('user');
+            let memberResult = await MembersAPIService.getMemberDetailsApi(currentUser.id);
+
+            console.log(currentUser);
+            console.log(memberResult);
+
+            let multipleDistrictResult = await MultipleDistrictAPIService.getMultipleDistrictDetailsApi(MemberDetailsService.getMultipleDistrictId(memberResult.data.data));
+            if (!multipleDistrictResult.data.error) {
+                this.setState({
+                    multipleDistrict: multipleDistrictResult.data.data,
+                    loading: false,
+                });
+            }
+        } catch (e) {
+            console.log(e);
             this.setState({
-                club: result.data.data.club,
-                directory: result.data.data.directory,
                 loading: false,
             });
-        });
-    }
+        }
+    };
 
     goToWebsite = () => {
 
@@ -60,38 +78,22 @@ class ClubDetailsScreen extends React.Component {
 
     };
 
-    getClubGeneralInformation = () => {
-        return this.state.club.id ? [
-            ['District', ClubDetailsService.getDistrictName(this.state.club)],
-            ['Zone', ClubDetailsService.getZoneName(this.state.club)],
-            ['Charter ID', this.state.club.charterId],
-            ['Lions Club', ClubDetailsService.getLionsClubName(this.state.club)],
-            ['Created at', moment(this.state.club.createdAt).format('YYYY-MM-DD')],
+    getMultipleDistrictSocialInformation = () => {
+        return this.state.multipleDistrict.id ? [
+            ['Website', this.state.multipleDistrict.website],
+            ['Email', this.state.multipleDistrict.email],
+            ['Facebook', this.state.multipleDistrict.facebook],
+            ['Instagram', this.state.multipleDistrict.instagram],
+            ['Linkedin', this.state.multipleDistrict.linkedin],
+            ['Twitter', this.state.multipleDistrict.twitter],
         ] : [];
-    };
-
-    getClubSocialInformation = () => {
-        return this.state.club.id ? [
-            ['Website', this.state.club.website],
-            ['Email', this.state.club.email],
-            ['Facebook', this.state.club.facebook],
-            ['Instagram', this.state.club.instagram],
-            ['Linkedin', this.state.club.linkedin],
-            ['Twitter', this.state.club.twitter],
-        ] : [];
-    };
-
-    goToClubMembers = () => {
-        this.props.navigation.navigate('Club Members', {
-            filterable: false,
-            clubId: this.state.club.id,
-        });
     };
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading} scrollEnabled={true}>
                 <View style={{padding: 15}}>
+
                     <View style={{flexDirection: 'column-reverse'}}>
                         <CardComponent cardStyle={{
                             alignItems: 'center',
@@ -99,15 +101,12 @@ class ClubDetailsScreen extends React.Component {
                             marginTop: -40,
                         }}>
                             <Text style={{fontSize: 18, fontWeight: 'bold', textAlign: 'center'}} numberOfLines={2}>
-                                {this.state.club.id ? this.state.club.name : ''}
-                            </Text>
-                            <Text style={{}} numberOfLines={2}>
-                                {this.state.club.id ? 'Leo District 306 A2' : ''}
+                                {this.state.multipleDistrict.id ? this.state.multipleDistrict.name : ''}
                             </Text>
                         </CardComponent>
 
                         <View style={{alignItems: 'center'}}>
-                            <ClubProfilePictureComponent size={100} border={false}/>
+                            <MultipleDistrictProfilePictureComponent size={100} border={false}/>
                         </View>
                     </View>
 
@@ -151,65 +150,47 @@ class ClubDetailsScreen extends React.Component {
                     <View style={{paddingTop: 10}}>
                         <CardComponent>
                             <View>
-                                <Text style={{fontWeight: 'bold'}}>General</Text>
-
-                                <View style={{paddingVertical: 10}}>
-                                    <TableComponent data={this.getClubGeneralInformation()}
-                                                    columnRatio={[1, 2]}/>
-                                </View>
-                            </View>
-                            <View>
                                 <Text style={{fontWeight: 'bold'}}>Social</Text>
 
                                 <View style={{paddingTop: 10}}>
-                                    <TableComponent data={this.getClubSocialInformation()}
+                                    <TableComponent data={this.getMultipleDistrictSocialInformation()}
                                                     columnRatio={[1, 2]}/>
                                 </View>
                             </View>
                         </CardComponent>
                     </View>
 
-                    <View style={{paddingTop: 10}}>
-                        <CardComponent cardStyle={{padding: 0}}>
-                            {ClubDetailsService.isClubKeyOfficersAdded(this.state.directory) ? <View style={{
-                                padding: 15,
-                                borderBottomWidth: StyleSheet.hairlineWidth,
-                                borderBottomColor: '#dddddd',
-                            }}>
-                                <View>
-                                    <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>
-                                </View>
-                                <View>
-                                    {
-                                        this.state.directory.map((directoryItem, index) => {
-                                            return <ClubDirectoryItemComponent directoryItem={directoryItem}
-                                                                               key={index}/>;
-                                        })
-                                    }
-                                </View>
-                            </View> : null}
+                    {/*<View style={{paddingTop: 10}}>*/}
+                    {/*    <CardComponent cardStyle={{padding: 0}}>*/}
+                    {/*        {ClubDetailsService.isClubKeyOfficersAdded(this.state.directory) ? <View style={{*/}
+                    {/*            padding: 15,*/}
+                    {/*            borderBottomWidth: StyleSheet.hairlineWidth,*/}
+                    {/*            borderBottomColor: '#dddddd',*/}
+                    {/*        }}>*/}
+                    {/*            <View>*/}
+                    {/*                <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>*/}
+                    {/*            </View>*/}
+                    {/*            <View>*/}
+                    {/*                {*/}
+                    {/*                    this.state.directory.map((directoryItem, index) => {*/}
+                    {/*                        return <ClubDirectoryItemComponent directoryItem={directoryItem}*/}
+                    {/*                                                           key={index}/>;*/}
+                    {/*                    })*/}
+                    {/*                }*/}
+                    {/*            </View>*/}
+                    {/*        </View> : null}*/}
 
-                            <TouchableComponent onPress={this.goToClubMembers}>
-                                <View style={{padding: 15}}>
-                                    <Text>See All Members</Text>
-                                </View>
-                            </TouchableComponent>
-
-                            {/*<TouchableComponent>*/}
-                            {/*    <View style={{*/}
-                            {/*        padding: 15,*/}
-                            {/*        borderTopWidth: StyleSheet.hairlineWidth,*/}
-                            {/*        borderTopColor: '#dddddd',*/}
-                            {/*    }}>*/}
-                            {/*        <Text>Add Member</Text>*/}
-                            {/*    </View>*/}
-                            {/*</TouchableComponent>*/}
-                        </CardComponent>
-                    </View>
+                    {/*        <TouchableComponent onPress={this.goToClubMembers}>*/}
+                    {/*            <View style={{padding: 15}}>*/}
+                    {/*                <Text>See All Members</Text>*/}
+                    {/*            </View>*/}
+                    {/*        </TouchableComponent>*/}
+                    {/*    </CardComponent>*/}
+                    {/*</View>*/}
                 </View>
             </Layout>
         );
     }
 };
 
-export default ClubDetailsScreen;
+export default MultipleDistrictDetailsScreen;

@@ -11,6 +11,9 @@ const MemberDetailsService = {
     getClubId: (member) => {
         return member.leoClubId;
     },
+    getMultipleDistrictId: (member) => {
+        return member.leoClub.leoDistrictZone.leoDistrictRegion.leoDistrict.leoMultipleId;
+    },
 };
 
 export default MemberDetailsService;

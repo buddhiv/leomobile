@@ -6,10 +6,8 @@ import {
 import Layout from '../../common/Layout';
 import MembersAPIService from './services/MembersAPIService';
 import MembersListRowComponent from './components/MembersListRowComponent';
-import CardComponent from '../../common/components/CardComponent';
 import IconComponent from '../../common/components/IconComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
-import MemberDetailsService from './services/MemberDetailsService';
 import GlobalService from '../../lib/services/GlobalService';
 import ClubsAPIService from '../clubs/services/ClubsAPIService';
 
@@ -43,12 +41,15 @@ class MembersScreen extends React.Component {
                 loading: false,
             };
 
+            let clubsResult = undefined;
             if (isInitial) {
-                let clubsResult = await ClubsAPIService.getClubsListApi();
+                clubsResult = await ClubsAPIService.getClubsListApi();
                 stateObj.clubsList = clubsResult.data.data;
             }
 
-            this.setState(stateObj);
+            if (!membersResult.data.error && (!clubsResult || !clubsResult.data.error)) {
+                this.setState(stateObj);
+            }
         } catch (e) {
             console.log(e);
 
