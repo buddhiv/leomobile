@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import MembersScreen from './MembersScreen';
 import MemberDetailsScreen from './MemberDetailsScreen';
 import DrawerLeftButtonComponent from '../../common/components/DrawerLeftButtonComponent';
+import MembersFilterScreen from './MembersFilterScreen';
 
 const MembersMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -18,6 +19,7 @@ const MembersMainScreen: () => React$Node = (props) => {
                               // })}
                 />
                 <Stack.Screen name="Member Details" component={MemberDetailsScreen}/>
+                <Stack.Screen name="Filter Members" component={MembersFilterScreen}/>
             </Stack.Navigator>
         </>
     );

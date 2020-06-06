@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ClubsScreen from './ClubsScreen';
 import ClubDetailsScreen from './ClubDetailsScreen';
 import DrawerLeftButtonComponent from '../../common/components/DrawerLeftButtonComponent';
+import ClubsFilterScreen from './ClubsFilterScreen';
 
 const ClubsMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -18,6 +19,7 @@ const ClubsMainScreen: () => React$Node = (props) => {
                     // })}
                 />
                 <Stack.Screen name="Club Details" component={ClubDetailsScreen}/>
+                <Stack.Screen name="Filter Clubs" component={ClubsFilterScreen}/>
             </Stack.Navigator>
         </>
     );

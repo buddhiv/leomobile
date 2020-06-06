@@ -38,7 +38,7 @@ class MembersScreen extends React.Component {
     };
 
     goToFilters = () => {
-
+        this.props.navigation.navigate('Filter Members');
     };
 
     rowRenderer = (member) => {

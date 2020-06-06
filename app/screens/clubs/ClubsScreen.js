@@ -37,7 +37,7 @@ class ClubsScreen extends React.Component {
     };
 
     goToFilters = () => {
-
+        this.props.navigation.navigate('Filter Clubs');
     };
 
     rowRenderer = (club) => {
