@@ -62,24 +62,23 @@ const WebService = {
             requestData.body = data;
         }
 
-        return getAxiosFunction(request, method, requestData).then((response) =>{
+        return getAxiosFunction(request, method, requestData).then((response) => {
             return {
                 data: response.data,
-                status: response.status
-            }
+                status: response.status,
+            };
         }).catch((error) => {
-            if(error.response){
+            if (error.response) {
                 return {
                     status: error.response.status,
-                    message: error.message
-                }
-            }else{
+                    message: error.message,
+                };
+            } else {
                 return {
                     status: undefined,
-                    message: 'Request Failed'
-                }
+                    message: 'Request Failed',
+                };
             }
-
         });
     },
 };
