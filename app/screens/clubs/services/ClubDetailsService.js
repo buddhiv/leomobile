@@ -4,7 +4,15 @@ const ClubDetailsService = {
     },
     getZoneName: (club) => {
         return club.leoDistrictZone.name;
-    }
+    },
+    getLionsClubName: (club) => {
+        return club.parentLionsClub.name;
+    },
+    isClubKeyOfficersAdded: (directory) => {
+        return directory.some((directoryItem) => {
+            return directoryItem.leoMembers.length > 0;
+        });
+    },
 };
 
 export default ClubDetailsService;

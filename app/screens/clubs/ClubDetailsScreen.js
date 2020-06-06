@@ -28,8 +28,6 @@ class ClubDetailsScreen extends React.Component {
 
     componentDidMount(): void {
         ClubsAPIService.getClubDetailsApi(this.state.clubId).then((result) => {
-            console.log(result.data.data);
-
             this.setState({
                 club: result.data.data.club,
                 directory: result.data.data.directory,
@@ -67,7 +65,7 @@ class ClubDetailsScreen extends React.Component {
             ['District', ClubDetailsService.getDistrictName(this.state.club)],
             ['Zone', ClubDetailsService.getZoneName(this.state.club)],
             ['Charter ID', this.state.club.charterId],
-            ['Lions Club', 'Lions Club of Dehiwala North'],
+            ['Lions Club', ClubDetailsService.getLionsClubName(this.state.club)],
             ['Created at', moment(this.state.club.createdAt).format('YYYY-MM-DD')],
         ] : [];
     };
@@ -166,24 +164,26 @@ class ClubDetailsScreen extends React.Component {
 
                     <View style={{paddingTop: 10}}>
                         <CardComponent cardStyle={{padding: 0}}>
-                            <View style={{padding: 15}}>
+                            {ClubDetailsService.isClubKeyOfficersAdded(this.state.directory) ? <View style={{
+                                padding: 15,
+                                borderBottomWidth: StyleSheet.hairlineWidth,
+                                borderBottomColor: '#dddddd',
+                            }}>
                                 <View>
                                     <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>
                                 </View>
                                 <View>
                                     {
                                         this.state.directory.map((directoryItem, index) => {
-                                            return <ClubDirectoryItemComponent directoryItem={directoryItem}/>;
+                                            return <ClubDirectoryItemComponent directoryItem={directoryItem}
+                                                                               key={index}/>;
                                         })
                                     }
                                 </View>
-                            </View>
+                            </View> : null}
+
                             <TouchableComponent>
-                                <View style={{
-                                    padding: 15,
-                                    borderTopWidth: StyleSheet.hairlineWidth,
-                                    borderTopColor: '#dddddd',
-                                }}>
+                                <View style={{padding: 15}}>
                                     <Text>See All Members</Text>
                                 </View>
                             </TouchableComponent>
