@@ -22,7 +22,7 @@ const MembersListRowComponent: () => React$Node = (props) => {
                             fontSize: 16,
                             fontWeight: 'bold',
                         }}>Leo {MemberDetailsService.getFullName(props.member.item)}</Text>
-                        <Text style={{}}>{props.member.item.email}</Text>
+                        <Text>{props.member.item.email}</Text>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
