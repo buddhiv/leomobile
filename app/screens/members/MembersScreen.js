@@ -107,7 +107,7 @@ class MembersScreen extends React.Component {
         return (
             <Layout loading={this.state.loading} scrollEnabled={false}>
 
-                {this.filterable ? <TouchableComponent onPress={this.goToFilters}>
+                <TouchableComponent disabled={!this.filterable} onPress={this.goToFilters}>
                     <View style={{
                         flexDirection: 'row',
                         paddingHorizontal: 15,
@@ -117,16 +117,18 @@ class MembersScreen extends React.Component {
                         <View style={{flex: 1}}>
                             <Text>{this.state.membersList.length} Result(s)</Text>
                         </View>
-                        <View style={{flexDirection: 'row'}}>
+
+                        {this.filterable ? <View style={{flexDirection: 'row'}}>
                             <View style={{marginRight: 10}}>
                                 <Text>Change Filters</Text>
                             </View>
                             <View>
                                 <IconComponent.MaterialCommunityIcons name={'filter'} size={20}/>
                             </View>
-                        </View>
+                        </View> : null}
+
                     </View>
-                </TouchableComponent> : null}
+                </TouchableComponent>
 
                 <FlatList data={this.state.membersList}
                           renderItem={this.rowRenderer}

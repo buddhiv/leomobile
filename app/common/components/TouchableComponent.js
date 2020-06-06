@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    SafeAreaView,
-    ScrollView,
-    View,
-    Text,
-    Image,
     Platform,
     TouchableNativeFeedback,
     TouchableWithoutFeedback,
@@ -15,7 +10,8 @@ const TouchableComponent: () => React$Node = (props) => {
     return (
         <>
             {Platform.OS === 'android' ?
-                <TouchableNativeFeedback onLongPress={props.onPress} useForeground={true} {...props}>
+                <TouchableNativeFeedback onLongPress={props.onPress}
+                                         useForeground={true} {...props}>
                     {props.children}
                 </TouchableNativeFeedback> :
                 <TouchableWithoutFeedback {...props}>
