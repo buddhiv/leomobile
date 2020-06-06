@@ -36,13 +36,10 @@ class MultipleDistrictDetailsScreen extends React.Component {
             let currentUser = GlobalService.get('user');
             let memberResult = await MembersAPIService.getMemberDetailsApi(currentUser.id);
 
-            console.log(currentUser);
-            console.log(memberResult);
-
             let multipleDistrictResult = await MultipleDistrictAPIService.getMultipleDistrictDetailsApi(MemberDetailsService.getMultipleDistrictId(memberResult.data.data));
             if (!multipleDistrictResult.data.error) {
                 this.setState({
-                    multipleDistrict: multipleDistrictResult.data.data,
+                    multipleDistrict: multipleDistrictResult.data.data.multipleDistrict,
                     loading: false,
                 });
             }
