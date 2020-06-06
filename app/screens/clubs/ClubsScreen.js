@@ -37,7 +37,7 @@ class ClubsScreen extends React.Component {
     };
 
     goToFilters = () => {
-        this.props.navigation.navigate('Filter Clubs');
+        // this.props.navigation.navigate('Filter Clubs');
     };
 
     rowRenderer = (club) => {
@@ -55,7 +55,7 @@ class ClubsScreen extends React.Component {
                         backgroundColor: 'white',
                     }}>
                         <View style={{flex: 1}}>
-                            <Text>{this.state.clubsList.length} Results</Text>
+                            <Text>{this.state.clubsList.length} Result(s)</Text>
                         </View>
                         <View style={{flexDirection: 'row'}}>
                             <View style={{marginRight: 10}}>

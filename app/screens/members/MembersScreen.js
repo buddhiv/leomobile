@@ -17,8 +17,11 @@ class MembersScreen extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(props);
+
         this.user = GlobalService.get('user');
-        console.log(this.user);
+        this.clubId = props.route.params ? props.route.params.clubId : undefined;
+        this.filterable = props.route.params ? props.route.params.filterable : true;
 
         this.state = {
             membersList: [],
@@ -60,7 +63,7 @@ class MembersScreen extends React.Component {
             filters: {
                 name: '',
                 gender: '',
-                clubId: this.user.leoClubId,
+                clubId: this.clubId ? this.clubId : this.user.leoClubId,
                 mylciId: '',
             },
         };
@@ -102,7 +105,8 @@ class MembersScreen extends React.Component {
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading} scrollEnabled={false}>
-                <TouchableComponent onPress={this.goToFilters}>
+
+                {this.filterable ? <TouchableComponent onPress={this.goToFilters}>
                     <View style={{
                         flexDirection: 'row',
                         paddingHorizontal: 15,
@@ -121,7 +125,7 @@ class MembersScreen extends React.Component {
                             </View>
                         </View>
                     </View>
-                </TouchableComponent>
+                </TouchableComponent> : null}
 
                 <FlatList data={this.state.membersList}
                           renderItem={this.rowRenderer}

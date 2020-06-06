@@ -81,6 +81,13 @@ class ClubDetailsScreen extends React.Component {
         ] : [];
     };
 
+    goToClubMembers = () => {
+        this.props.navigation.navigate('Club Members', {
+            filterable: false,
+            clubId: this.state.club.id,
+        });
+    };
+
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading} scrollEnabled={true}>
@@ -182,7 +189,7 @@ class ClubDetailsScreen extends React.Component {
                                 </View>
                             </View> : null}
 
-                            <TouchableComponent>
+                            <TouchableComponent onPress={this.goToClubMembers}>
                                 <View style={{padding: 15}}>
                                     <Text>See All Members</Text>
                                 </View>
