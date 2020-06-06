@@ -17,7 +17,7 @@ import GlobalService from '../lib/services/GlobalService';
 const LayoutContainerComponent: () => React$Node = (props) => {
     if (props.scrollEnabled) {
         return (
-            <ScrollView bounces={false}>
+            <ScrollView bounces={false} contentContainerStyle={{flexGrow: 1}}>
                 <View style={{flex: 1}}>
                     {props.children}
                 </View>

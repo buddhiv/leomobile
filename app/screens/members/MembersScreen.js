@@ -56,16 +56,27 @@ class MembersScreen extends React.Component {
                         backgroundColor: 'white',
                     }}>
                         <View style={{flex: 1}}>
-                            <Text>Change Filters</Text>
+                            <Text>{this.state.membersList.length} Results</Text>
                         </View>
-                        <View>
-                            <IconComponent.MaterialCommunityIcons name={'filter'} size={20}/>
+                        <View style={{flexDirection: 'row'}}>
+                            <View style={{marginRight: 10}}>
+                                <Text>Change Filters</Text>
+                            </View>
+                            <View>
+                                <IconComponent.MaterialCommunityIcons name={'filter'} size={20}/>
+                            </View>
                         </View>
                     </View>
                 </TouchableComponent>
 
                 <FlatList data={this.state.membersList}
                           renderItem={this.rowRenderer}
+                          ListHeaderComponent={() => {
+                              return <View style={{height: 10}}/>;
+                          }}
+                          ListFooterComponent={() => {
+                              return <View style={{height: 10}}/>;
+                          }}
                           keyExtractor={(item, index) => {
                               return item.id.toString();
                           }}
