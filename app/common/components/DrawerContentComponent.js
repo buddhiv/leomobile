@@ -10,32 +10,33 @@ const DrawerContentComponent: () => React$Node = (props) => {
 
     return (
         <>
-            <ScrollView contentContainerStyle={{flex: 1}} bounces={false}>
-                <SafeAreaView style={{flex: 1}} forceInset={{top: 'always', horizontal: 'never'}}>
+            <SafeAreaView style={{flex: 1}} forceInset={{top: 'always', horizontal: 'never'}}>
 
-                    <View style={{paddingHorizontal: 20, paddingVertical: 20}}>
-                        <Text>{MemberDetailsService.getFullName(user)}</Text>
-                        <Text>{user.leoClub.name}</Text>
+                <View style={{paddingHorizontal: 20, paddingVertical: 20}}>
+                    <Text>{MemberDetailsService.getFullName(user)}</Text>
+                    <Text>{user.leoClub.name}</Text>
+                </View>
+
+                <ScrollView contentContainerStyle={{flexGrow: 1}} bounces={false}>
+                    <DrawerItemList {...props} />
+                </ScrollView>
+
+                <View>
+                    <DrawerItem label={'Log Out'} onPress={LoginService.logOut}/>
+                </View>
+
+                <View style={{borderTopColor: '#dddddd', borderTopWidth: StyleSheet.hairlineWidth}}>
+                    <View style={{
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        paddingVertical: 10,
+                        paddingHorizontal: 18,
+                    }}>
+                        <Text style={{fontSize: 10}}>Leo Mobile - </Text>
+                        <Text style={{fontSize: 10, color: '#777777'}}>Powered by PulseQue.</Text>
                     </View>
-                    <View style={{flex: 1}}>
-                        <DrawerItemList {...props} />
-                    </View>
-                    <View>
-                        <DrawerItem label={'Log Out'} onPress={LoginService.logOut}/>
-                    </View>
-                    <View style={{borderTopColor: '#dddddd', borderTopWidth: StyleSheet.hairlineWidth}}>
-                        <View style={{
-                            alignItems: 'center',
-                            flexDirection: 'row',
-                            paddingVertical: 10,
-                            paddingHorizontal: 18,
-                        }}>
-                            <Text style={{fontSize: 10}}>Leo Mobile - </Text>
-                            <Text style={{fontSize: 10, color: '#777777'}}>Powered by PulseQue.</Text>
-                        </View>
-                    </View>
-                </SafeAreaView>
-            </ScrollView>
+                </View>
+            </SafeAreaView>
         </>
     );
 };
