@@ -1,4 +1,9 @@
 const DistrictDetailsService = {
+    isClubKeyOfficersAdded: (directory) => {
+        return directory.some((directoryItem) => {
+            return directoryItem.leoMembers.length > 0;
+        });
+    },
     formatDistrictsListForPicker: (districtsList) => {
         return districtsList.map((district) => {
             return {

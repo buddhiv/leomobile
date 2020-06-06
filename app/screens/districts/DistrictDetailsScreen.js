@@ -11,6 +11,8 @@ import DistrictsAPIService from './services/DistrictsAPIService';
 import IconComponent from '../../common/components/IconComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
 import TableComponent from '../../common/components/TableComponent';
+import DistrictDirectoryItemComponent from './components/DistrictDirectoryItemComponent';
+import DistrictDetailsService from './services/DistrictDetailsService';
 
 class DistrictDetailsScreen extends React.Component {
     constructor(props) {
@@ -19,6 +21,7 @@ class DistrictDetailsScreen extends React.Component {
         this.state = {
             districtId: props.route.params.districtId,
             district: {},
+            directory: [],
             loading: true,
         };
     }
@@ -30,9 +33,11 @@ class DistrictDetailsScreen extends React.Component {
     getDistrictDetails = async () => {
         try {
             let result = await DistrictsAPIService.getDistrictDetailsApi(this.state.districtId);
+
             if (!result.data.error) {
                 this.setState({
-                    district: result.data.data,
+                    district: result.data.data.district,
+                    directory: result.data.data.directory,
                     loading: false,
                 });
             }
@@ -149,33 +154,27 @@ class DistrictDetailsScreen extends React.Component {
                         </CardComponent>
                     </View>
 
-                    {/*<View style={{paddingTop: 10}}>*/}
-                    {/*    <CardComponent cardStyle={{padding: 0}}>*/}
-                    {/*        {ClubDetailsService.isClubKeyOfficersAdded(this.state.directory) ? <View style={{*/}
-                    {/*            padding: 15,*/}
-                    {/*            borderBottomWidth: StyleSheet.hairlineWidth,*/}
-                    {/*            borderBottomColor: '#dddddd',*/}
-                    {/*        }}>*/}
-                    {/*            <View>*/}
-                    {/*                <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>*/}
-                    {/*            </View>*/}
-                    {/*            <View>*/}
-                    {/*                {*/}
-                    {/*                    this.state.directory.map((directoryItem, index) => {*/}
-                    {/*                        return <ClubDirectoryItemComponent directoryItem={directoryItem}*/}
-                    {/*                                                           key={index}/>;*/}
-                    {/*                    })*/}
-                    {/*                }*/}
-                    {/*            </View>*/}
-                    {/*        </View> : null}*/}
-
-                    {/*        <TouchableComponent onPress={this.goToClubMembers}>*/}
-                    {/*            <View style={{padding: 15}}>*/}
-                    {/*                <Text>See All Members</Text>*/}
-                    {/*            </View>*/}
-                    {/*        </TouchableComponent>*/}
-                    {/*    </CardComponent>*/}
-                    {/*</View>*/}
+                    <View style={{paddingTop: 10}}>
+                        <CardComponent cardStyle={{padding: 0}}>
+                            {DistrictDetailsService.isClubKeyOfficersAdded(this.state.directory) ? <View style={{
+                                padding: 15,
+                                borderBottomWidth: StyleSheet.hairlineWidth,
+                                borderBottomColor: '#dddddd',
+                            }}>
+                                <View>
+                                    <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>
+                                </View>
+                                <View>
+                                    {
+                                        this.state.directory.map((directoryItem, index) => {
+                                            return <DistrictDirectoryItemComponent directoryItem={directoryItem}
+                                                                                   key={index}/>;
+                                        })
+                                    }
+                                </View>
+                            </View> : null}
+                        </CardComponent>
+                    </View>
                 </View>
             </Layout>
         );

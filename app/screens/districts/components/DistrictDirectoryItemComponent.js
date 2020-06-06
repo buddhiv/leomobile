@@ -4,7 +4,7 @@ import {View, Text, Image} from 'react-native';
 import MemberProfilePictureComponent from '../../members/components/MemberProfilePictureComponent';
 import MemberDetailsService from '../../members/services/MemberDetailsService';
 
-const ClubDirectoryItemComponent: () => React$Node = (props) => {
+const DistrictDirectoryItemComponent: () => React$Node = (props) => {
     return (
         <>
             <View style={{}}>
@@ -26,9 +26,9 @@ const ClubDirectoryItemComponent: () => React$Node = (props) => {
     );
 };
 
-ClubDirectoryItemComponent.propTypes = {
+DistrictDirectoryItemComponent.propTypes = {
     directoryItem: PropTypes.object,
 };
 
-export default ClubDirectoryItemComponent;
+export default DistrictDirectoryItemComponent;
 

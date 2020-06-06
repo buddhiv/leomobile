@@ -5,7 +5,7 @@ const DistrictsAPIService = {
         return WebService.call('/api/v1/leoDistrict', 'GET');
     },
     getDistrictDetailsApi: (districtId) => {
-        return WebService.call('/api/v1/leoDistrict/' + districtId, 'GET');
+        return WebService.call('/api/v1/leoDistrict/' + districtId + '?includedirectory=true', 'GET');
     },
 };
 
