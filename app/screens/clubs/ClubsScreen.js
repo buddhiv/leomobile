@@ -8,27 +8,67 @@ import ClubsListRowComponent from './components/ClubsListRowComponent';
 import ClubsAPIService from './services/ClubsAPIService';
 import IconComponent from '../../common/components/IconComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
+import GlobalService from '../../lib/services/GlobalService';
+import MembersAPIService from '../members/services/MembersAPIService';
+import MemberDetailsService from '../members/services/MemberDetailsService';
+import DistrictsAPIService from '../districts/services/DistrictsAPIService';
 
 class ClubsScreen extends React.Component {
     constructor(props) {
         super(props);
 
+        this.user = GlobalService.get('user');
+
         this.state = {
             clubsList: [],
+            districtsList: [],
+            filters: this.getDefaultFilter(),
             loading: true,
         };
     }
 
     componentDidMount(): void {
-        ClubsAPIService.getClubsListApi().then((result) => {
-            if (result.status === 200) {
-                this.setState({
-                    clubsList: result.data.data,
-                    loading: false,
-                });
-            }
-        });
+        this.getClubsList(true);
     }
+
+    getClubsList = async (isInitial) => {
+        try {
+            /////////
+            let memberResult = await MembersAPIService.getMemberDetailsApi(this.user.id);
+            this.state.filters.filters.leoDistrictId = MemberDetailsService.getDistrictId(memberResult.data.data);
+            ////////////
+
+            let clubsResult = await ClubsAPIService.getClubsListApi(this.state.filters);
+            let stateObj = {
+                clubsList: clubsResult.data.data,
+                loading: false,
+            };
+
+            let districtsResult = undefined;
+            if (isInitial) {
+                districtsResult = await DistrictsAPIService.getDistrictsListApi();
+                stateObj.districtsList = districtsResult.data.data;
+            }
+
+            if (!clubsResult.data.error && (!districtsResult || !districtsResult.data.error)) {
+                this.setState(stateObj);
+            }
+        } catch (e) {
+            console.log(e);
+            this.setState({
+                loading: false,
+            });
+        }
+    };
+
+    getDefaultFilter = () => {
+        return {
+            filters: {
+                name: '',
+                leoDistrictId: '', ///////////////
+            },
+        };
+    };
 
     goToClubDetailsScreen = (club) => {
         this.props.navigation.navigate('Club Details', {
@@ -37,7 +77,24 @@ class ClubsScreen extends React.Component {
     };
 
     goToFilters = () => {
-        // this.props.navigation.navigate('Filter Clubs');
+        this.props.navigation.navigate('Filter Clubs', {
+            filters: this.state.filters,
+            districtsList: this.state.districtsList,
+            resetFiltersCallback: this.resetFiltersCallback,
+            searchCallback: this.searchCallback,
+        });
+    };
+
+    resetFiltersCallback = () => {
+        this.setState({filters: this.getDefaultFilter(), loading: true}, () => {
+            this.getClubsList();
+        });
+    };
+
+    searchCallback = (newFilters) => {
+        this.setState({filters: newFilters, loading: true}, () => {
+            this.getClubsList();
+        });
     };
 
     rowRenderer = (club) => {

@@ -15,8 +15,6 @@ class MembersScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props);
-
         this.user = GlobalService.get('user');
         this.clubId = props.route.params ? props.route.params.clubId : undefined;
         this.filterable = props.route.params ? props.route.params.filterable : true;
@@ -52,7 +50,6 @@ class MembersScreen extends React.Component {
             }
         } catch (e) {
             console.log(e);
-
             this.setState({
                 loading: false,
             });
@@ -92,8 +89,6 @@ class MembersScreen extends React.Component {
     };
 
     searchCallback = (newFilters) => {
-        console.log('newFilters');
-        console.log(newFilters);
         this.setState({filters: newFilters, loading: true}, () => {
             this.getMembersList();
         });

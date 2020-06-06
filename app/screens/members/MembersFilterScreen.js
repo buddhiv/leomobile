@@ -29,18 +29,6 @@ class MembersFilterScreen extends React.Component {
     }
 
     performSearch = () => {
-        let newFilters = {
-            filters: {
-                name: 'buddhi',
-                gender: '',
-                clubId: '',
-                mylciId: '',
-            },
-        };
-
-        console.log('this.state.filters');
-        console.log(this.state.filters);
-
         this.searchCallback(this.state.filters);
         this.props.navigation.goBack();
     };

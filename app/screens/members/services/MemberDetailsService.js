@@ -14,6 +14,9 @@ const MemberDetailsService = {
     getMultipleDistrictId: (member) => {
         return member.leoClub.leoDistrictZone.leoDistrictRegion.leoDistrict.leoMultipleId;
     },
+    getDistrictId: (member) => {
+        return member.leoClub.leoDistrictZone.leoDistrictRegion.leoDistrictId;
+    },
 };
 
 export default MemberDetailsService;
