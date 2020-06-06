@@ -18,7 +18,7 @@ const MembersListRowComponent: () => React$Node = (props) => {
                     <View>
                         <MemberProfilePictureComponent size={40}/>
                     </View>
-                    <View style={{paddingLeft: 10, height: 100}}>
+                    <View style={{paddingLeft: 10}}>
                         <Text
                             style={styles.memberNameText}>Leo {MemberDetailsService.getFullName(props.member.item)}</Text>
                         <Text style={{}}>{props.member.item.email}</Text>

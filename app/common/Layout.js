@@ -79,7 +79,7 @@ class Layout extends React.Component {
             </>
         );
     }
-};
+}
 
 Layout.propTypes = {
     scrollEnabled: PropTypes.bool.isRequired,

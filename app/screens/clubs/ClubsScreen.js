@@ -47,30 +47,28 @@ class ClubsScreen extends React.Component {
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading} scrollEnabled={false}>
-                <View>
-                    <TouchableComponent onPress={this.goToFilters}>
-                        <View style={{
-                            flexDirection: 'row',
-                            paddingHorizontal: 15,
-                            paddingVertical: 10,
-                            backgroundColor: 'white',
-                        }}>
-                            <View style={{flex: 1}}>
-                                <Text>Change Filters</Text>
-                            </View>
-                            <View>
-                                <IconComponent.MaterialCommunityIcons name={'filter'} size={20}/>
-                            </View>
+                <TouchableComponent onPress={this.goToFilters}>
+                    <View style={{
+                        flexDirection: 'row',
+                        paddingHorizontal: 15,
+                        paddingVertical: 10,
+                        backgroundColor: 'white',
+                    }}>
+                        <View style={{flex: 1}}>
+                            <Text>Change Filters</Text>
                         </View>
-                    </TouchableComponent>
+                        <View>
+                            <IconComponent.MaterialCommunityIcons name={'filter'} size={20}/>
+                        </View>
+                    </View>
+                </TouchableComponent>
 
-                    <FlatList data={this.state.clubsList}
-                              renderItem={this.rowRenderer}
-                              keyExtractor={(item, index) => {
-                                  return item.id.toString();
-                              }}
-                    />
-                </View>
+                <FlatList data={this.state.clubsList}
+                          renderItem={this.rowRenderer}
+                          keyExtractor={(item, index) => {
+                              return item.id.toString();
+                          }}
+                />
             </Layout>
         );
     }
