@@ -60,9 +60,9 @@ class ClubsFilterScreen extends React.Component {
                             <View style={{marginTop: 20}}>
                                 <PickerWidget label={'District'}
                                               data={this.districtsList}
-                                              selectedValue={this.state.filters.filters.districtId}
+                                              selectedValue={this.state.filters.filters.leoDistrictId}
                                               onValueChange={(itemValue, itemIndex) => {
-                                                  this.state.filters.filters.districtId = itemValue;
+                                                  this.state.filters.filters.leoDistrictId = itemValue;
                                                   this.setState({
                                                       filters: this.state.filters,
                                                   });

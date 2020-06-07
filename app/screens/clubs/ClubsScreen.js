@@ -12,12 +12,15 @@ import GlobalService from '../../lib/services/GlobalService';
 import MembersAPIService from '../members/services/MembersAPIService';
 import MemberDetailsService from '../members/services/MemberDetailsService';
 import DistrictsAPIService from '../districts/services/DistrictsAPIService';
+import DistrictDetailsService from '../districts/services/DistrictDetailsService';
 
 class ClubsScreen extends React.Component {
     constructor(props) {
         super(props);
 
         this.user = GlobalService.get('user');
+        console.log('this.user');
+        console.log(this.user);
 
         this.state = {
             clubsList: [],
@@ -33,11 +36,6 @@ class ClubsScreen extends React.Component {
 
     getClubsList = async (isInitial) => {
         try {
-            /////////
-            let memberResult = await MembersAPIService.getMemberDetailsApi(this.user.id);
-            this.state.filters.filters.leoDistrictId = MemberDetailsService.getDistrictId(memberResult.data.data);
-            ////////////
-
             let clubsResult = await ClubsAPIService.getClubsListApi(this.state.filters);
             let stateObj = {
                 clubsList: clubsResult.data.data,
@@ -65,7 +63,7 @@ class ClubsScreen extends React.Component {
         return {
             filters: {
                 name: '',
-                leoDistrictId: '', ///////////////
+                leoDistrictId: MemberDetailsService.getDistrictId(this.user),
             },
         };
     };
@@ -92,6 +90,9 @@ class ClubsScreen extends React.Component {
     };
 
     searchCallback = (newFilters) => {
+        console.log('newFilters clubs');
+        console.log(newFilters);
+
         this.setState({filters: newFilters, loading: true}, () => {
             this.getClubsList();
         });

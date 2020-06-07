@@ -162,7 +162,7 @@ class DistrictDetailsScreen extends React.Component {
                                 borderBottomColor: '#dddddd',
                             }}>
                                 <View>
-                                    <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>
+                                    <Text style={{fontWeight: 'bold'}}>District Key Officers</Text>
                                 </View>
                                 <View>
                                     {
