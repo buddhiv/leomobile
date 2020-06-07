@@ -1,5 +1,5 @@
 const DistrictDetailsService = {
-    isClubKeyOfficersAdded: (directory) => {
+    isDistrictKeyOfficersAdded: (directory) => {
         return directory.some((directoryItem) => {
             return directoryItem.leoMembers.length > 0;
         });

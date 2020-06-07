@@ -19,8 +19,6 @@ class ClubsScreen extends React.Component {
         super(props);
 
         this.user = GlobalService.get('user');
-        console.log('this.user');
-        console.log(this.user);
 
         this.state = {
             clubsList: [],
@@ -90,9 +88,6 @@ class ClubsScreen extends React.Component {
     };
 
     searchCallback = (newFilters) => {
-        console.log('newFilters clubs');
-        console.log(newFilters);
-
         this.setState({filters: newFilters, loading: true}, () => {
             this.getClubsList();
         });

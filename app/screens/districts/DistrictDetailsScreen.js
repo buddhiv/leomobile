@@ -156,7 +156,7 @@ class DistrictDetailsScreen extends React.Component {
 
                     <View style={{paddingTop: 10}}>
                         <CardComponent cardStyle={{padding: 0}}>
-                            {DistrictDetailsService.isClubKeyOfficersAdded(this.state.directory) ? <View style={{
+                            {DistrictDetailsService.isDistrictKeyOfficersAdded(this.state.directory) ? <View style={{
                                 padding: 15,
                                 borderBottomWidth: StyleSheet.hairlineWidth,
                                 borderBottomColor: '#dddddd',

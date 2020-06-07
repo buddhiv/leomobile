@@ -1,10 +1,9 @@
 import React from 'react';
 import {
     View,
-    Text,
+    Text, StyleSheet,
 } from 'react-native';
 import Layout from '../../common/Layout';
-import moment from 'moment';
 import MultipleDistrictAPIService from './services/MultipleDistrictAPIService';
 import CardComponent from '../../common/components/CardComponent';
 import MultipleDistrictProfilePictureComponent from './components/MultipleDistrictProfilePictureComponent';
@@ -12,9 +11,9 @@ import TouchableComponent from '../../common/components/TouchableComponent';
 import IconComponent from '../../common/components/IconComponent';
 import TableComponent from '../../common/components/TableComponent';
 import GlobalService from '../../lib/services/GlobalService';
-import MemberDetailsScreen from '../members/MemberDetailsScreen';
 import MemberDetailsService from '../members/services/MemberDetailsService';
-import MembersAPIService from '../members/services/MembersAPIService';
+import MultipleDistrictDirectoryItemComponent from './components/MultipleDistrictDirectoryItemComponent';
+import MultipleDistrictDetailsService from './services/MultipleDistrictDetailsService';
 
 class MultipleDistrictDetailsScreen extends React.Component {
     constructor(props) {
@@ -34,12 +33,12 @@ class MultipleDistrictDetailsScreen extends React.Component {
     getMultipleDistrictDetails = async () => {
         try {
             let currentUser = GlobalService.get('user');
-            let memberResult = await MembersAPIService.getMemberDetailsApi(currentUser.id);
+            let multipleDistrictResult = await MultipleDistrictAPIService.getMultipleDistrictDetailsApi(MemberDetailsService.getMultipleDistrictId(currentUser));
 
-            let multipleDistrictResult = await MultipleDistrictAPIService.getMultipleDistrictDetailsApi(MemberDetailsService.getMultipleDistrictId(memberResult.data.data));
             if (!multipleDistrictResult.data.error) {
                 this.setState({
                     multipleDistrict: multipleDistrictResult.data.data.multipleDistrict,
+                    directory: multipleDistrictResult.data.data.directory,
                     loading: false,
                 });
             }
@@ -157,33 +156,29 @@ class MultipleDistrictDetailsScreen extends React.Component {
                         </CardComponent>
                     </View>
 
-                    {/*<View style={{paddingTop: 10}}>*/}
-                    {/*    <CardComponent cardStyle={{padding: 0}}>*/}
-                    {/*        {ClubDetailsService.isClubKeyOfficersAdded(this.state.directory) ? <View style={{*/}
-                    {/*            padding: 15,*/}
-                    {/*            borderBottomWidth: StyleSheet.hairlineWidth,*/}
-                    {/*            borderBottomColor: '#dddddd',*/}
-                    {/*        }}>*/}
-                    {/*            <View>*/}
-                    {/*                <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>*/}
-                    {/*            </View>*/}
-                    {/*            <View>*/}
-                    {/*                {*/}
-                    {/*                    this.state.directory.map((directoryItem, index) => {*/}
-                    {/*                        return <ClubDirectoryItemComponent directoryItem={directoryItem}*/}
-                    {/*                                                           key={index}/>;*/}
-                    {/*                    })*/}
-                    {/*                }*/}
-                    {/*            </View>*/}
-                    {/*        </View> : null}*/}
-
-                    {/*        <TouchableComponent onPress={this.goToClubMembers}>*/}
-                    {/*            <View style={{padding: 15}}>*/}
-                    {/*                <Text>See All Members</Text>*/}
-                    {/*            </View>*/}
-                    {/*        </TouchableComponent>*/}
-                    {/*    </CardComponent>*/}
-                    {/*</View>*/}
+                    <View style={{paddingTop: 10}}>
+                        <CardComponent cardStyle={{padding: 0}}>
+                            {MultipleDistrictDetailsService.isMultipleDistrictKeyOfficersAdded(this.state.directory) ?
+                                <View style={{
+                                    padding: 15,
+                                    borderBottomWidth: StyleSheet.hairlineWidth,
+                                    borderBottomColor: '#dddddd',
+                                }}>
+                                    <View>
+                                        <Text style={{fontWeight: 'bold'}}>Multiple District Key Officers</Text>
+                                    </View>
+                                    <View>
+                                        {
+                                            this.state.directory.map((directoryItem, index) => {
+                                                return <MultipleDistrictDirectoryItemComponent
+                                                    directoryItem={directoryItem}
+                                                    key={index}/>;
+                                            })
+                                        }
+                                    </View>
+                                </View> : null}
+                        </CardComponent>
+                    </View>
                 </View>
             </Layout>
         );
