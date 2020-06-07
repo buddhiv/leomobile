@@ -17,6 +17,24 @@ const MemberDetailsService = {
     getDistrictId: (member) => {
         return member.leoClub.leoDistrictZone.leoDistrictRegion.leoDistrictId;
     },
+    getDistrictName: (member) => {
+        return member.leoClub.leoDistrictZone.leoDistrictRegion.leoDistrict.name;
+    },
+    formatDesignationsList: (designationsList, member) => {
+        let designationDescriptions = [];
+
+        designationsList.multiplePositions.forEach((position) => {
+            designationDescriptions.push(position);
+        });
+        designationsList.districtPositions.forEach((position) => {
+            designationDescriptions.push(position + ' of ' + MemberDetailsService.getDistrictName(member));
+        });
+        designationsList.clubPositions.forEach((position) => {
+            designationDescriptions.push(position + ' of ' + MemberDetailsService.getClubName(member));
+        });
+
+        return designationDescriptions;
+    },
 };
 
 export default MemberDetailsService;

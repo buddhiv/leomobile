@@ -1,9 +1,8 @@
 import React from 'react';
 import {
-    View, Text, StyleSheet, TouchableWithoutFeedback,
+    View, Text, StyleSheet,
 } from 'react-native';
 import Layout from '../../common/Layout';
-import GlobalService from '../../lib/services/GlobalService';
 import UserService from '../../common/services/UserService';
 import CardComponent from '../../common/components/CardComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
@@ -14,7 +13,7 @@ class DashboardScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        this.user = GlobalService.get('user');
+        this.user = UserService.getCurrentUser();
 
         this.state = {};
     }

@@ -6,35 +6,51 @@ import {
 import Layout from '../../common/Layout';
 import MembersAPIService from './services/MembersAPIService';
 import MemberDetailsService from './services/MemberDetailsService';
-import GlobalService from '../../lib/services/GlobalService';
 import MemberProfilePictureComponent from './components/MemberProfilePictureComponent';
 import CardComponent from '../../common/components/CardComponent';
 import IconComponent from '../../common/components/IconComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
 import TableComponent from '../../common/components/TableComponent';
 import moment from 'moment';
+import UserService from '../../common/services/UserService';
 
 class MemberDetailsScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        let currentUser = GlobalService.get('user');
+        let currentUser = UserService.getCurrentUser();
+        let permissions = UserService.getCurrentUserPermissions();
 
         this.state = {
             memberId: props.route.params.mode === 'my' ? currentUser.id : props.route.params.memberId,
             member: {},
+            designations: [],
             loading: true,
         };
     }
 
     componentDidMount(): void {
-        MembersAPIService.getMemberDetailsApi(this.state.memberId).then((result) => {
+        this.getMemberDetails();
+    }
+
+    getMemberDetails = async () => {
+        try {
+            let membersResult = await MembersAPIService.getMemberDetailsApi(this.state.memberId);
+
+            if (!membersResult.data.data.error) {
+                this.setState({
+                    member: membersResult.data.data.data,
+                    designations: MemberDetailsService.formatDesignationsList(membersResult.data.data.designations, membersResult.data.data.data),
+                    loading: false,
+                });
+            }
+        } catch (e) {
+            console.log(e);
             this.setState({
-                member: result.data.data,
                 loading: false,
             });
-        });
-    }
+        }
+    };
 
     makePhoneCall = () => {
         Linking.openURL(`tel:${this.state.member.contactNumber}`);
@@ -88,19 +104,28 @@ class MemberDetailsScreen extends React.Component {
                             <Text style={{fontSize: 18, fontWeight: 'bold'}} numberOfLines={2}>
                                 {this.state.member.id ? MemberDetailsService.getFullName(this.state.member) : ''}
                             </Text>
-                            <Text style={{}} numberOfLines={2}>
-                                {this.state.member.id ? 'Member of ' + MemberDetailsService.getClubName(this.state.member) : ''}
-                            </Text>
 
-                            <View style={{marginTop: 20, alignItems: 'center'}}>
-                                <Text>also</Text>
-                                <Text style={{}} numberOfLines={2}>
-                                    {this.state.member.id ? 'Director of ' + MemberDetailsService.getClubName(this.state.member) : ''}
+                            {this.state.designations.length > 0 ? <View>
+                                <Text numberOfLines={2} style={{textAlign: 'center'}}>
+                                    {this.state.designations[0]}
                                 </Text>
-                                <Text style={{}} numberOfLines={2}>
-                                    {this.state.member.id ? 'Secretary at ' + MemberDetailsService.getClubName(this.state.member) : ''}
-                                </Text>
-                            </View>
+
+                                {this.state.designations.length > 1 ?
+                                    <View style={{marginTop: 10, alignItems: 'center'}}>
+                                        <Text>also</Text>
+
+                                        {this.state.designations.map((designation, index) => {
+                                            if (index > 0) {
+                                                return <Text numberOfLines={2} style={{textAlign: 'center'}}
+                                                             key={index}>
+                                                    {designation}
+                                                </Text>;
+                                            }
+                                        })}
+
+                                    </View> : null}
+                            </View> : null}
+
                         </CardComponent>
 
                         <View style={{alignItems: 'center'}}>

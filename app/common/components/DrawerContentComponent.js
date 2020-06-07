@@ -4,9 +4,10 @@ import {DrawerItemList, DrawerItem} from '@react-navigation/drawer';
 import LoginService from '../../lib/services/LoginService';
 import GlobalService from '../../lib/services/GlobalService';
 import MemberDetailsService from '../../screens/members/services/MemberDetailsService';
+import UserService from '../services/UserService';
 
 const DrawerContentComponent: () => React$Node = (props) => {
-    let user = GlobalService.get('user');
+    let user = UserService.getCurrentUser();
 
     return (
         <>

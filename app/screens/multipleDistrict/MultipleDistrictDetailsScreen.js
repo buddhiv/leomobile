@@ -10,10 +10,10 @@ import MultipleDistrictProfilePictureComponent from './components/MultipleDistri
 import TouchableComponent from '../../common/components/TouchableComponent';
 import IconComponent from '../../common/components/IconComponent';
 import TableComponent from '../../common/components/TableComponent';
-import GlobalService from '../../lib/services/GlobalService';
 import MemberDetailsService from '../members/services/MemberDetailsService';
 import MultipleDistrictDirectoryItemComponent from './components/MultipleDistrictDirectoryItemComponent';
 import MultipleDistrictDetailsService from './services/MultipleDistrictDetailsService';
+import UserService from '../../common/services/UserService';
 
 class MultipleDistrictDetailsScreen extends React.Component {
     constructor(props) {
@@ -32,7 +32,7 @@ class MultipleDistrictDetailsScreen extends React.Component {
 
     getMultipleDistrictDetails = async () => {
         try {
-            let currentUser = GlobalService.get('user');
+            let currentUser = UserService.getCurrentUser();
             let multipleDistrictResult = await MultipleDistrictAPIService.getMultipleDistrictDetailsApi(MemberDetailsService.getMultipleDistrictId(currentUser));
 
             if (!multipleDistrictResult.data.error) {

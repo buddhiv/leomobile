@@ -8,17 +8,15 @@ import ClubsListRowComponent from './components/ClubsListRowComponent';
 import ClubsAPIService from './services/ClubsAPIService';
 import IconComponent from '../../common/components/IconComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
-import GlobalService from '../../lib/services/GlobalService';
-import MembersAPIService from '../members/services/MembersAPIService';
 import MemberDetailsService from '../members/services/MemberDetailsService';
 import DistrictsAPIService from '../districts/services/DistrictsAPIService';
-import DistrictDetailsService from '../districts/services/DistrictDetailsService';
+import UserService from '../../common/services/UserService';
 
 class ClubsScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        this.user = GlobalService.get('user');
+        this.user = UserService.getCurrentUser();
 
         this.state = {
             clubsList: [],

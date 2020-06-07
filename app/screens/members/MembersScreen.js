@@ -8,14 +8,14 @@ import MembersAPIService from './services/MembersAPIService';
 import MembersListRowComponent from './components/MembersListRowComponent';
 import IconComponent from '../../common/components/IconComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
-import GlobalService from '../../lib/services/GlobalService';
 import ClubsAPIService from '../clubs/services/ClubsAPIService';
+import UserService from '../../common/services/UserService';
 
 class MembersScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        this.user = GlobalService.get('user');
+        this.user = UserService.getCurrentUser();
         this.clubId = props.route.params ? props.route.params.clubId : undefined;
         this.filterable = props.route.params ? props.route.params.filterable : true;
 
