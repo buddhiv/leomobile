@@ -1,16 +1,16 @@
 import React from 'react';
 import {
     View,
-    Text,
-    TouchableWithoutFeedback,
+    Text
 } from 'react-native';
 import MemberDetailsService from '../services/MemberDetailsService';
 import MemberProfilePictureComponent from './MemberProfilePictureComponent';
+import TouchableComponent from '../../../common/components/TouchableComponent';
 
 const MembersListRowComponent: () => React$Node = (props) => {
     return (
         <>
-            <TouchableWithoutFeedback onPress={() => {
+            <TouchableComponent onPress={() => {
                 props.onPress(props.member.item);
             }}>
                 <View style={{paddingVertical: 5, paddingHorizontal: 15, flexDirection: 'row'}}>
@@ -25,7 +25,7 @@ const MembersListRowComponent: () => React$Node = (props) => {
                         <Text>{props.member.item.email}</Text>
                     </View>
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableComponent>
         </>
     );
 };

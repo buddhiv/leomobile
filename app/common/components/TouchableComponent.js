@@ -10,8 +10,15 @@ const TouchableComponent: () => React$Node = (props) => {
     return (
         <>
             {Platform.OS === 'android' ?
-                <TouchableNativeFeedback onLongPress={props.onPress}
-                                         useForeground={true} {...props}>
+                <TouchableNativeFeedback
+                    onLongPress={() => {
+                        setTimeout(props.onPress, 1500);
+                    }}
+                    onPress={() => {
+                        setTimeout(props.onPress, 1500);
+                    }}
+                    background={TouchableNativeFeedback.SelectableBackground()}
+                    useForeground={true} {...props}>
                     {props.children}
                 </TouchableNativeFeedback> :
                 <TouchableWithoutFeedback {...props}>

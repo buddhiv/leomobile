@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
-    Text,
-    TouchableWithoutFeedback,
+    Text
 } from 'react-native';
 import ClubProfilePictureComponent from './ClubProfilePictureComponent';
 import ClubDetailsService from '../services/ClubDetailsService';
+import TouchableComponent from '../../../common/components/TouchableComponent';
 
 const ClubsListRowComponent: () => React$Node = (props) => {
     return (
         <>
-            <TouchableWithoutFeedback onPress={() => {
+            <TouchableComponent onPress={() => {
                 props.onPress(props.club.item);
             }}>
                 <View style={{paddingVertical: 5, paddingHorizontal: 15, flexDirection: 'row'}}>
@@ -23,7 +23,7 @@ const ClubsListRowComponent: () => React$Node = (props) => {
                         {/*<Text>{ClubDetailsService.getDistrictName(props.club.item)}</Text>*/}
                     </View>
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableComponent>
         </>
     );
 };
