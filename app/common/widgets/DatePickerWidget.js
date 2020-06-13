@@ -6,8 +6,8 @@ import moment from 'moment';
 
 const DatePickerWidget: () => React$Node = (props) => {
 
-    const [date, setDate] = useState(moment(props.dateValue).toDate());
-    const [show, setShow] = useState(false);
+    let [date, setDate] = useState(moment(props.dateValue).toDate());
+    let [show, setShow] = useState(false);
 
     return (
         <>

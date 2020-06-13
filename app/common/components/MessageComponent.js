@@ -5,7 +5,7 @@ import {DrawerItemList, DrawerItem} from '@react-navigation/drawer';
 
 const MessageComponent: () => React$Node = (props) => {
     let viewScaleValue = new Animated.Value(1);
-    const [show, setShow] = useState(true);
+    let [show, setShow] = useState(true);
 
     setTimeout(() => {
         Animated.timing(viewScaleValue, {
