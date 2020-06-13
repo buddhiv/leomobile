@@ -28,12 +28,10 @@ const DrawerContentComponent: () => React$Node = (props) => {
 
                 <View style={{borderTopColor: '#dddddd', borderTopWidth: StyleSheet.hairlineWidth}}>
                     <View style={{
-                        alignItems: 'center',
-                        flexDirection: 'row',
                         paddingVertical: 10,
                         paddingHorizontal: 18,
                     }}>
-                        <Text style={{fontSize: 10}}>Leo Mobile - </Text>
+                        <Text style={{fontSize: 10}}>Leo Mobile - 1.0-alpha.2</Text>
                         <Text style={{fontSize: 10, color: '#777777'}}>Powered by PulseQue.</Text>
                     </View>
                 </View>
