@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import InitService from '../lib/services/InitService';
 import GlobalService from '../lib/services/GlobalService';
+import MessageComponent from './components/MessageComponent';
 
 const LayoutContainerComponent: () => React$Node = (props) => {
     if (props.scrollEnabled) {
@@ -53,9 +54,14 @@ class Layout extends React.Component {
         return (
             <>
                 <SafeAreaView style={{flex: 1}}>
-                    {!this.state.is_connected ? <View style={{backgroundColor: 'red', paddingHorizontal: 15}}>
-                        <Text style={{color: 'white'}}>No Network Connection</Text>
+                    {this.props.messages ? <View>
+                        {
+                            this.props.messages.map((message, i) => {
+                                return <MessageComponent text={message} key={i}/>;
+                            })
+                        }
                     </View> : null}
+
 
                     <LayoutContainerComponent scrollEnabled={this.props.scrollEnabled}>
                         {this.props.children}

@@ -27,6 +27,7 @@ class EditMemberDetailsScreen extends React.Component {
 
         this.state = {
             member: Object.assign({}, this.member),
+            messages: [],
             loading: false,
         };
     }
@@ -65,6 +66,8 @@ class EditMemberDetailsScreen extends React.Component {
                 let saveResult = await MembersAPIService.saveMemberDetailsApi(tempMemberObj);
 
                 if (!saveResult.data.error) {
+                    this.state.messages.push('Successfully Saved!');
+
                     this.setState({
                         member: saveResult.data.data,
                         loading: false,
@@ -75,6 +78,9 @@ class EditMemberDetailsScreen extends React.Component {
                 }
             } catch (e) {
                 console.log(e);
+
+                this.state.messages.push('Error Occured!');
+
                 this.setState({
                     loading: false,
                 });
@@ -84,7 +90,7 @@ class EditMemberDetailsScreen extends React.Component {
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
-            <Layout loading={this.state.loading} scrollEnabled={false}>
+            <Layout loading={this.state.loading} scrollEnabled={false} messages={this.state.messages}>
                 <View style={{flex: 1, justifyContent: 'space-between'}}>
                     <ScrollView>
                         <View style={{padding: 15}}>

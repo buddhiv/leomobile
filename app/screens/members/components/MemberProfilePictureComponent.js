@@ -3,6 +3,8 @@ import {SafeAreaView, ScrollView, View, Text, Image} from 'react-native';
 import {DrawerItemList, DrawerItem} from '@react-navigation/drawer';
 
 const MemberProfilePictureComponent: () => React$Node = (props) => {
+    let imageBase64Source = 'data:' + props.imageType + ';base64,' + props.imageData;
+
     return (
         <>
             <View style={[{
@@ -20,13 +22,22 @@ const MemberProfilePictureComponent: () => React$Node = (props) => {
                 borderWidth: props.borderWidth,
                 borderColor: props.borderColor,
             } : {}]}>
-                <Image
-                    source={require('../../../assets/default-photo.png')}
-                    style={{
-                        width: props.size,
-                        height: props.size,
-                        resizeMode: 'contain',
-                    }}/>
+                {
+                    imageBase64Source ? <Image
+                        source={{uri: imageBase64Source}}
+                        style={{
+                            width: props.size,
+                            height: props.size,
+                            resizeMode: 'cover',
+                        }}/> : <Image
+                        source={require('../../../assets/default-photo.png')}
+                        style={{
+                            width: props.size,
+                            height: props.size,
+                            resizeMode: 'contain',
+                        }}/>
+                }
+
             </View>
         </>
     );

@@ -37,6 +37,8 @@ class MemberDetailsScreen extends React.Component {
         try {
             let membersResult = await MembersAPIService.getMemberDetailsApi(this.state.memberId);
 
+            console.log(membersResult.data.data.data);
+
             if (!membersResult.data.data.error) {
                 this.setState({
                     member: membersResult.data.data.data,
@@ -98,7 +100,7 @@ class MemberDetailsScreen extends React.Component {
 
     isProfileEditable = () => {
         // return (!this.state.loading && this.currentUser.id === this.state.memberId);
-        
+
         return (!this.state.loading && PermissionsService.getPermission('leo_profile').update && this.props.route.params.mode === 'my');
     };
 
@@ -154,7 +156,10 @@ class MemberDetailsScreen extends React.Component {
                         </CardComponent>
 
                         <View style={{alignItems: 'center'}}>
-                            <MemberProfilePictureComponent size={100} border={false}/>
+                            <MemberProfilePictureComponent size={100} border={false}
+                                imageData={this.state.member.profilePicture}
+                                imageType={this.state.member.profilePictureImageType}
+                            />
                         </View>
                     </View>
 
