@@ -155,25 +155,27 @@ class DistrictDetailsScreen extends React.Component {
                     </View>
 
                     <View style={{paddingTop: 10}}>
-                        <CardComponent cardStyle={{padding: 0}}>
-                            {DistrictDetailsService.isDistrictKeyOfficersAdded(this.state.directory) ? <View style={{
-                                padding: 15,
-                                borderBottomWidth: StyleSheet.hairlineWidth,
-                                borderBottomColor: '#dddddd',
-                            }}>
-                                <View>
-                                    <Text style={{fontWeight: 'bold'}}>District Key Officers</Text>
+                        {DistrictDetailsService.isDistrictKeyOfficersAdded(this.state.directory) ?
+                            <CardComponent cardStyle={{padding: 0}}>
+                                <View style={{
+                                    padding: 15,
+                                    borderBottomWidth: StyleSheet.hairlineWidth,
+                                    borderBottomColor: '#dddddd',
+                                }}>
+                                    <View>
+                                        <Text style={{fontWeight: 'bold'}}>District Key Officers</Text>
+                                    </View>
+                                    <View>
+                                        {
+                                            this.state.directory.map((directoryItem, index) => {
+                                                return <DistrictDirectoryItemComponent directoryItem={directoryItem}
+                                                                                       key={index}/>;
+                                            })
+                                        }
+                                    </View>
                                 </View>
-                                <View>
-                                    {
-                                        this.state.directory.map((directoryItem, index) => {
-                                            return <DistrictDirectoryItemComponent directoryItem={directoryItem}
-                                                                                   key={index}/>;
-                                        })
-                                    }
-                                </View>
-                            </View> : null}
-                        </CardComponent>
+                            </CardComponent> : null}
+
                     </View>
                 </View>
             </Layout>
