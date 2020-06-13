@@ -35,6 +35,15 @@ const MemberDetailsService = {
 
         return designationDescriptions;
     },
+    getGenderValues: () => {
+        return [{
+            value: 'Male',
+            label: 'Male',
+        }, {
+            value: 'Female',
+            label: 'Female',
+        }];
+    },
 };
 
 export default MemberDetailsService;

@@ -9,7 +9,7 @@ import {
 const TouchableComponent: () => React$Node = (props) => {
     return (
         <>
-            {Platform.OS === 'android' ?
+            {false ?
                 <TouchableNativeFeedback
                     onLongPress={() => {
                         setTimeout(props.onPress, 1500);

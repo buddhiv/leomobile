@@ -7,6 +7,9 @@ const MembersAPIService = {
     getMemberDetailsApi: (memberId) => {
         return WebService.call('/api/v1/leoMember/' + memberId, 'GET');
     },
+    saveMemberDetailsApi: (memberData) => {
+        return WebService.call('/api/v1/leoMember/' + memberData.id, 'PATCH', memberData);
+    },
 };
 
 export default MembersAPIService;

@@ -13,16 +13,16 @@ import TouchableComponent from '../../common/components/TouchableComponent';
 import TableComponent from '../../common/components/TableComponent';
 import moment from 'moment';
 import UserService from '../../common/services/UserService';
+import PermissionsService from '../../common/services/PermissionsService';
 
 class MemberDetailsScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        let currentUser = UserService.getCurrentUser();
-        let permissions = UserService.getCurrentUserPermissions();
+        this.currentUser = UserService.getCurrentUser();
 
         this.state = {
-            memberId: props.route.params.mode === 'my' ? currentUser.id : props.route.params.memberId,
+            memberId: props.route.params.mode === 'my' ? this.currentUser.id : props.route.params.memberId,
             member: {},
             designations: [],
             loading: true,
@@ -80,15 +80,40 @@ class MemberDetailsScreen extends React.Component {
         return this.state.member.id ? [
             ['Telephone', this.state.member.contactNumber],
             ['Email', this.state.member.email],
+            ['Website', this.state.member.website],
+            ['Facebook', this.state.member.facebook],
+            ['Instagram', this.state.member.instagram],
+            ['Linkedin', this.state.member.linkedin],
+            ['Twitter', this.state.member.twitter],
         ] : [];
     };
 
     getMemberCareerInformation = () => {
         return this.state.member.id ? [
-            ['School', this.state.member.school],
-            ['University', this.state.member.university],
             ['Occupation', this.state.member.occupation],
+            ['University', this.state.member.university],
+            ['School', this.state.member.school],
         ] : [];
+    };
+
+    isProfileEditable = () => {
+        // return (!this.state.loading && this.currentUser.id === this.state.memberId);
+        
+        return (!this.state.loading && PermissionsService.getPermission('leo_profile').update && this.props.route.params.mode === 'my');
+    };
+
+    saveCallback = (newMemberObj) => {
+        this.setState({
+            member: newMemberObj,
+        });
+    };
+
+    goToEditProfile = (sectionName) => {
+        this.props.navigation.navigate('Edit Profile', {
+            member: Object.assign({}, this.state.member),
+            sectionName: sectionName,
+            saveCallback: this.saveCallback,
+        });
     };
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
@@ -158,7 +183,17 @@ class MemberDetailsScreen extends React.Component {
                     <View style={{paddingTop: 10}}>
                         <CardComponent>
                             <View>
-                                <Text style={{fontWeight: 'bold'}}>General</Text>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{flex: 1}}>
+                                        <Text style={{fontWeight: 'bold'}}>General</Text>
+                                    </View>
+
+                                    {this.isProfileEditable() ? <TouchableComponent onPress={() => {
+                                        this.goToEditProfile('general');
+                                    }}>
+                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}/>
+                                    </TouchableComponent> : null}
+                                </View>
 
                                 <View style={{marginTop: 10}}>
                                     <TableComponent data={this.getMemberGeneralInformation()}
@@ -166,7 +201,17 @@ class MemberDetailsScreen extends React.Component {
                                 </View>
                             </View>
                             <View style={{marginTop: 10}}>
-                                <Text style={{fontWeight: 'bold'}}>Contact</Text>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{flex: 1}}>
+                                        <Text style={{fontWeight: 'bold'}}>Contact</Text>
+                                    </View>
+
+                                    {this.isProfileEditable() ? <TouchableComponent onPress={() => {
+                                        this.goToEditProfile('contact');
+                                    }}>
+                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}/>
+                                    </TouchableComponent> : null}
+                                </View>
 
                                 <View style={{marginTop: 10}}>
                                     <TableComponent data={this.getMemberContactInformation()}
@@ -174,7 +219,17 @@ class MemberDetailsScreen extends React.Component {
                                 </View>
                             </View>
                             <View style={{marginTop: 10}}>
-                                <Text style={{fontWeight: 'bold'}}>Career</Text>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{flex: 1}}>
+                                        <Text style={{fontWeight: 'bold'}}>Career</Text>
+                                    </View>
+
+                                    {this.isProfileEditable() ? <TouchableComponent onPress={() => {
+                                        this.goToEditProfile('career');
+                                    }}>
+                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}/>
+                                    </TouchableComponent> : null}
+                                </View>
 
                                 <View style={{marginTop: 10}}>
                                     <TableComponent data={this.getMemberCareerInformation()}

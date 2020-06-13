@@ -44,39 +44,37 @@ class MembersFilterScreen extends React.Component {
                 <View style={{padding: 15, flex: 1, justifyContent: 'space-between'}}>
                     <CardComponent>
                         <View>
-                            <View>
-                                <TextWidget label={'Member Name'}
-                                            value={this.state.filters.filters.name}
-                                            onChangeText={(text) => {
-                                                this.state.filters.filters.name = text;
-                                                this.setState({
-                                                    filters: this.state.filters,
-                                                });
-                                            }}/>
-                            </View>
+                            <TextWidget label={'Member Name'}
+                                        value={this.state.filters.filters.name}
+                                        onChangeText={(text) => {
+                                            this.state.filters.filters.name = text;
+                                            this.setState({
+                                                filters: this.state.filters,
+                                            });
+                                        }}/>
+                        </View>
 
-                            <View style={{marginTop: 20}}>
-                                <TextWidget label={'Member LCI'}
-                                            value={this.state.filters.filters.mylciId}
-                                            onChangeText={(text) => {
-                                                this.state.filters.filters.mylciId = text;
-                                                this.setState({
-                                                    filters: this.state.filters,
-                                                });
-                                            }}/>
-                            </View>
+                        <View style={{marginTop: 20}}>
+                            <TextWidget label={'Member LCI'}
+                                        value={this.state.filters.filters.mylciId}
+                                        onChangeText={(text) => {
+                                            this.state.filters.filters.mylciId = text;
+                                            this.setState({
+                                                filters: this.state.filters,
+                                            });
+                                        }}/>
+                        </View>
 
-                            <View style={{marginTop: 20}}>
-                                <PickerWidget label={'Club'}
-                                              data={this.clubsList}
-                                              selectedValue={this.state.filters.filters.clubId}
-                                              onValueChange={(itemValue, itemIndex) => {
-                                                  this.state.filters.filters.clubId = itemValue;
-                                                  this.setState({
-                                                      filters: this.state.filters,
-                                                  });
-                                              }}/>
-                            </View>
+                        <View style={{marginTop: 20}}>
+                            <PickerWidget label={'Club'}
+                                          data={this.clubsList}
+                                          selectedValue={this.state.filters.filters.clubId}
+                                          onValueChange={(itemValue, itemIndex) => {
+                                              this.state.filters.filters.clubId = itemValue;
+                                              this.setState({
+                                                  filters: this.state.filters,
+                                              });
+                                          }}/>
                         </View>
                     </CardComponent>
 

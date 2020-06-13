@@ -72,8 +72,8 @@ class ClubDetailsScreen extends React.Component {
 
     getClubSocialInformation = () => {
         return this.state.club.id ? [
-            ['Website', this.state.club.website],
             ['Email', this.state.club.email],
+            ['Website', this.state.club.website],
             ['Facebook', this.state.club.facebook],
             ['Instagram', this.state.club.instagram],
             ['Linkedin', this.state.club.linkedin],
