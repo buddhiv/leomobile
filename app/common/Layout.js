@@ -14,11 +14,15 @@ import {
 import InitService from '../lib/services/InitService';
 import GlobalService from '../lib/services/GlobalService';
 import MessageComponent from './components/MessageComponent';
+import NetInfo from '@react-native-community/netinfo';
+import Toast from 'react-native-toast-message';
+import ToastService from './services/ToastService';
 
 const LayoutContainerComponent: () => React$Node = (props) => {
     if (props.scrollEnabled) {
         return (
-            <ScrollView bounces={false} contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps={'handled'}>
+            <ScrollView bounces={false} contentContainerStyle={{flexGrow: 1}}
+                        keyboardShouldPersistTaps={'handled'} {...props}>
                 <View style={{flex: 1}}>
                     {props.children}
                 </View>
@@ -38,32 +42,49 @@ class Layout extends React.Component {
         super(props);
 
         this.state = {
-            is_connected: GlobalService.get('connected_to_internet'),
+            messages: [],
         };
     }
 
     componentDidMount(): void {
-        // InitService.getGlobalEventEmitter().on('connection_change', (payload) => {
-        //     if (payload.connection_changed !== this.state.is_connected) {
-        //         this.setState({is_connected: payload.connection_changed});
+        // this.netInfoListener = NetInfo.addEventListener(state => {
+        //     GlobalService.set('connected_to_internet', state.isConnected);
+        //
+        //     let messages = this.state.messages;
+        //     if (!state.isConnected) {
+        //         messages.push('Not Connected to Internet');
         //     }
+        //     this.setState({
+        //         messages: messages,
+        //     });
         // });
     }
+
+    componentWillUnmount(): void {
+        // this.netInfoListener();
+    }
+
+    // getMessagesArray = () => {
+    //     if (this.props.messages) {
+    //         return this.state.messages.concat(this.props.messages);
+    //     } else {
+    //         return this.state.messages;
+    //     }
+    // };
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <>
                 <SafeAreaView style={{flex: 1}}>
-                    {this.props.messages ? <View>
-                        {
-                            this.props.messages.map((message, i) => {
-                                return <MessageComponent text={message} key={i}/>;
-                            })
-                        }
-                    </View> : null}
+                    {/*<View>*/}
+                    {/*    {*/}
+                    {/*        this.getMessagesArray().map((message, i) => {*/}
+                    {/*            return <MessageComponent text={message} key={i}/>;*/}
+                    {/*        })*/}
+                    {/*    }*/}
+                    {/*</View>*/}
 
-
-                    <LayoutContainerComponent scrollEnabled={this.props.scrollEnabled}>
+                    <LayoutContainerComponent scrollEnabled={this.props.scrollEnabled} {...this.props}>
                         {this.props.children}
 
                         {this.props.loading ?
@@ -81,6 +102,9 @@ class Layout extends React.Component {
                             </Modal> : null}
 
                     </LayoutContainerComponent>
+
+                    <Toast ref={(ref) => Toast.setRef(ref)}/>
+
                 </SafeAreaView>
             </>
         );

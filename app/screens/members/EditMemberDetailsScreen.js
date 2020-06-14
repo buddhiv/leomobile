@@ -16,6 +16,8 @@ import UserService from '../../common/services/UserService';
 import TextWidget from '../../common/widgets/TextWidget';
 import PickerWidget from '../../common/widgets/PickerWidget';
 import DatePickerWidget from '../../common/widgets/DatePickerWidget';
+import Toast from 'react-native-toast-message';
+import ToastService from '../../common/services/ToastService';
 
 class EditMemberDetailsScreen extends React.Component {
     constructor(props) {
@@ -66,7 +68,7 @@ class EditMemberDetailsScreen extends React.Component {
                 let saveResult = await MembersAPIService.saveMemberDetailsApi(tempMemberObj);
 
                 if (!saveResult.data.error) {
-                    this.state.messages.push('Successfully Saved!');
+                    ToastService.showSuccessToast('Successfully Saved!');
 
                     this.setState({
                         member: saveResult.data.data,

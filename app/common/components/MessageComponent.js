@@ -7,16 +7,16 @@ const MessageComponent: () => React$Node = (props) => {
     let viewScaleValue = new Animated.Value(1);
     let [show, setShow] = useState(true);
 
-    setTimeout(() => {
-        Animated.timing(viewScaleValue, {
-            toValue: 0,
-            duration: 1000,
-            useNativeDriver: true,
-        }).start(() => {
-            console.log('finish');
-            setShow(false);
-        });
-    }, 5000);
+    // setTimeout(() => {
+    //     Animated.timing(viewScaleValue, {
+    //         toValue: 0,
+    //         duration: 1000,
+    //         useNativeDriver: true,
+    //     }).start(() => {
+    //         console.log('finish');
+    //         setShow(false);
+    //     });
+    // }, 5000);
 
     return (
         <>
