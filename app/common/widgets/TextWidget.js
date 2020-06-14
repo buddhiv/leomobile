@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {View, Text, TextInput, Platform} from 'react-native';
+import ColorService from '../services/ColorService';
 
 const TextWidget: () => React$Node = (props) => {
     return (
@@ -16,7 +17,7 @@ const TextWidget: () => React$Node = (props) => {
                     <TextInput value={props.value}
                                onChangeText={props.onChangeText}/>
                 </View>
-                <View style={{borderTopWidth: 1, borderTopColor: 'black'}}>
+                <View style={{borderTopWidth: 1, borderTopColor: ColorService.PRIMARY_COLOR}}>
                     {/*<Text style={{fontSize: 10}}>Required</Text>*/}
                 </View>
             </View>

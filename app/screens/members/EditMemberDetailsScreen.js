@@ -18,6 +18,7 @@ import PickerWidget from '../../common/widgets/PickerWidget';
 import DatePickerWidget from '../../common/widgets/DatePickerWidget';
 import Toast from 'react-native-toast-message';
 import ToastService from '../../common/services/ToastService';
+import ColorService from '../../common/services/ColorService';
 
 class EditMemberDetailsScreen extends React.Component {
     constructor(props) {
@@ -279,10 +280,12 @@ class EditMemberDetailsScreen extends React.Component {
 
                     <View style={{flexDirection: 'row', paddingHorizontal: 15, paddingBottom: 10}}>
                         <View style={{flex: 1, marginRight: 5}}>
-                            <Button title={'CANCEL'} onPress={this.cancelEditing}/>
+                            <Button title={'CANCEL'} onPress={this.cancelEditing}
+                                    color={ColorService.SECONDARY_COLOR}/>
                         </View>
                         <View style={{flex: 1, marginLeft: 5}}>
-                            <Button title={'SAVE'} onPress={this.saveMemberDetails}/>
+                            <Button title={'SAVE'} onPress={this.saveMemberDetails}
+                                    color={ColorService.SECONDARY_COLOR}/>
                         </View>
                     </View>
                 </View>

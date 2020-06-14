@@ -11,6 +11,7 @@ import {
     ActivityIndicator,
     TouchableWithoutFeedback,
     Modal,
+    Platform,
 } from 'react-native';
 import InitService from '../lib/services/InitService';
 import GlobalService from '../lib/services/GlobalService';
@@ -78,7 +79,7 @@ class Layout extends React.Component {
             <>
                 <SafeAreaView style={{flex: 1}}>
                     <KeyboardAvoidingView style={{flex: 1}}
-                                          behavior={'padding'}>
+                                          behavior={Platform.OS === 'ios' ? 'padding' : ''}>
 
                         {/*<View>*/}
                         {/*    {*/}

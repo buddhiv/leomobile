@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {View, Text, TextInput, TouchableWithoutFeedback} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import ColorService from '../services/ColorService';
 
 const DatePickerWidget: () => React$Node = (props) => {
 
@@ -24,7 +25,7 @@ const DatePickerWidget: () => React$Node = (props) => {
                     </View>
                 </TouchableWithoutFeedback>
 
-                <View style={{borderTopWidth: 1, borderTopColor: 'black'}}>
+                <View style={{borderTopWidth: 1, borderTopColor: ColorService.PRIMARY_COLOR}}>
                     {/*<Text style={{fontSize: 10}}>Required</Text>*/}
                 </View>
 

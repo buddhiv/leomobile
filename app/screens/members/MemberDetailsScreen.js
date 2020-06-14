@@ -14,6 +14,7 @@ import TableComponent from '../../common/components/TableComponent';
 import moment from 'moment';
 import UserService from '../../common/services/UserService';
 import PermissionsService from '../../common/services/PermissionsService';
+import ColorService from '../../common/services/ColorService';
 
 class MemberDetailsScreen extends React.Component {
     constructor(props) {
@@ -128,7 +129,8 @@ class MemberDetailsScreen extends React.Component {
                             paddingTop: 50,
                             marginTop: -40,
                         }}>
-                            <Text style={{fontSize: 18, fontWeight: 'bold'}} numberOfLines={2}>
+                            <Text style={{fontSize: 18, fontWeight: 'bold', color: ColorService.PRIMARY_COLOR_DARK}}
+                                  numberOfLines={2}>
                                 {this.state.member.id ? MemberDetailsService.getFullName(this.state.member) : ''}
                             </Text>
 
@@ -157,8 +159,8 @@ class MemberDetailsScreen extends React.Component {
 
                         <View style={{alignItems: 'center'}}>
                             <MemberProfilePictureComponent size={100} border={false}
-                                imageData={this.state.member.profilePicture}
-                                imageType={this.state.member.profilePictureImageType}
+                                                           imageData={this.state.member.profilePicture}
+                                                           imageType={this.state.member.profilePictureImageType}
                             />
                         </View>
                     </View>
@@ -168,17 +170,20 @@ class MemberDetailsScreen extends React.Component {
                             <View style={{flexDirection: 'row'}}>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.makePhoneCall}>
-                                        <IconComponent.MaterialCommunityIcons name={'phone'} size={28}/>
+                                        <IconComponent.MaterialCommunityIcons name={'phone'} size={28}
+                                                                              color={ColorService.PRIMARY_COLOR}/>
                                     </TouchableComponent>
                                 </View>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.makeSms}>
-                                        <IconComponent.MaterialCommunityIcons name={'message-text'} size={28}/>
+                                        <IconComponent.MaterialCommunityIcons name={'message-text'} size={28}
+                                                                              color={ColorService.PRIMARY_COLOR}/>
                                     </TouchableComponent>
                                 </View>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.makeEmail}>
-                                        <IconComponent.MaterialCommunityIcons name={'email'} size={28}/>
+                                        <IconComponent.MaterialCommunityIcons name={'email'} size={28}
+                                                                              color={ColorService.PRIMARY_COLOR}/>
                                     </TouchableComponent>
                                 </View>
                             </View>
@@ -196,7 +201,8 @@ class MemberDetailsScreen extends React.Component {
                                     {this.isProfileEditable() ? <TouchableComponent onPress={() => {
                                         this.goToEditProfile('general');
                                     }}>
-                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}/>
+                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent> : null}
                                 </View>
 
@@ -214,7 +220,8 @@ class MemberDetailsScreen extends React.Component {
                                     {this.isProfileEditable() ? <TouchableComponent onPress={() => {
                                         this.goToEditProfile('contact');
                                     }}>
-                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}/>
+                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent> : null}
                                 </View>
 
@@ -232,7 +239,8 @@ class MemberDetailsScreen extends React.Component {
                                     {this.isProfileEditable() ? <TouchableComponent onPress={() => {
                                         this.goToEditProfile('career');
                                     }}>
-                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}/>
+                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent> : null}
                                 </View>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View, Text, TextInput} from 'react-native';
 import {Picker} from '@react-native-community/picker';
+import ColorService from '../services/ColorService';
 
 const PickerWidget: () => React$Node = (props) => {
     return (
@@ -10,7 +11,7 @@ const PickerWidget: () => React$Node = (props) => {
                 <View>
                     <Text>{props.label}</Text>
                 </View>
-                <View style={{borderBottomWidth: 1, borderBottomColor: 'black'}}>
+                <View style={{borderBottomWidth: 1, borderBottomColor: ColorService.PRIMARY_COLOR}}>
                     <Picker
                         selectedValue={props.selectedValue}
                         mode={'dropdown'}
