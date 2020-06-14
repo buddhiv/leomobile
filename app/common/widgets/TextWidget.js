@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, Platform} from 'react-native';
 
 const TextWidget: () => React$Node = (props) => {
     return (
@@ -9,7 +9,10 @@ const TextWidget: () => React$Node = (props) => {
                 <View>
                     <Text>{props.label}</Text>
                 </View>
-                <View style={{marginTop: -5, marginBottom: -10}}>
+                <View style={[Platform.OS === 'ios' ? {marginTop: 10, marginBottom: 5} : {
+                    marginTop: -5,
+                    marginBottom: -10,
+                }]}>
                     <TextInput value={props.value}
                                onChangeText={props.onChangeText}/>
                 </View>

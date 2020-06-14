@@ -108,12 +108,13 @@ class MembersScreen extends React.Component {
                         paddingHorizontal: 15,
                         paddingVertical: 10,
                         backgroundColor: 'white',
+                        alignItems: 'center',
                     }}>
                         <View style={{flex: 1}}>
                             <Text>{this.state.membersList.length} Result(s)</Text>
                         </View>
 
-                        {this.filterable ? <View style={{flexDirection: 'row'}}>
+                        {this.filterable ? <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{marginRight: 10}}>
                                 <Text>Change Filters</Text>
                             </View>

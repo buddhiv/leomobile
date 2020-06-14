@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     SafeAreaView,
+    KeyboardAvoidingView,
     StyleSheet,
     StatusBar,
     ScrollView,
@@ -76,35 +77,39 @@ class Layout extends React.Component {
         return (
             <>
                 <SafeAreaView style={{flex: 1}}>
-                    {/*<View>*/}
-                    {/*    {*/}
-                    {/*        this.getMessagesArray().map((message, i) => {*/}
-                    {/*            return <MessageComponent text={message} key={i}/>;*/}
-                    {/*        })*/}
-                    {/*    }*/}
-                    {/*</View>*/}
+                    <KeyboardAvoidingView style={{flex: 1}}
+                                          behavior={'padding'}>
 
-                    <LayoutContainerComponent scrollEnabled={this.props.scrollEnabled} {...this.props}>
-                        {this.props.children}
+                        {/*<View>*/}
+                        {/*    {*/}
+                        {/*        this.getMessagesArray().map((message, i) => {*/}
+                        {/*            return <MessageComponent text={message} key={i}/>;*/}
+                        {/*        })*/}
+                        {/*    }*/}
+                        {/*</View>*/}
 
-                        {this.props.loading ?
-                            <Modal visible={this.props.loading}
-                                   transparent={true}
-                                   animationType={'none'}>
-                                <View style={{
-                                    backgroundColor: 'rgba(0,0,0, 0.3)',
-                                    flex: 1,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}>
-                                    <ActivityIndicator size={'large'} color={'white'}/>
-                                </View>
-                            </Modal> : null}
+                        <LayoutContainerComponent scrollEnabled={this.props.scrollEnabled} {...this.props}>
+                            {this.props.children}
 
-                    </LayoutContainerComponent>
+                            {this.props.loading ?
+                                <Modal visible={this.props.loading}
+                                       transparent={true}
+                                       animationType={'none'}>
+                                    <View style={{
+                                        backgroundColor: 'rgba(0,0,0, 0.3)',
+                                        flex: 1,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}>
+                                        <ActivityIndicator size={'large'} color={'white'}/>
+                                    </View>
+                                </Modal> : null}
 
-                    <Toast ref={(ref) => Toast.setRef(ref)}/>
+                        </LayoutContainerComponent>
 
+                        <Toast ref={(ref) => Toast.setRef(ref)}/>
+
+                    </KeyboardAvoidingView>
                 </SafeAreaView>
             </>
         );

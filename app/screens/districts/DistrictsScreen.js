@@ -58,6 +58,7 @@ class DistrictsScreen extends React.Component {
                     paddingHorizontal: 15,
                     paddingVertical: 10,
                     backgroundColor: 'white',
+                    alignItems: 'center',
                 }}>
                     <View style={{flex: 1}}>
                         <Text>{this.state.districtsList.length} Result(s)</Text>

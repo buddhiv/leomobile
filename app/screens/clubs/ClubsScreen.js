@@ -104,11 +104,12 @@ class ClubsScreen extends React.Component {
                         paddingHorizontal: 15,
                         paddingVertical: 10,
                         backgroundColor: 'white',
+                        alignItems: 'center',
                     }}>
                         <View style={{flex: 1}}>
                             <Text>{this.state.clubsList.length} Result(s)</Text>
                         </View>
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{marginRight: 10}}>
                                 <Text>Change Filters</Text>
                             </View>
