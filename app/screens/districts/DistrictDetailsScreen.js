@@ -84,6 +84,12 @@ class DistrictDetailsScreen extends React.Component {
         ] : [];
     };
 
+    goToMemberDetails = (memberId) => {
+        this.props.navigation.navigate('Member Details', {
+            memberId: memberId,
+        });
+    };
+
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading} scrollEnabled={true}>
@@ -169,13 +175,14 @@ class DistrictDetailsScreen extends React.Component {
                                         {
                                             this.state.directory.map((directoryItem, index) => {
                                                 return <DistrictDirectoryItemComponent directoryItem={directoryItem}
-                                                                                       key={index}/>;
+                                                                                       key={index}
+                                                                                       onPressProfilePicture={this.goToMemberDetails}
+                                                />;
                                             })
                                         }
                                     </View>
                                 </View>
                             </CardComponent> : null}
-
                     </View>
                 </View>
             </Layout>

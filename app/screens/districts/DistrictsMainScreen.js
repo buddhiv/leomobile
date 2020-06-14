@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import DistrictsScreen from './DistrictsScreen';
 import DistrictDetailsScreen from './DistrictDetailsScreen';
+import MemberDetailsScreen from '../members/MemberDetailsScreen';
 
 const DistrictsMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -17,6 +18,7 @@ const DistrictsMainScreen: () => React$Node = (props) => {
                     // })}
                 />
                 <Stack.Screen name="District Details" component={DistrictDetailsScreen}/>
+                <Stack.Screen name="Member Details" component={MemberDetailsScreen}/>
             </Stack.Navigator>
         </>
     );

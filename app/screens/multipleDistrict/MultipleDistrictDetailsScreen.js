@@ -85,6 +85,12 @@ class MultipleDistrictDetailsScreen extends React.Component {
         ] : [];
     };
 
+    goToMemberDetails = (memberId) => {
+        this.props.navigation.navigate('Member Details', {
+            memberId: memberId,
+        });
+    };
+
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading} scrollEnabled={true}>
@@ -157,8 +163,8 @@ class MultipleDistrictDetailsScreen extends React.Component {
                     </View>
 
                     <View style={{paddingTop: 10}}>
-                        <CardComponent cardStyle={{padding: 0}}>
-                            {MultipleDistrictDetailsService.isMultipleDistrictKeyOfficersAdded(this.state.directory) ?
+                        {MultipleDistrictDetailsService.isMultipleDistrictKeyOfficersAdded(this.state.directory) ?
+                            <CardComponent cardStyle={{padding: 0}}>
                                 <View style={{
                                     padding: 15,
                                     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -172,12 +178,14 @@ class MultipleDistrictDetailsScreen extends React.Component {
                                             this.state.directory.map((directoryItem, index) => {
                                                 return <MultipleDistrictDirectoryItemComponent
                                                     directoryItem={directoryItem}
-                                                    key={index}/>;
+                                                    key={index}
+                                                    onPressProfilePicture={this.goToMemberDetails}
+                                                />;
                                             })
                                         }
                                     </View>
-                                </View> : null}
-                        </CardComponent>
+                                </View>
+                            </CardComponent> : null}
                     </View>
                 </View>
             </Layout>

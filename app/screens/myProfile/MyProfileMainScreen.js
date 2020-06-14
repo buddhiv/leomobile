@@ -5,6 +5,7 @@ import MemberDetailsScreen from '../members/MemberDetailsScreen';
 import {Text} from 'react-native';
 import DrawerLeftButtonComponent from '../../common/components/DrawerLeftButtonComponent';
 import EditMemberDetailsScreen from '../members/EditMemberDetailsScreen';
+import ColorService from '../../common/services/ColorService';
 
 const MyProfileMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -14,11 +15,14 @@ const MyProfileMainScreen: () => React$Node = (props) => {
             <Stack.Navigator initialRouteName={'My Profile'}>
                 <Stack.Screen name="My Profile" component={MemberDetailsScreen}
                               initialParams={{mode: 'my'}}
-                    // options={({navigation}) => ({
-                    //     headerLeft: () => (
-                    //         <DrawerLeftButtonComponent onPress={navigation.toggleDrawer}/>
-                    //     ),
-                    // })}
+                              options={{
+                                  headerTitleStyle: {
+                                      color: 'white',
+                                  },
+                                  headerStyle: {
+                                      backgroundColor: ColorService.PRIMARY_COLOR,
+                                  },
+                              }}
                 />
                 <Stack.Screen name="Edit Profile" component={EditMemberDetailsScreen}
                               initialParams={{mode: 'my'}}/>

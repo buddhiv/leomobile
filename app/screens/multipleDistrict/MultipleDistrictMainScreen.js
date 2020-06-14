@@ -1,6 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import MultipleDistrictDetailsScreen from './MultipleDistrictDetailsScreen';
+import MemberDetailsScreen from '../members/MemberDetailsScreen';
 
 const MultipleDistrictMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -15,6 +16,7 @@ const MultipleDistrictMainScreen: () => React$Node = (props) => {
                     //     ),
                     // })}
                 />
+                <Stack.Screen name="Member Details" component={MemberDetailsScreen}/>
             </Stack.Navigator>
         </>
     );

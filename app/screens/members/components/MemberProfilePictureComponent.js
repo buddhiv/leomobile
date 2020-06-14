@@ -23,7 +23,7 @@ const MemberProfilePictureComponent: () => React$Node = (props) => {
                 borderColor: props.borderColor,
             } : {}]}>
                 {
-                    imageBase64Source ? <Image
+                    props.imageData ? <Image
                         source={{uri: imageBase64Source}}
                         style={{
                             width: props.size,
