@@ -31,7 +31,7 @@ const DrawerContentComponent: () => React$Node = (props) => {
                         paddingVertical: 10,
                         paddingHorizontal: 18,
                     }}>
-                        <Text style={{fontSize: 10}}>Leo Mobile - 1.0-alpha.2</Text>
+                        <Text style={{fontSize: 10}}>Leo Mobile - 1.0-alpha.3</Text>
                         <Text style={{fontSize: 10, color: '#777777'}}>Powered by PulseQue.</Text>
                     </View>
                 </View>
