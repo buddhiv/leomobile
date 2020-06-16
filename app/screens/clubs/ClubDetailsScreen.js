@@ -180,46 +180,6 @@ class ClubDetailsScreen extends React.Component {
                             </View>
                         </CardComponent>
                     </View>
-
-                    <View style={{paddingTop: 10}}>
-                        <CardComponent cardStyle={{padding: 0}}>
-                            {ClubDetailsService.isClubKeyOfficersAdded(this.state.directory) ? <View style={{
-                                padding: 15,
-                                borderBottomWidth: StyleSheet.hairlineWidth,
-                                borderBottomColor: '#dddddd',
-                            }}>
-                                <View>
-                                    <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>
-                                </View>
-                                <View>
-                                    {
-                                        this.state.directory.map((directoryItem, index) => {
-                                            return <ClubDirectoryItemComponent directoryItem={directoryItem}
-                                                                               key={index}
-                                                                               onPressProfilePicture={this.goToMemberDetails}
-                                            />;
-                                        })
-                                    }
-                                </View>
-                            </View> : null}
-
-                            <TouchableComponent onPress={this.goToClubMembers}>
-                                <View style={{padding: 15}}>
-                                    <Text>See All Members</Text>
-                                </View>
-                            </TouchableComponent>
-
-                            {/*<TouchableComponent>*/}
-                            {/*    <View style={{*/}
-                            {/*        padding: 15,*/}
-                            {/*        borderTopWidth: StyleSheet.hairlineWidth,*/}
-                            {/*        borderTopColor: '#dddddd',*/}
-                            {/*    }}>*/}
-                            {/*        <Text>Add Member</Text>*/}
-                            {/*    </View>*/}
-                            {/*</TouchableComponent>*/}
-                        </CardComponent>
-                    </View>
                 </View>
             </Layout>
         );

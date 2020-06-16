@@ -161,32 +161,6 @@ class MultipleDistrictDetailsScreen extends React.Component {
                             </View>
                         </CardComponent>
                     </View>
-
-                    <View style={{paddingTop: 10}}>
-                        {MultipleDistrictDetailsService.isMultipleDistrictKeyOfficersAdded(this.state.directory) ?
-                            <CardComponent cardStyle={{padding: 0}}>
-                                <View style={{
-                                    padding: 15,
-                                    borderBottomWidth: StyleSheet.hairlineWidth,
-                                    borderBottomColor: '#dddddd',
-                                }}>
-                                    <View>
-                                        <Text style={{fontWeight: 'bold'}}>Multiple District Key Officers</Text>
-                                    </View>
-                                    <View>
-                                        {
-                                            this.state.directory.map((directoryItem, index) => {
-                                                return <MultipleDistrictDirectoryItemComponent
-                                                    directoryItem={directoryItem}
-                                                    key={index}
-                                                    onPressProfilePicture={this.goToMemberDetails}
-                                                />;
-                                            })
-                                        }
-                                    </View>
-                                </View>
-                            </CardComponent> : null}
-                    </View>
                 </View>
             </Layout>
         );

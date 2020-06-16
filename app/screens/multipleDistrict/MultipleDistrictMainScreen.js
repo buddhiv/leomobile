@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import MultipleDistrictDetailsScreen from './MultipleDistrictDetailsScreen';
 import MemberDetailsScreen from '../members/MemberDetailsScreen';
+import MultipleDistrictDetailsMainScreen from './MultipleDistrictDetailsMainScreen';
 
 const MultipleDistrictMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -9,7 +10,7 @@ const MultipleDistrictMainScreen: () => React$Node = (props) => {
     return (
         <>
             <Stack.Navigator initialRouteName={'Multiple District'}>
-                <Stack.Screen name="Multiple District" component={MultipleDistrictDetailsScreen}
+                <Stack.Screen name="Multiple District" component={MultipleDistrictDetailsMainScreen}
                     // options={({navigation}) => ({
                     //     headerLeft: () => (
                     //         <DrawerLeftButtonComponent onPress={navigation.toggleDrawer}/>

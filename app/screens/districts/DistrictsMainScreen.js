@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import DistrictsScreen from './DistrictsScreen';
 import DistrictDetailsScreen from './DistrictDetailsScreen';
 import MemberDetailsScreen from '../members/MemberDetailsScreen';
+import DistrictDetailsMainScreen from './DistrictDetailsMainScreen';
 
 const DistrictsMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -17,8 +18,7 @@ const DistrictsMainScreen: () => React$Node = (props) => {
                     //     ),
                     // })}
                 />
-                <Stack.Screen name="District Details" component={DistrictDetailsScreen}/>
-                <Stack.Screen name="Member Details" component={MemberDetailsScreen}/>
+                <Stack.Screen name="District Details" component={DistrictDetailsMainScreen}/>
             </Stack.Navigator>
         </>
     );
