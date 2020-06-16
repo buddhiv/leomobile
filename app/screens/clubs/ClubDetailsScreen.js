@@ -18,6 +18,9 @@ class ClubDetailsScreen extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log('props.route');
+        console.log(props.route);
+
         this.state = {
             clubId: props.route.params.clubId,
             club: {},
@@ -28,6 +31,9 @@ class ClubDetailsScreen extends React.Component {
 
     componentDidMount(): void {
         ClubsAPIService.getClubDetailsApi(this.state.clubId).then((result) => {
+            console.log('result');
+            console.log(result);
+
             this.setState({
                 club: result.data.data.club,
                 directory: result.data.data.directory,

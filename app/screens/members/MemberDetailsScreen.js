@@ -160,7 +160,6 @@ class MemberDetailsScreen extends React.Component {
                         <View style={{alignItems: 'center'}}>
                             <MemberProfilePictureComponent size={100} border={false}
                                                            imageData={this.state.member.profilePicture}
-                                                           imageType={this.state.member.profilePictureImageType}
                             />
                         </View>
                     </View>

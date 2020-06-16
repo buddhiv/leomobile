@@ -3,7 +3,7 @@ import {SafeAreaView, ScrollView, View, Text, Image} from 'react-native';
 import {DrawerItemList, DrawerItem} from '@react-navigation/drawer';
 
 const MemberProfilePictureComponent: () => React$Node = (props) => {
-    let imageBase64Source = 'data:' + props.imageType + ';base64,' + props.imageData;
+    let imageBase64Source = props.imageData;
 
     return (
         <>
@@ -23,7 +23,7 @@ const MemberProfilePictureComponent: () => React$Node = (props) => {
                 borderColor: props.borderColor,
             } : {}]}>
                 {
-                    props.imageData ? <Image
+                    imageBase64Source ? <Image
                         source={{uri: imageBase64Source}}
                         style={{
                             width: props.size,

@@ -58,7 +58,6 @@ class DashboardScreen extends React.Component {
                         <View style={{alignItems: 'center'}}>
                             <MemberProfilePictureComponent size={100} border={false}
                                                            imageData={this.user.profilePicture}
-                                                           imageType={this.user.profilePictureImageType}
                             />
                         </View>
                     </View>

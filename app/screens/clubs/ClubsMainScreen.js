@@ -6,6 +6,7 @@ import DrawerLeftButtonComponent from '../../common/components/DrawerLeftButtonC
 import ClubsFilterScreen from './ClubsFilterScreen';
 import MembersScreen from '../members/MembersScreen';
 import MemberDetailsScreen from '../members/MemberDetailsScreen';
+import ClubDetailsMainScreen from './ClubDetailsMainScreen';
 
 const ClubsMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -20,8 +21,7 @@ const ClubsMainScreen: () => React$Node = (props) => {
                     //     ),
                     // })}
                 />
-                <Stack.Screen name="Club Details" component={ClubDetailsScreen}/>
-                <Stack.Screen name="Club Members" component={MembersScreen}/>
+                <Stack.Screen name="Club Details" component={ClubDetailsMainScreen}/>
                 <Stack.Screen name="Member Details" component={MemberDetailsScreen}/>
                 <Stack.Screen name="Filter Clubs" component={ClubsFilterScreen}/>
             </Stack.Navigator>
