@@ -38,9 +38,9 @@ class ClubDetailsMainScreen extends React.Component {
         };
     };
 
-    getClubDetails = async () => {
+    getClubDetails = async (clubId) => {
         try {
-            let clubResult = await ClubsAPIService.getClubDetailsApi(this.state.clubId);
+            let clubResult = await ClubsAPIService.getClubDetailsApi(clubId);
             // let membersResult = await MembersAPIService.getMembersListApi(this.state.filters);
 
             let stateObj = {
