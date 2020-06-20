@@ -38,6 +38,7 @@ class MemberDetailsScreen extends React.Component {
         try {
             let membersResult = await MembersAPIService.getMemberDetailsApi(this.state.memberId);
 
+            console.log('membersResult.data.data.data');
             console.log(membersResult.data.data.data);
 
             if (!membersResult.data.data.error) {
@@ -71,8 +72,8 @@ class MemberDetailsScreen extends React.Component {
         return this.state.member.id ? [
             ['My LCI ID', this.state.member.mylciId],
             ['Inducted Date', moment(this.state.member.inductedDate).format('YYYY-MM-DD')],
-            ['First Name', this.state.member.firstName],
-            ['Last Name', this.state.member.lastName],
+            ['Club Name', MemberDetailsService.getClubName(this.state.member)],
+            ['Full Name', MemberDetailsService.getFullName(this.state.member)],
             ['Gender', this.state.member.gender],
             ['Date of Birth', moment(this.state.member.birthday).format('YYYY-MM-DD')],
             ['Address', this.state.member.address],

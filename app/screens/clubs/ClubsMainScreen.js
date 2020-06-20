@@ -1,10 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import ClubsScreen from './ClubsScreen';
-import ClubDetailsScreen from './ClubDetailsScreen';
-import DrawerLeftButtonComponent from '../../common/components/DrawerLeftButtonComponent';
 import ClubsFilterScreen from './ClubsFilterScreen';
-import MembersScreen from '../members/MembersScreen';
 import MemberDetailsScreen from '../members/MemberDetailsScreen';
 import ClubDetailsMainScreen from './ClubDetailsMainScreen';
 
