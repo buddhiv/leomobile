@@ -1,6 +1,5 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import MultipleDistrictDetailsScreen from './MultipleDistrictDetailsScreen';
 import MemberDetailsScreen from '../members/MemberDetailsScreen';
 import MultipleDistrictDetailsMainScreen from './MultipleDistrictDetailsMainScreen';
 
