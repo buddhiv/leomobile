@@ -14,12 +14,7 @@ const ClubOfficersComponent: () => React$Node = (props) => {
     let club = props.route.params.club.club;
     let directory = props.route.params.club.directory;
 
-    let goToClubMembers = () => {
-        props.navigation.navigate('Club Members', {
-            filterable: false,
-            clubId: club.id,
-        });
-    };
+    console.log(directory);
 
     let goToMemberDetails = (memberId) => {
         props.navigation.navigate('Member Details', {
@@ -78,7 +73,11 @@ const ClubOfficersComponent: () => React$Node = (props) => {
                             {/*</TouchableComponent>*/}
                         </CardComponent>
                     </View>
-                </ScrollView> : null}
+                </ScrollView> : <View style={{flex: 1, alignItems: 'center', marginTop: 50}}>
+                    <Text style={{color: '#777777', textAlign: 'center'}}>
+                        No Club Officers Appointed.
+                    </Text>
+                </View>}
         </>
     );
 };

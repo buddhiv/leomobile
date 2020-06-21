@@ -53,7 +53,11 @@ const DistrictOfficersComponent: () => React$Node = (props) => {
                                 </View>
                             </CardComponent> : null}
                     </View>
-                </ScrollView> : null}
+                </ScrollView> : <View style={{flex: 1, alignItems: 'center', marginTop: 50}}>
+                    <Text style={{color: '#777777', textAlign: 'center'}}>
+                        No District Council Appointed.
+                    </Text>
+                </View>}
         </>
     );
 };
