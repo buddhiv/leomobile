@@ -8,8 +8,8 @@ const MultipleDistrictMainScreen: () => React$Node = (props) => {
 
     return (
         <>
-            <Stack.Navigator initialRouteName={'Multiple District'}>
-                <Stack.Screen name="Multiple District" component={MultipleDistrictDetailsMainScreen}
+            <Stack.Navigator initialRouteName={'MD 306'}>
+                <Stack.Screen name="MD 306" component={MultipleDistrictDetailsMainScreen}
                     // options={({navigation}) => ({
                     //     headerLeft: () => (
                     //         <DrawerLeftButtonComponent onPress={navigation.toggleDrawer}/>

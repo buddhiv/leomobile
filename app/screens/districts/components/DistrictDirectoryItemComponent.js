@@ -20,7 +20,7 @@ const DistrictDirectoryItemComponent: () => React$Node = (props) => {
                                 </View>
                             </TouchableComponent>
                             <View style={{flex: 1, paddingLeft: 10}}>
-                                <Text style={{fontWeight: 'bold'}}>{props.directoryItem.designationType.name}</Text>
+                                <Text style={{fontWeight: 'bold'}}>{member.leoMemberLeoDistrictDesignation.name}</Text>
                                 <Text>{MemberDetailsService.getFullName(member)}</Text>
                             </View>
                         </View>;

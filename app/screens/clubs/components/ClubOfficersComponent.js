@@ -14,8 +14,6 @@ const ClubOfficersComponent: () => React$Node = (props) => {
     let club = props.route.params.club.club;
     let directory = props.route.params.club.directory;
 
-    console.log(directory);
-
     let goToMemberDetails = (memberId) => {
         props.navigation.navigate('Member Details', {
             memberId: memberId,
@@ -24,12 +22,12 @@ const ClubOfficersComponent: () => React$Node = (props) => {
 
     return (
         <>
-            {directory.length > 0 ?
+            {ClubDetailsService.isClubKeyOfficersAdded(directory) ?
                 <ScrollView>
                     <View style={{padding: 15}}>
 
                         <CardComponent cardStyle={{padding: 0}}>
-                            {ClubDetailsService.isClubKeyOfficersAdded(directory) ? <View style={{
+                            <View style={{
                                 padding: 15,
                                 borderBottomWidth: StyleSheet.hairlineWidth,
                                 borderBottomColor: '#dddddd',
@@ -54,23 +52,7 @@ const ClubOfficersComponent: () => React$Node = (props) => {
                                         })
                                     }
                                 </View>
-                            </View> : null}
-
-                            {/*<TouchableComponent onPress={goToClubMembers}>*/}
-                            {/*    <View style={{padding: 15}}>*/}
-                            {/*        <Text>See All Members</Text>*/}
-                            {/*    </View>*/}
-                            {/*</TouchableComponent>*/}
-
-                            {/*<TouchableComponent>*/}
-                            {/*    <View style={{*/}
-                            {/*        padding: 15,*/}
-                            {/*        borderTopWidth: StyleSheet.hairlineWidth,*/}
-                            {/*        borderTopColor: '#dddddd',*/}
-                            {/*    }}>*/}
-                            {/*        <Text>Add Member</Text>*/}
-                            {/*    </View>*/}
-                            {/*</TouchableComponent>*/}
+                            </View>
                         </CardComponent>
                     </View>
                 </ScrollView> : <View style={{flex: 1, alignItems: 'center', marginTop: 50}}>

@@ -28,33 +28,31 @@ const MultipleDistrictOfficersComponent: () => React$Node = (props) => {
 
     return (
         <>
-            {directory.length > 0 ?
+            {MultipleDistrictDetailsService.isMultipleDistrictKeyOfficersAdded(directory) ?
                 <ScrollView>
                     <View style={{padding: 15}}>
-
-                        {MultipleDistrictDetailsService.isMultipleDistrictKeyOfficersAdded(directory) ?
-                            <CardComponent cardStyle={{padding: 0}}>
-                                <View style={{
-                                    padding: 15,
-                                    borderBottomWidth: StyleSheet.hairlineWidth,
-                                    borderBottomColor: '#dddddd',
-                                }}>
-                                    <View>
-                                        <Text style={{fontWeight: 'bold'}}>Multiple District Key Officers</Text>
-                                    </View>
-                                    <View>
-                                        {
-                                            directory.map((directoryItem, index) => {
-                                                return <MultipleDistrictDirectoryItemComponent
-                                                    directoryItem={directoryItem}
-                                                    key={index}
-                                                    onPressProfilePicture={goToMemberDetails}
-                                                />;
-                                            })
-                                        }
-                                    </View>
+                        <CardComponent cardStyle={{padding: 0}}>
+                            <View style={{
+                                padding: 15,
+                                borderBottomWidth: StyleSheet.hairlineWidth,
+                                borderBottomColor: '#dddddd',
+                            }}>
+                                <View>
+                                    <Text style={{fontWeight: 'bold'}}>Multiple District Key Officers</Text>
                                 </View>
-                            </CardComponent> : null}
+                                <View>
+                                    {
+                                        directory.map((directoryItem, index) => {
+                                            return <MultipleDistrictDirectoryItemComponent
+                                                directoryItem={directoryItem}
+                                                key={index}
+                                                onPressProfilePicture={goToMemberDetails}
+                                            />;
+                                        })
+                                    }
+                                </View>
+                            </View>
+                        </CardComponent>
                     </View>
                 </ScrollView> : <View style={{flex: 1, alignItems: 'center', marginTop: 50}}>
                     <Text style={{color: '#777777', textAlign: 'center'}}>
