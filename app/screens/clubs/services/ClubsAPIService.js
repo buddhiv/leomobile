@@ -7,6 +7,9 @@ const ClubsAPIService = {
     getClubDetailsApi: (clubId) => {
         return WebService.call('/api/v1/leoClubs/' + clubId + '?includedirectory=true', 'GET');
     },
+    saveClubDetailsApi: (clubData) => {
+        return WebService.call('/api/v1/leoClubs/' + clubData.id, 'PATCH', clubData);
+    },
 };
 
 export default ClubsAPIService;

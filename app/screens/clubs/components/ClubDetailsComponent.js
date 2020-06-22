@@ -8,10 +8,19 @@ import IconComponent from '../../../common/components/IconComponent';
 import TableComponent from '../../../common/components/TableComponent';
 import ClubDetailsService from '../services/ClubDetailsService';
 import moment from 'moment';
+import PermissionsService from '../../../common/services/PermissionsService';
+import ColorService from '../../../common/services/ColorService';
+import UserService from '../../../common/services/UserService';
+import MemberDetailsService from '../../members/services/MemberDetailsService';
 
 const ClubDetailsComponent: () => React$Node = (props) => {
 
+    console.log('re render 111');
+
     let club = props.route.params.club.club;
+    let districtsList = props.route.params.districtsList;
+    let regionsList = props.route.params.regionsList;
+    let saveCallback = props.route.params.saveCallback;
 
     let goToWebsite = () => {
 
@@ -39,9 +48,9 @@ const ClubDetailsComponent: () => React$Node = (props) => {
 
     let getClubGeneralInformation = () => {
         return club.id ? [
+            ['Charter ID', club.charterId],
             ['District', ClubDetailsService.getDistrictName(club)],
             ['Zone', ClubDetailsService.getZoneName(club)],
-            ['Charter ID', club.charterId],
             ['Lions Club', ClubDetailsService.getLionsClubName(club)],
             ['Created at', moment(club.createdAt).format('YYYY-MM-DD')],
         ] : [];
@@ -56,6 +65,24 @@ const ClubDetailsComponent: () => React$Node = (props) => {
             ['Linkedin', club.linkedin],
             ['Twitter', club.twitter],
         ] : [];
+    };
+
+    let isClubEditable = () => {
+        return (PermissionsService.getPermission('club_profile').update && (MemberDetailsService.getClubId(UserService.getCurrentUser()) === club.id));
+    };
+
+    let goToEditClub = (sectionName) => {
+        console.log(districtsList);
+        console.log(props);
+        console.log('ssdsdsd');
+
+        props.navigation.navigate('Edit Club', {
+            club: Object.assign({}, club),
+            sectionName: sectionName,
+            districtsList: districtsList,
+            regionsList: regionsList,
+            saveCallback: saveCallback,
+        });
     };
 
     return (
@@ -122,7 +149,20 @@ const ClubDetailsComponent: () => React$Node = (props) => {
                         <View style={{paddingTop: 10}}>
                             <CardComponent>
                                 <View>
-                                    <Text style={{fontWeight: 'bold'}}>General</Text>
+                                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                        <View style={{flex: 1}}>
+                                            <Text style={{fontWeight: 'bold'}}>General</Text>
+                                        </View>
+
+                                        {isClubEditable() ?
+                                            <TouchableComponent onPress={() => {
+                                                goToEditClub('general');
+                                            }}>
+                                                <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}
+                                                                                      color={ColorService.SECONDARY_COLOR_DARK}/>
+                                            </TouchableComponent>
+                                            : null}
+                                    </View>
 
                                     <View style={{paddingVertical: 10}}>
                                         <TableComponent data={getClubGeneralInformation()}
@@ -130,7 +170,20 @@ const ClubDetailsComponent: () => React$Node = (props) => {
                                     </View>
                                 </View>
                                 <View>
-                                    <Text style={{fontWeight: 'bold'}}>Social</Text>
+                                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                        <View style={{flex: 1}}>
+                                            <Text style={{fontWeight: 'bold'}}>Social</Text>
+                                        </View>
+
+                                        {isClubEditable() ?
+                                            <TouchableComponent onPress={() => {
+                                                goToEditClub('social');
+                                            }}>
+                                                <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}
+                                                                                      color={ColorService.SECONDARY_COLOR_DARK}/>
+                                            </TouchableComponent>
+                                            : null}
+                                    </View>
 
                                     <View style={{paddingTop: 10}}>
                                         <TableComponent data={getClubSocialInformation()}

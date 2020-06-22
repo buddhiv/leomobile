@@ -4,6 +4,7 @@ import ClubsScreen from './ClubsScreen';
 import ClubsFilterScreen from './ClubsFilterScreen';
 import MemberDetailsScreen from '../members/MemberDetailsScreen';
 import ClubDetailsMainScreen from './ClubDetailsMainScreen';
+import EditClubDetailsScreen from './EditClubDetailsScreen';
 
 const ClubsMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -21,6 +22,7 @@ const ClubsMainScreen: () => React$Node = (props) => {
                 <Stack.Screen name="Club Details" component={ClubDetailsMainScreen}/>
                 <Stack.Screen name="Member Details" component={MemberDetailsScreen}/>
                 <Stack.Screen name="Filter Clubs" component={ClubsFilterScreen}/>
+                <Stack.Screen name="Edit Club" component={EditClubDetailsScreen}/>
             </Stack.Navigator>
         </>
     );

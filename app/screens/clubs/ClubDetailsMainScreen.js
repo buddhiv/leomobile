@@ -8,82 +8,115 @@ import MembersAPIService from '../members/services/MembersAPIService';
 import ClubDetailsComponent from './components/ClubDetailsComponent';
 import Layout from '../../common/Layout';
 import ClubOfficersComponent from './components/ClubOfficersComponent';
+import DistrictsAPIService from '../districts/services/DistrictsAPIService';
+import MemberDetailsService from '../members/services/MemberDetailsService';
+import UserService from '../../common/services/UserService';
+import ClubOfficersScreen from './ClubOfficersScreen';
+import ClubDetailsScreen from './ClubDetailsScreen';
 
-class ClubDetailsMainScreen extends React.Component {
-    constructor(props) {
-        super(props);
+const ClubDetailsMainScreen: () => React$Node = (props) => {
+    // constructor(props) {
+    //     super(props);
+    //
+    //     console.log('in club details main props');
+    //     console.log(props);
+    //
+    //     this.clubId = props.route.params.clubId;
+    //     this.districtsList = props.route.params.districtsList;
+    //     this.regionsList = props.route.params.regionsList;
+    //
+    //     this.state = {
+    //         clubId: this.clubId,
+    //         club: {},
+    //         filters: this.getDefaultFilter(),
+    //         loading: true,
+    //     };
+    // }
 
-        this.clubId = props.route.params.clubId;
+    // componentDidMount(): void {
+    //     this.getClubDetails(this.state.clubId);
+    // }
+    //
+    // getDefaultFilter = () => {
+    //     return {
+    //         filters: {
+    //             name: '',
+    //             gender: '',
+    //             clubId: this.clubId,
+    //             mylciId: '',
+    //         },
+    //     };
+    // };
+    //
+    // getClubDetails = async (clubId) => {
+    //     try {
+    //         let clubResult = await ClubsAPIService.getClubDetailsApi(clubId);
+    //         // let membersResult = await MembersAPIService.getMembersListApi(this.state.filters);
+    //
+    //         let stateObj = {
+    //             club: clubResult.data.data,
+    //             // membersList: membersResult.data.data,
+    //             loading: false,
+    //         };
+    //
+    //         if (!this.districtsList || !this.regionsList) {
+    //             let districtsResult = await DistrictsAPIService.getDistrictsListApi();
+    //             let regionsResult = await DistrictsAPIService.getRegionsListApi(MemberDetailsService.getDistrictId(UserService.getCurrentUser()));
+    //
+    //             this.districtsList = districtsResult.data.data;
+    //             this.regionsList = regionsResult.data.data;
+    //         }
+    //
+    //         if (!clubResult.data.error) {
+    //             this.setState(stateObj);
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //         this.setState({
+    //             loading: false,
+    //         });
+    //     }
+    // };
+    //
+    // saveCallback = (clubData) => {
+    //     console.log('save callback');
+    //     console.log(clubData);
+    //
+    //     // this.setState({
+    //     //     club: {},
+    //     // }, () => {
+    //     this.state.club.club = clubData;
+    //
+    //     this.setState({
+    //         club: this.state.club,
+    //     });
+    //     // });
+    // };
+    let clubId = props.route.params.clubId;
 
-        this.state = {
-            clubId: this.clubId,
-            club: {},
-            filters: this.getDefaultFilter(),
-            loading: true,
-        };
-    }
+    let Tab = createMaterialTopTabNavigator();
 
-    componentDidMount(): void {
-        this.getClubDetails(this.state.clubId);
-    }
-
-    getDefaultFilter = () => {
-        return {
-            filters: {
-                name: '',
-                gender: '',
-                clubId: this.clubId,
-                mylciId: '',
-            },
-        };
-    };
-
-    getClubDetails = async (clubId) => {
-        try {
-            let clubResult = await ClubsAPIService.getClubDetailsApi(clubId);
-            // let membersResult = await MembersAPIService.getMembersListApi(this.state.filters);
-
-            let stateObj = {
-                club: clubResult.data.data,
-                // membersList: membersResult.data.data,
-                loading: false,
-            };
-
-            if (!clubResult.data.error) {
-                this.setState(stateObj);
-            }
-        } catch (e) {
-            console.log(e);
-            this.setState({
-                loading: false,
-            });
-        }
-    };
-
-    render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
-        let Tab = createMaterialTopTabNavigator();
-
-        return (
-            <>
-                <Layout loading={this.state.loading} scrollEnabled={false}>
-
-                    {this.state.club.club ? <Tab.Navigator tabBarOptions={{
-                        indicatorStyle: {
-                            backgroundColor: ColorService.PRIMARY_COLOR,
-                        },
-                    }}>
-                        <Tab.Screen name="Club Details" component={ClubDetailsComponent}
-                                    initialParams={{club: this.state.club}}/>
-                        <Tab.Screen name="Club Officers" component={ClubOfficersComponent}
-                                    initialParams={{club: this.state.club}}/>
-                        {/*<Tab.Screen name="Club Members" component={MembersScreen}*/}
-                        {/*            initialParams={{clubId: this.state.clubId, filterable: false}}/>*/}
-                    </Tab.Navigator> : <View></View>}
-
-                </Layout>
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <Tab.Navigator
+                tabBarOptions={{
+                    indicatorStyle: {
+                        backgroundColor: ColorService.PRIMARY_COLOR,
+                    },
+                }}>
+                <Tab.Screen name="Club Details" component={ClubDetailsScreen}
+                            initialParams={{
+                                clubId: clubId,
+                            }}/>
+                <Tab.Screen name="Club Officers" component={ClubOfficersScreen}
+                            initialParams={{
+                                clubId: clubId,
+                            }}/>
+                {/*<Tab.Screen name="Club Members" component={MembersScreen}*/}
+                {/*            initialParams={{clubId: this.state.clubId, filterable: false}}/>*/}
+            </Tab.Navigator>
+        </>
+    );
+};
 
 export default ClubDetailsMainScreen;

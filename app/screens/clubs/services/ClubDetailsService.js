@@ -5,6 +5,9 @@ const ClubDetailsService = {
     getZoneName: (club) => {
         return club.leoDistrictZone.name;
     },
+    getZoneId: (club) => {
+        return club.leoDistrictZone.id;
+    },
     getLionsClubName: (club) => {
         return club.parentLionsClub.name;
     },
@@ -20,6 +23,9 @@ const ClubDetailsService = {
                 value: club.id,
             };
         });
+    },
+    getRegionId: (club) => {
+        return club.leoDistrictZone.leoDistrictRegion.id;
     },
 };
 

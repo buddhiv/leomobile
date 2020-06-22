@@ -39,12 +39,16 @@ class ClubsScreen extends React.Component {
             };
 
             let districtsResult = undefined;
+            let regionsResult = undefined;
             if (isInitial) {
                 districtsResult = await DistrictsAPIService.getDistrictsListApi();
+                regionsResult = await DistrictsAPIService.getRegionsListApi(MemberDetailsService.getDistrictId(this.user));
+
                 stateObj.districtsList = districtsResult.data.data;
+                stateObj.regionsList = regionsResult.data.data;
             }
 
-            if (!clubsResult.data.error && (!districtsResult || !districtsResult.data.error)) {
+            if (!clubsResult.data.error && (!districtsResult || !districtsResult.data.error) && (!regionsResult || !regionsResult.data.error)) {
                 this.setState(stateObj);
             }
         } catch (e) {
@@ -67,6 +71,8 @@ class ClubsScreen extends React.Component {
     goToClubDetailsScreen = (club) => {
         this.props.navigation.navigate('Club Details', {
             clubId: club.id,
+            districtsList: this.state.districtsList,
+            regionsList: this.state.regionsList,
         });
     };
 
