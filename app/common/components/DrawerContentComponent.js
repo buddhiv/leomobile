@@ -5,6 +5,7 @@ import LoginService from '../../lib/services/LoginService';
 import GlobalService from '../../lib/services/GlobalService';
 import MemberDetailsService from '../../screens/members/services/MemberDetailsService';
 import UserService from '../services/UserService';
+import MemberProfilePictureComponent from '../../screens/members/components/MemberProfilePictureComponent';
 
 const DrawerContentComponent: () => React$Node = (props) => {
     let user = UserService.getCurrentUser();
@@ -14,8 +15,13 @@ const DrawerContentComponent: () => React$Node = (props) => {
             <SafeAreaView style={{flex: 1}} forceInset={{top: 'always', horizontal: 'never'}}>
 
                 <View style={{paddingHorizontal: 20, paddingVertical: 20}}>
-                    <Text>{MemberDetailsService.getFullName(user)}</Text>
-                    <Text>{user.leoClub.name}</Text>
+                    <View>
+                        <MemberProfilePictureComponent size={60} border={false}/>
+                    </View>
+                    <View style={{marginTop: 10}}>
+                        <Text>{MemberDetailsService.getFullName(user)}</Text>
+                        <Text>{user.leoClub.name}</Text>
+                    </View>
                 </View>
 
                 <ScrollView contentContainerStyle={{flexGrow: 1}} bounces={false}>
