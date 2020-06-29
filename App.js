@@ -9,11 +9,18 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import MainScreen from './app/screens/core/MainScreen';
+import {Provider} from 'react-redux';
+import configureStore from './app/redux/store/ConfigureStore';
+import DocumentsScreen from './app/screens/documents/DocumentsScreen';
+
+const store = configureStore();
 
 const App: () => React$Node = () => {
     return (
         <>
-            <MainScreen/>
+            <Provider store={store}>
+                <MainScreen/>
+            </Provider>
         </>
     );
 };

@@ -6,19 +6,16 @@ import {
 import Layout from '../../common/Layout';
 import MembersAPIService from './services/MembersAPIService';
 import MemberDetailsService from './services/MemberDetailsService';
-import MemberProfilePictureComponent from './components/MemberProfilePictureComponent';
 import CardComponent from '../../common/components/CardComponent';
-import IconComponent from '../../common/components/IconComponent';
-import TouchableComponent from '../../common/components/TouchableComponent';
-import TableComponent from '../../common/components/TableComponent';
 import moment from 'moment';
-import UserService from '../../common/services/UserService';
 import TextWidget from '../../common/widgets/TextWidget';
 import PickerWidget from '../../common/widgets/PickerWidget';
 import DatePickerWidget from '../../common/widgets/DatePickerWidget';
-import Toast from 'react-native-toast-message';
 import ToastService from '../../common/services/ToastService';
 import ColorService from '../../common/services/ColorService';
+import {bindActionCreators} from 'redux';
+import {updateUser} from '../../redux/actions/UserActions';
+import {connect} from 'react-redux';
 
 class EditMemberDetailsScreen extends React.Component {
     constructor(props) {
@@ -71,10 +68,14 @@ class EditMemberDetailsScreen extends React.Component {
                 if (!saveResult.data.error) {
                     ToastService.showSuccessToast('Successfully Saved!');
 
+
                     this.setState({
                         member: saveResult.data.data,
                         loading: false,
                     }, () => {
+                        let {actions} = this.props;
+                        actions.updateUser(saveResult.data.data);
+
                         this.member = {...this.member, ...saveResult.data.data};
                         this.saveCallback(this.member);
                     });
@@ -294,4 +295,13 @@ class EditMemberDetailsScreen extends React.Component {
     }
 };
 
-export default EditMemberDetailsScreen;
+
+let mapStateToProps = state => ({
+    user: state.user,
+});
+
+let mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({updateUser}, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditMemberDetailsScreen);

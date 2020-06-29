@@ -12,15 +12,16 @@ import IconComponent from '../../common/components/IconComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
 import TableComponent from '../../common/components/TableComponent';
 import moment from 'moment';
-import UserService from '../../common/services/UserService';
 import PermissionsService from '../../common/services/PermissionsService';
 import ColorService from '../../common/services/ColorService';
+import {connect} from 'react-redux';
 
 class MemberDetailsScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        this.currentUser = UserService.getCurrentUser();
+        console.log(props);
+        this.currentUser = props.user.user;
 
         this.state = {
             memberId: props.route.params.mode === 'my' ? this.currentUser.id : props.route.params.memberId,
@@ -102,8 +103,7 @@ class MemberDetailsScreen extends React.Component {
 
     isProfileEditable = () => {
         // return (!this.state.loading && this.currentUser.id === this.state.memberId);
-
-        return (!this.state.loading && PermissionsService.getPermission('leo_profile').update && this.props.route.params.mode === 'my');
+        return (!this.state.loading && PermissionsService.getPermission(this.props.permissions.permissions, 'leo_profile').update && this.props.route.params.mode === 'my');
     };
 
     saveCallback = (newMemberObj) => {
@@ -257,4 +257,9 @@ class MemberDetailsScreen extends React.Component {
     }
 };
 
-export default MemberDetailsScreen;
+let mapStateToProps = state => ({
+    user: state.user,
+    permissions: state.permissions,
+});
+
+export default connect(mapStateToProps)(MemberDetailsScreen);

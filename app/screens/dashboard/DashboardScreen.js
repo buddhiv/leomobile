@@ -8,12 +8,19 @@ import CardComponent from '../../common/components/CardComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
 import MemberDetailsService from '../members/services/MemberDetailsService';
 import MemberProfilePictureComponent from '../members/components/MemberProfilePictureComponent';
+import {connect} from 'react-redux';
 
 class DashboardScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        this.user = UserService.getCurrentUser();
+        console.log('sssss');
+        console.log(props);
+        console.log(props.user.user);
+
+        this.user = props.user.user;
+
+        console.log('wwwww');
 
         this.state = {};
     }
@@ -110,4 +117,9 @@ const styles = StyleSheet.create({
     },
 });
 
-export default DashboardScreen;
+// export default DashboardScreen;
+let mapStateToProps = state => ({
+    user: state.user,
+});
+
+export default connect(mapStateToProps)(DashboardScreen);

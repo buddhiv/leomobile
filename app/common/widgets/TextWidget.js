@@ -15,6 +15,7 @@ const TextWidget: () => React$Node = (props) => {
                     marginBottom: -10,
                 }]}>
                     <TextInput value={props.value}
+                               secureTextEntry={props.secured}
                                onChangeText={props.onChangeText}/>
                 </View>
                 <View style={{borderTopWidth: 1, borderTopColor: ColorService.PRIMARY_COLOR}}>
@@ -27,6 +28,7 @@ const TextWidget: () => React$Node = (props) => {
 
 TextWidget.propTypes = {
     value: PropTypes.any,
+    secured: PropTypes.bool,
     onChangeText: PropTypes.func,
 };
 

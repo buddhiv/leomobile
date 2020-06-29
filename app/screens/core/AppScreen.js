@@ -1,5 +1,4 @@
 import React from 'react';
-import {BackHandler, Text} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import ProjectsMainScreen from '../projects/ProjectsMainScreen';
 import ClubsMainScreen from '../clubs/ClubsMainScreen';
@@ -9,6 +8,7 @@ import DrawerContentComponent from '../../common/components/DrawerContentCompone
 import DashboardScreen from '../dashboard/DashboardScreen';
 import DistrictsMainScreen from '../districts/DistrictsMainScreen';
 import MultipleDistrictMainScreen from '../multipleDistrict/MultipleDistrictMainScreen';
+import DocumentsMainScreen from '../documents/documentsMainScreen';
 
 class AppScreen extends React.Component {
     constructor(props) {
@@ -36,6 +36,7 @@ class AppScreen extends React.Component {
                     <AppDrawer.Screen name="Districts" component={DistrictsMainScreen}/>
                     <AppDrawer.Screen name="MD 306" component={MultipleDistrictMainScreen}/>
                     <AppDrawer.Screen name="Members" component={MembersMainScreen}/>
+                    {/*<AppDrawer.Screen name="Documents" component={DocumentsMainScreen}/>*/}
                 </AppDrawer.Navigator>
             </>
         );

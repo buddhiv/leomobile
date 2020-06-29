@@ -2,13 +2,13 @@ import React from 'react';
 import {SafeAreaView, ScrollView, View, Text, StyleSheet} from 'react-native';
 import {DrawerItemList, DrawerItem} from '@react-navigation/drawer';
 import LoginService from '../../lib/services/LoginService';
-import GlobalService from '../../lib/services/GlobalService';
 import MemberDetailsService from '../../screens/members/services/MemberDetailsService';
-import UserService from '../services/UserService';
 import MemberProfilePictureComponent from '../../screens/members/components/MemberProfilePictureComponent';
+import {connect, useSelector} from 'react-redux';
 
 const DrawerContentComponent: () => React$Node = (props) => {
-    let user = UserService.getCurrentUser();
+
+    let userObj = props.user.user;
 
     return (
         <>
@@ -19,8 +19,8 @@ const DrawerContentComponent: () => React$Node = (props) => {
                         <MemberProfilePictureComponent size={60} border={false}/>
                     </View>
                     <View style={{marginTop: 10}}>
-                        <Text>{MemberDetailsService.getFullName(user)}</Text>
-                        <Text>{user.leoClub.name}</Text>
+                        <Text>{MemberDetailsService.getFullName(userObj)}</Text>
+                        <Text>{userObj.leoClub ? userObj.leoClub.name : ''}</Text>
                     </View>
                 </View>
 
@@ -46,5 +46,11 @@ const DrawerContentComponent: () => React$Node = (props) => {
     );
 };
 
-export default DrawerContentComponent;
+let mapStateToProps = state => ({
+    user: state.user,
+});
+
+export default connect(mapStateToProps)(DrawerContentComponent);
+
+// export default DrawerContentComponent
 

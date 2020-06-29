@@ -1,10 +1,6 @@
-import UserService from './UserService';
-
 const PermissionsService = {
-    getPermission: (permissionName) => {
-        let permissions = UserService.getCurrentUserPermissions();
-
-        let selectedPermissions = permissions.permissions.filter((permissionObj) => {
+    getPermission: (permissionsArray, permissionName) => {
+        let selectedPermissions = permissionsArray.filter((permissionObj) => {
             return permissionObj.datagroup_name === permissionName;
         });
 
