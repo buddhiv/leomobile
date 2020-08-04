@@ -5,9 +5,6 @@ let initialState = {
 };
 
 const PermissionsReducer = (state = initialState, action) => {
-    console.log('in user reducer');
-    console.log(action);
-
     switch (action.type) {
         case Constants.SET_PERMISSIONS:
             return {

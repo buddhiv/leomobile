@@ -31,13 +31,7 @@ class MainScreen extends React.Component {
         //         loggedInState: payload.logged_in_state_changed,
         //     });
         // });
-        //
-        // GoogleSignin.configure({
-        //     webClientId: '782712513524-cisligbg23rdh5tsttd9c651v0lp7pk2.apps.googleusercontent.com',
-        //     iosClientId: '782712513524-s2l3jue80cqqtlk1vjh9o7itjvorajrc.apps.googleusercontent.com',
-        //     offlineAccess: true,
-        // });
-        //
+
         // this.subscriber = auth().onAuthStateChanged(this.onAuthStateChanged);
     }
 

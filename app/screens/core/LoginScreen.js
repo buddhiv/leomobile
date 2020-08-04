@@ -18,6 +18,7 @@ import {setUser} from '../../redux/actions/UserActions';
 import {setPermissions} from '../../redux/actions/PermissionActions';
 import {setAppState} from '../../redux/actions/AppStateActions';
 import {connect} from 'react-redux';
+import ToastService from '../../common/services/ToastService';
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -28,77 +29,94 @@ class LoginScreen extends React.Component {
             error: '',
             username: '',
             password: '',
+            loading: false,
         };
     }
 
     async componentDidMount(): void {
-        // this.subscriber = auth().onAuthStateChanged(this.onAuthStateChanged);
+        this.subscriber = auth().onAuthStateChanged(this.onAuthStateChanged);
     }
 
     componentWillUnmount(): void {
-        // this.subscriber();
+        this.subscriber();
     }
 
-    // onAuthStateChanged = (user) => {
-    //     console.log('onAuthStateChanged login');
-    //
-    //     if (user) {
-    //         LoginAPIService.getAuthUserApi(user._user.email).then(async (response) => {
-    //             if (!response.data.data.data) {
-    //                 let authUser = {
-    //                     name: user._user.displayName,
-    //                     email: user._user.email,
-    //                 };
-    //
-    //                 this.setState({
-    //                     loggedInState: LoginService.LOGGED_IN,
-    //                     authUser: authUser,
-    //                     error: 'No User Account Associated',
-    //                 });
-    //             }
-    //         });
-    //     }
-    // };
+    onAuthStateChanged = async (user) => {
+        console.log('onAuthStateChanged login');
+
+        if (user) {
+            console.log(user);
+
+            let response = await LoginAPIService.getAuthUserApi(user._user.email);
+
+            console.log('tada !!');
+            console.log(response);
+
+            if (!response.data.data) {
+                // let authUser = {
+                //     name: user._user.displayName,
+                //     email: user._user.email,
+                // };
+
+                // this.setState({
+                //     authUser: authUser,
+                //     error: 'No User Account Associated',
+                // });
+
+                let {actions} = this.props;
+                actions.setUser(response.data.data);
+                actions.setPermissions(response.data.meta.permissions);
+                actions.setAppState(LoginService.LOGGED_IN);
+            }
+        }
+    };
 
     onGoogleSignInButtonPress = async () => {
-        // // Get the users ID token
-        // let {idToken} = await GoogleSignin.signIn();
-        //
-        // // Create a Google credential with the token
-        // let googleToken = auth.GoogleAuthProvider.credential(idToken);
-        //
-        // // Sign-in the user with the credential
-        // let authResponse = await auth().signInWithCredential(googleToken);
+        let loginResponse = await LoginService.loginUsingGoogle();
+
+        console.log('loginResponse');
+        console.log(loginResponse);
     };
 
-    goToApplication = async () => {
-        // InitService.getGlobalEventEmitter().emit('logged_in_state_change', {
-        //     logged_in_state_changed: LoginService.IN_APP,
-        // });
-    };
+    // goToApplication = async () => {
+    //     // InitService.getGlobalEventEmitter().emit('logged_in_state_change', {
+    //     //     logged_in_state_changed: LoginService.IN_APP,
+    //     // });
+    // };
 
     onLoginButtonPress = async () => {
-        let username = this.state.username;
-        let password = this.state.password;
+        try {
+            await this.setState({loading: true});
 
-        let loginResult = await LoginService.loginUsingCredentials(username, password);
+            let username = this.state.username;
+            let password = this.state.password;
 
-        if (loginResult) {
-            let {actions} = this.props;
-            actions.setUser(loginResult.data.data);
-            actions.setPermissions(loginResult.data.meta.permissions);
-            actions.setAppState(LoginService.LOGGED_IN);
+            let loginResult = await LoginService.loginUsingCredentials(username, password);
+
+            await this.setState({loading: false});
+
+            console.log('loginResult');
+            console.log(loginResult);
+
+            if (loginResult) {
+                let {actions} = this.props;
+                actions.setUser(loginResult.data.data);
+                actions.setPermissions(loginResult.data.meta.permissions);
+                actions.setAppState(LoginService.LOGGED_IN);
+            } else {
+                ToastService.showErrorToast('Login Failed');
+            }
+        } catch (e) {
+            await this.setState({loading: false});
+            ToastService.showErrorToast('Login Failed');
         }
     };
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
-            <Layout loading={false} scrollEnabled={true}>
+            <Layout loading={this.state.loading} scrollEnabled={true}>
                 <View style={{flex: 1, padding: 15}}>
-                    <View style={{
-                        flex: 1,
-                        // backgroundColor: 'red',
-                    }}>
+                    <View style={{flex: 1}}>
                         <View style={{alignItems: 'center', marginTop: 50}}>
                             <Image source={require('../../assets/app-logo.png')}
                                    style={{
@@ -157,44 +175,6 @@ class LoginScreen extends React.Component {
                             </View>
                         </View>
 
-                        {/*<View style={{*/}
-                        {/*    alignItems: 'center',*/}
-                        {/*    justifyContent: 'center',*/}
-                        {/*    borderWidth: StyleSheet.hairlineWidth,*/}
-                        {/*    borderColor: '#acacac',*/}
-                        {/*    padding: 50,*/}
-                        {/*}}>*/}
-
-                        {/*    <View style={{}}>*/}
-                        {/*        <Text>Login to Leo Mobile</Text>*/}
-                        {/*    </View>*/}
-
-                        {/*    {this.state.authUser ?*/}
-                        {/*        <View style={{marginBottom: 50, alignItems: 'center'}}>*/}
-                        {/*            <Text style={{fontSize: 18}}>Welcome, {this.state.authUser.name}</Text>*/}
-                        {/*            <Text style={{color: '#777777'}}>{this.state.authUser.email}</Text>*/}
-
-                        {/*            {this.state.error !== '' ? <Text>{this.state.error}</Text> : null}*/}
-                        {/*            <View style={{marginTop: 10}}>*/}
-                        {/*                <Button*/}
-                        {/*                    title="Continue to Application"*/}
-                        {/*                    onPress={this.goToApplication}>*/}
-                        {/*                </Button>*/}
-                        {/*            </View>*/}
-                        {/*        </View>*/}
-                        {/*        : null}*/}
-
-                        {/*    <View style={{alignItems: 'center'}}>*/}
-                        {/*        <Text>{this.state.authUser ? 'Login Using Your Google Account' : 'Login Using Google'}</Text>*/}
-                        {/*        <View style={{marginTop: 10}}>*/}
-                        {/*            <GoogleSigninButton*/}
-                        {/*                style={{width: 192, height: 48}}*/}
-                        {/*                size={GoogleSigninButton.Size.Wide}*/}
-                        {/*                color={GoogleSigninButton.Color.Dark}*/}
-                        {/*                onPress={this.onGoogleSignInButtonPress}/>*/}
-                        {/*        </View>*/}
-                        {/*    </View>*/}
-                        {/*</View>*/}
                     </View>
                     <View style={{alignItems: 'center'}}>
                         <Text>Leo Mobile</Text>

@@ -6,9 +6,6 @@ let initialState = {
 };
 
 const AppStateReducer = (state = initialState, action) => {
-    console.log('in app state reducer');
-    console.log(action);
-
     switch (action.type) {
         case Constants.APP_STATE:
             return {

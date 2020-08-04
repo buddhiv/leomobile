@@ -10,7 +10,11 @@ let getAxiosFunction = (api, method, params) => {
         case 'get':
             return axios.get(url);
         case 'post':
-            return axios.post(url, params);
+            return axios.post(url, params, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
         case 'put':
             break;
         case 'patch':

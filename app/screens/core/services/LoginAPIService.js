@@ -6,7 +6,7 @@ const LoginAPIService = {
     },
     getLoginAPI: (loginCredentials) => {
         return WebService.call('/api/v1/auth/login', 'POST', loginCredentials);
-    }
+    },
 };
 
 export default LoginAPIService;

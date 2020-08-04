@@ -24,7 +24,23 @@ const ToastService = {
             text1: 'Success',
             text2: message,
             visibilityTime: 5000,
-            // autoHide: true,
+            autoHide: false,
+            topOffset: 10,
+            bottomOffset: 0,
+            onShow: () => {
+            },
+            onHide: () => {
+            },
+        });
+    },
+    showErrorToast: (message) => {
+        Toast.show({
+            type: 'error',
+            position: 'top',
+            text1: 'Error',
+            text2: message,
+            visibilityTime: 5000,
+            autoHide: false,
             topOffset: 10,
             bottomOffset: 0,
             onShow: () => {

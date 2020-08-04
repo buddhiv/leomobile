@@ -1,12 +1,8 @@
 const MemberDetailsService = {
     getFirstName: (member) => {
-        console.log('first');
-        console.log(member);
         return member.firstName;
     },
     getFullName: (member) => {
-        console.log('full');
-        console.log(member);
         return member.firstName + ' ' + member.lastName;
     },
     getClubName: (member) => {

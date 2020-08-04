@@ -5,10 +5,20 @@ import LoginService from '../../lib/services/LoginService';
 import MemberDetailsService from '../../screens/members/services/MemberDetailsService';
 import MemberProfilePictureComponent from '../../screens/members/components/MemberProfilePictureComponent';
 import {connect, useSelector} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {setUser} from '../../redux/actions/UserActions';
+import {setPermissions} from '../../redux/actions/PermissionActions';
+import {setAppState} from '../../redux/actions/AppStateActions';
 
 const DrawerContentComponent: () => React$Node = (props) => {
 
     let userObj = props.user.user;
+
+    let logout = async () => {
+        // await LoginService.logOut();
+
+        props.actions.setAppState(LoginService.NOT_LOGGED_IN);
+    };
 
     return (
         <>
@@ -29,7 +39,7 @@ const DrawerContentComponent: () => React$Node = (props) => {
                 </ScrollView>
 
                 <View>
-                    <DrawerItem label={'Log Out'} onPress={LoginService.logOut}/>
+                    <DrawerItem label={'Log Out'} onPress={logout}/>
                 </View>
 
                 <View style={{borderTopColor: '#dddddd', borderTopWidth: StyleSheet.hairlineWidth}}>
@@ -50,7 +60,9 @@ let mapStateToProps = state => ({
     user: state.user,
 });
 
-export default connect(mapStateToProps)(DrawerContentComponent);
+let mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({setAppState}, dispatch),
+});
 
-// export default DrawerContentComponent
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerContentComponent);
 
