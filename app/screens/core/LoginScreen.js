@@ -19,6 +19,7 @@ import {setPermissions} from '../../redux/actions/PermissionActions';
 import {setAppState} from '../../redux/actions/AppStateActions';
 import {connect} from 'react-redux';
 import ToastService from '../../common/services/ToastService';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -44,38 +45,29 @@ class LoginScreen extends React.Component {
     onAuthStateChanged = async (user) => {
         console.log('onAuthStateChanged login');
 
-        if (user) {
-            console.log(user);
-
+        if (user) { //if logged in via the google sign indra
             let response = await LoginAPIService.getAuthUserApi(user._user.email);
 
-            console.log('tada !!');
-            console.log(response);
+            await this.setState({loading: false});
 
-            if (!response.data.data) {
-                // let authUser = {
-                //     name: user._user.displayName,
-                //     email: user._user.email,
-                // };
-
-                // this.setState({
-                //     authUser: authUser,
-                //     error: 'No User Account Associated',
-                // });
-
+            if (response.data.data) {
                 let {actions} = this.props;
-                actions.setUser(response.data.data);
-                actions.setPermissions(response.data.meta.permissions);
+                actions.setUser(response.data.data.data);
+                actions.setPermissions(response.data.data.meta.permissions);
                 actions.setAppState(LoginService.LOGGED_IN);
+            }
+        } else { //try if the username password is stored
+            let credentials = await AsyncStorage.multiGet(['username', 'password']);
+
+            if (credentials[0][1] && credentials[1][1]) {
+                this.continueLogin(credentials[0][1], credentials[1][1]);
             }
         }
     };
 
     onGoogleSignInButtonPress = async () => {
+        await this.setState({loading: true});
         let loginResponse = await LoginService.loginUsingGoogle();
-
-        console.log('loginResponse');
-        console.log(loginResponse);
     };
 
     // goToApplication = async () => {
@@ -91,23 +83,26 @@ class LoginScreen extends React.Component {
             let username = this.state.username;
             let password = this.state.password;
 
-            let loginResult = await LoginService.loginUsingCredentials(username, password);
-
-            await this.setState({loading: false});
-
-            console.log('loginResult');
-            console.log(loginResult);
-
-            if (loginResult) {
-                let {actions} = this.props;
-                actions.setUser(loginResult.data.data);
-                actions.setPermissions(loginResult.data.meta.permissions);
-                actions.setAppState(LoginService.LOGGED_IN);
-            } else {
-                ToastService.showErrorToast('Login Failed');
-            }
+            this.continueLogin(username, password);
         } catch (e) {
             await this.setState({loading: false});
+            ToastService.showErrorToast('Login Failed');
+        }
+    };
+
+    continueLogin = async (username, password) => {
+        let loginResult = await LoginService.loginUsingCredentials(username, password);
+
+        await this.setState({loading: false});
+
+        if (loginResult) {
+            await AsyncStorage.multiSet([['username', username], ['password', password]]);
+
+            let {actions} = this.props;
+            actions.setUser(loginResult.data.data);
+            actions.setPermissions(loginResult.data.meta.permissions);
+            actions.setAppState(LoginService.LOGGED_IN);
+        } else {
             ToastService.showErrorToast('Login Failed');
         }
     };

@@ -15,9 +15,11 @@ const DrawerContentComponent: () => React$Node = (props) => {
     let userObj = props.user.user;
 
     let logout = async () => {
-        // await LoginService.logOut();
-
-        props.actions.setAppState(LoginService.NOT_LOGGED_IN);
+        try {
+            await LoginService.logOut();
+        } finally {
+            props.actions.setAppState(LoginService.NOT_LOGGED_IN);
+        }
     };
 
     return (

@@ -23,47 +23,6 @@ class MainScreen extends React.Component {
         };
     }
 
-    async componentDidMount(): void {
-        InitService.setGlobalListeners();
-
-        // InitService.getGlobalEventEmitter().addListener('logged_in_state_change', (payload) => {
-        //     this.setState({
-        //         loggedInState: payload.logged_in_state_changed,
-        //     });
-        // });
-
-        // this.subscriber = auth().onAuthStateChanged(this.onAuthStateChanged);
-    }
-
-    componentWillUnmount(): void {
-        InitService.removeGlobalListeners();
-        // this.subscriber();
-    }
-
-    // onAuthStateChanged = (user) => {
-    //     console.log('onAuthStateChanged main');
-    //     if (user) {
-    //         console.log(user);
-    //
-    //         LoginAPIService.getAuthUserApi(user._user.email).then(async (response) => {
-    //             console.log('response');
-    //             console.log(response);
-    //
-    //             if (response.data.data.data) {
-    //
-    //                 let {user, actions} = this.props;
-    //                 actions.setUser(user);
-    //
-    //                 GlobalService.set('user', response.data.data.data);
-    //                 GlobalService.set('permissions', response.data.data.meta);
-    //                 this.setState({
-    //                     loggedInState: LoginService.IN_APP,
-    //                 });
-    //             }
-    //         });
-    //     }
-    // };
-
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         const MainStack = createStackNavigator();
 
