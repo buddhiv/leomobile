@@ -14,9 +14,6 @@ const LoginService = {
             password: password,
         });
 
-        console.log('login api result');
-        console.log(loginAPIResult);
-
         if (!loginAPIResult.data.error) {
             return loginAPIResult.data;
         } else {

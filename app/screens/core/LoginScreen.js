@@ -45,29 +45,36 @@ class LoginScreen extends React.Component {
     onAuthStateChanged = async (user) => {
         console.log('onAuthStateChanged login');
 
-        if (user) { //if logged in via the google sign indra
-            let response = await LoginAPIService.getAuthUserApi(user._user.email);
+        await this.setState({loading: true});
+        try {
+            if (user) { //if logged in via the google sign indra
+                let response = await LoginAPIService.getAuthUserApi(user._user.email);
 
+                await this.setState({loading: false});
+
+                if (response.data.data) {
+                    let {actions} = this.props;
+                    actions.setUser(response.data.data.data);
+                    actions.setPermissions(response.data.data.meta.permissions);
+                    actions.setAppState(LoginService.LOGGED_IN);
+                }
+            } else { //try if the username password is stored
+                await this.setState({loading: false});
+
+                let credentials = await AsyncStorage.multiGet(['username', 'password']);
+
+                if (credentials[0][1] && credentials[1][1]) {
+                    this.continueLogin(credentials[0][1], credentials[1][1]);
+                }
+            }
+        } catch (e) {
             await this.setState({loading: false});
-
-            if (response.data.data) {
-                let {actions} = this.props;
-                actions.setUser(response.data.data.data);
-                actions.setPermissions(response.data.data.meta.permissions);
-                actions.setAppState(LoginService.LOGGED_IN);
-            }
-        } else { //try if the username password is stored
-            let credentials = await AsyncStorage.multiGet(['username', 'password']);
-
-            if (credentials[0][1] && credentials[1][1]) {
-                this.continueLogin(credentials[0][1], credentials[1][1]);
-            }
+            ToastService.showErrorToast('Login Failed');
         }
     };
 
     onGoogleSignInButtonPress = async () => {
-        await this.setState({loading: true});
-        let loginResponse = await LoginService.loginUsingGoogle();
+        await LoginService.loginUsingGoogle();
     };
 
     // goToApplication = async () => {
