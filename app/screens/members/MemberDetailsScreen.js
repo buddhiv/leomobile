@@ -15,12 +15,14 @@ import moment from 'moment';
 import PermissionsService from '../../common/services/PermissionsService';
 import ColorService from '../../common/services/ColorService';
 import {connect} from 'react-redux';
+import Modal from 'react-native-modal';
+import ImagePicker from 'react-native-image-picker';
+import ProfilePictureService from '../../common/services/ProfilePictureService';
 
 class MemberDetailsScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props);
         this.currentUser = props.user.user;
 
         this.state = {
@@ -28,6 +30,7 @@ class MemberDetailsScreen extends React.Component {
             member: {},
             designations: [],
             loading: true,
+            showViewProfilePictureModal: false,
         };
     }
 
@@ -38,22 +41,19 @@ class MemberDetailsScreen extends React.Component {
     getMemberDetails = async () => {
         try {
             let membersResult = await MembersAPIService.getMemberDetailsApi(this.state.memberId);
-
-            console.log('membersResult.data.data.data');
-            console.log(membersResult.data.data.data);
+            let profilePictureResult = await ProfilePictureService.getProfilePictureByEmployeeId(this.state.memberId);
 
             if (!membersResult.data.data.error) {
                 this.setState({
                     member: membersResult.data.data.data,
+                    memberBase64Image: profilePictureResult.data.data[0].profilePicture,
                     designations: MemberDetailsService.formatDesignationsList(membersResult.data.data.designations, membersResult.data.data.data),
                     loading: false,
                 });
             }
         } catch (e) {
             console.log(e);
-            this.setState({
-                loading: false,
-            });
+            await this.setState({loading: false});
         }
     };
 
@@ -109,12 +109,14 @@ class MemberDetailsScreen extends React.Component {
     saveCallback = (newMemberObj) => {
         this.setState({
             member: newMemberObj,
+            memberBase64Image: newMemberObj.profilePicture
         });
     };
 
     goToEditProfile = (sectionName) => {
         this.props.navigation.navigate('Edit Profile', {
             member: Object.assign({}, this.state.member),
+            memberProfilePicture: this.state.memberBase64Image,
             sectionName: sectionName,
             saveCallback: this.saveCallback,
         });
@@ -160,6 +162,8 @@ class MemberDetailsScreen extends React.Component {
 
                         <View style={{alignItems: 'center'}}>
                             <MemberProfilePictureComponent size={100} border={false}
+                                                           loadAutomatically={false}
+                                                           memberBase64Image={this.state.memberBase64Image}
                                                            memberId={this.state.memberId}/>
                         </View>
                     </View>
@@ -251,6 +255,12 @@ class MemberDetailsScreen extends React.Component {
                         </CardComponent>
                     </View>
                 </View>
+
+                <Modal isVisible={this.state.showViewProfilePictureModal}>
+                    <View style={{flex: 1}}>
+                        <Text>I am the modal content!</Text>
+                    </View>
+                </Modal>
             </Layout>
         );
     }

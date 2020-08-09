@@ -7,27 +7,34 @@ class MemberProfilePictureComponent extends React.Component {
         super(props);
 
         this.state = {
-            memberImageData: null,
+            memberBase64Image: props.memberBase64Image,
         };
     }
 
     componentDidMount(): void {
-        this.getEmployeeProfilePicture();
+        if (this.props.loadAutomatically) {
+            this.getEmployeeProfilePicture();
+        }
     }
 
     getEmployeeProfilePicture = async () => {
         try {
             let profilePictureResult = await ProfilePictureService.getProfilePictureByEmployeeId(this.props.memberId);
 
-            console.log('profilePictureResult');
-            console.log(profilePictureResult);
+            await this.setState({memberBase64Image: profilePictureResult.data.data[0].profilePicture});
         } catch (e) {
-            console.log(e);
+            // console.log(e);
         }
     };
 
-    render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    static getDerivedStateFromProps(props, state) {
+        if (props.memberBase64Image) {
+            return {memberBase64Image: props.memberBase64Image};
+        }
+        return null;
+    }
 
+    render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <>
                 <View style={[{
@@ -46,8 +53,8 @@ class MemberProfilePictureComponent extends React.Component {
                     borderColor: this.props.borderColor,
                 } : {}]}>
                     {
-                        this.state.memberImageData ? <Image
-                            source={{uri: this.state.memberImageData}}
+                        this.state.memberBase64Image ? <Image
+                            source={{uri: this.state.memberBase64Image}}
                             style={{
                                 width: this.props.size,
                                 height: this.props.size,

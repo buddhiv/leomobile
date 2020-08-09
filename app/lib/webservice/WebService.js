@@ -44,6 +44,8 @@ const WebService = {
                 status: response.status,
             };
         }).catch((error) => {
+            console.log(error);
+
             if (error.response) {
                 return {
                     status: error.response.status,

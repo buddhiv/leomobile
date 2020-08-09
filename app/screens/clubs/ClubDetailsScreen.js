@@ -12,9 +12,10 @@ import Layout from '../../common/Layout';
 import ClubDetailsService from './services/ClubDetailsService';
 import PermissionsService from '../../common/services/PermissionsService';
 import MemberDetailsService from '../members/services/MemberDetailsService';
-import UserService from '../../common/services/UserService';
 import ClubsAPIService from './services/ClubsAPIService';
 import DistrictsAPIService from '../districts/services/DistrictsAPIService';
+
+import {connect} from 'react-redux';
 
 class ClubDetailsScreen extends React.Component {
 
@@ -39,7 +40,8 @@ class ClubDetailsScreen extends React.Component {
             let clubResult = await ClubsAPIService.getClubDetailsApi(clubId);
 
             let districtsResult = await DistrictsAPIService.getDistrictsListApi();
-            let regionsResult = await DistrictsAPIService.getRegionsListApi(MemberDetailsService.getDistrictId(UserService.getCurrentUser()));
+
+            let regionsResult = await DistrictsAPIService.getRegionsListApi(MemberDetailsService.getDistrictId(this.props.user.user));
 
             let stateObj = {
                 club: clubResult.data.data.club,
@@ -47,9 +49,6 @@ class ClubDetailsScreen extends React.Component {
                 districtsList: districtsResult.data.data,
                 regionsList: regionsResult.data.data,
             };
-
-            console.log('stateObj');
-            console.log(stateObj);
 
             if (!clubResult.data.error) {
                 this.setState(stateObj);
@@ -84,7 +83,7 @@ class ClubDetailsScreen extends React.Component {
     };
 
     isClubEditable = () => {
-        return (PermissionsService.getPermission('club_profile').update && (MemberDetailsService.getClubId(UserService.getCurrentUser()) === this.state.club.id));
+        return (PermissionsService.getPermission(this.props.permissions.permissions, 'club_profile').update && (MemberDetailsService.getClubId(this.props.user.user) === this.state.club.id));
     };
 
     goToEditClub = (sectionName) => {
@@ -122,7 +121,7 @@ class ClubDetailsScreen extends React.Component {
                         </CardComponent>
 
                         <View style={{alignItems: 'center'}}>
-                            <ClubProfilePictureComponent size={100} border={false}/>
+                            <ClubProfilePictureComponent size={100} border={false} clubId={this.state.club.id}/>
                         </View>
                     </View>
 
@@ -215,5 +214,11 @@ class ClubDetailsScreen extends React.Component {
     }
 };
 
-export default ClubDetailsScreen;
+
+let mapStateToProps = state => ({
+    user: state.user,
+    permissions: state.permissions,
+});
+
+export default connect(mapStateToProps)(ClubDetailsScreen);
 

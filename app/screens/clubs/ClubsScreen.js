@@ -10,13 +10,14 @@ import IconComponent from '../../common/components/IconComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
 import MemberDetailsService from '../members/services/MemberDetailsService';
 import DistrictsAPIService from '../districts/services/DistrictsAPIService';
-import UserService from '../../common/services/UserService';
+
+import {connect} from 'react-redux';
 
 class ClubsScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        this.user = UserService.getCurrentUser();
+        this.user = props.user.user;
 
         this.state = {
             clubsList: [],
@@ -143,4 +144,9 @@ class ClubsScreen extends React.Component {
     }
 };
 
-export default ClubsScreen;
+let mapStateToProps = state => ({
+    user: state.user,
+});
+
+export default connect(mapStateToProps)(ClubsScreen);
+

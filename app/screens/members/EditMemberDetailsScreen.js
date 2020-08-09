@@ -16,23 +16,23 @@ import ColorService from '../../common/services/ColorService';
 import {bindActionCreators} from 'redux';
 import {updateUser} from '../../redux/actions/UserActions';
 import {connect} from 'react-redux';
+import ImagePickerWidget from '../../common/widgets/ImagePickerWidget';
 
 class EditMemberDetailsScreen extends React.Component {
     constructor(props) {
         super(props);
 
         this.member = props.route.params.member;
+        this.memberProfilePicture = props.route.params.memberProfilePicture;
         this.sectionName = props.route.params.sectionName;
         this.saveCallback = props.route.params.saveCallback;
 
         this.state = {
             member: Object.assign({}, this.member),
+            memberProfilePicture: this.memberProfilePicture,
             messages: [],
             loading: false,
         };
-    }
-
-    componentDidMount(): void {
     }
 
     cancelEditing = () => {
@@ -63,14 +63,18 @@ class EditMemberDetailsScreen extends React.Component {
                     school: this.state.member.school,
                 };
 
+                if (this.memberProfilePicture !== this.state.memberProfilePicture) {
+                    tempMemberObj.profilePicture = this.state.memberProfilePicture;
+                }
+
                 let saveResult = await MembersAPIService.saveMemberDetailsApi(tempMemberObj);
 
                 if (!saveResult.data.error) {
                     ToastService.showSuccessToast('Successfully Saved!');
 
-
                     this.setState({
                         member: saveResult.data.data,
+                        memberProfilePicture: saveResult.data.data.profilePicture,
                         loading: false,
                     }, () => {
                         let {actions} = this.props;
@@ -104,7 +108,17 @@ class EditMemberDetailsScreen extends React.Component {
                                     <Text style={{fontWeight: 'bold'}}>General</Text>
                                 </View>
 
-                                <View>
+                                <View style={{marginTop: 10}}>
+                                    <ImagePickerWidget base64Image={this.state.memberProfilePicture}
+                                                       label={'Profile Picture'}
+                                                       onChange={(newBase64Image) => {
+                                                           this.setState({
+                                                               memberProfilePicture: 'data:image/jpeg;base64,' + newBase64Image.data,
+                                                           });
+                                                       }}/>
+                                </View>
+
+                                <View style={{marginTop: 20}}>
                                     <DatePickerWidget label={'Inducted Date'} dateValue={this.state.member.inductedDate}
                                                       onChange={(selectedDate) => {
                                                           this.state.member.inductedDate = moment(selectedDate).format('YYYY-MM-DD');

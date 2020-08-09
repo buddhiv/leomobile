@@ -98,18 +98,23 @@ class LoginScreen extends React.Component {
     };
 
     continueLogin = async (username, password) => {
-        let loginResult = await LoginService.loginUsingCredentials(username, password);
+        try {
+            let loginResult = await LoginService.loginUsingCredentials(username, password);
 
-        await this.setState({loading: false});
+            await this.setState({loading: false});
 
-        if (loginResult) {
-            await AsyncStorage.multiSet([['username', username], ['password', password]]);
+            if (loginResult) {
+                await AsyncStorage.multiSet([['username', username], ['password', password]]);
 
-            let {actions} = this.props;
-            actions.setUser(loginResult.data.data);
-            actions.setPermissions(loginResult.data.meta.permissions);
-            actions.setAppState(LoginService.LOGGED_IN);
-        } else {
+                let {actions} = this.props;
+                actions.setUser(loginResult.data.data);
+                actions.setPermissions(loginResult.data.meta.permissions);
+                actions.setAppState(LoginService.LOGGED_IN);
+            } else {
+                ToastService.showErrorToast('Login Failed');
+            }
+        } catch (e) {
+            await this.setState({loading: false});
             ToastService.showErrorToast('Login Failed');
         }
     };

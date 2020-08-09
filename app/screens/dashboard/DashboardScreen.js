@@ -8,19 +8,14 @@ import CardComponent from '../../common/components/CardComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
 import MemberDetailsService from '../members/services/MemberDetailsService';
 import MemberProfilePictureComponent from '../members/components/MemberProfilePictureComponent';
+
 import {connect} from 'react-redux';
 
 class DashboardScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log('sssss');
-        console.log(props);
-        console.log(props.user.user);
-
         this.user = props.user.user;
-
-        console.log('wwwww');
 
         this.state = {};
     }
@@ -64,8 +59,8 @@ class DashboardScreen extends React.Component {
 
                         <View style={{alignItems: 'center'}}>
                             <MemberProfilePictureComponent size={100} border={false}
-                                                           imageData={this.user.profilePicture}
-                            />
+                                                           loadAutomatically={true}
+                                                           memberId={this.user.id}/>
                         </View>
                     </View>
 
@@ -110,12 +105,6 @@ class DashboardScreen extends React.Component {
         );
     }
 };
-
-const styles = StyleSheet.create({
-    card_style: {
-        backgroundColor: 'white', padding: 10, marginTop: 10, borderRadius: 5,
-    },
-});
 
 // export default DashboardScreen;
 let mapStateToProps = state => ({
