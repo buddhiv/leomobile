@@ -5,13 +5,20 @@ import ClubsFilterScreen from './ClubsFilterScreen';
 import MemberDetailsScreen from '../members/MemberDetailsScreen';
 import ClubDetailsMainScreen from './ClubDetailsMainScreen';
 import EditClubDetailsScreen from './EditClubDetailsScreen';
+import ColorService from '../../common/services/ColorService';
 
 const ClubsMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
 
     return (
         <>
-            <Stack.Navigator initialRouteName={'Clubs'}>
+            <Stack.Navigator initialRouteName={'Clubs'}
+                             screenOptions={{
+                                 headerTintColor: 'white',
+                                 headerStyle: {
+                                     backgroundColor: ColorService.PRIMARY_COLOR,
+                                 },
+                             }}>
                 <Stack.Screen name="Clubs" component={ClubsScreen}
                     // options={({navigation}) => ({
                     //     headerLeft: () => (

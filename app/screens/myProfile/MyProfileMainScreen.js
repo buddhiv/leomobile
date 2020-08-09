@@ -12,18 +12,15 @@ const MyProfileMainScreen: () => React$Node = (props) => {
 
     return (
         <>
-            <Stack.Navigator initialRouteName={'My Profile'}>
+            <Stack.Navigator initialRouteName={'My Profile'}
+                             screenOptions={{
+                                 headerTintColor: 'white',
+                                 headerStyle: {
+                                     backgroundColor: ColorService.PRIMARY_COLOR,
+                                 },
+                             }}>
                 <Stack.Screen name="My Profile" component={MemberDetailsScreen}
-                              initialParams={{mode: 'my'}}
-                              options={{
-                                  headerTitleStyle: {
-                                      color: 'white',
-                                  },
-                                  headerStyle: {
-                                      backgroundColor: ColorService.PRIMARY_COLOR,
-                                  },
-                              }}
-                />
+                              initialParams={{mode: 'my'}}/>
                 <Stack.Screen name="Edit Profile" component={EditMemberDetailsScreen}
                               initialParams={{mode: 'my'}}/>
             </Stack.Navigator>
