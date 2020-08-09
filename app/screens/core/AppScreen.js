@@ -36,7 +36,7 @@ class AppScreen extends React.Component {
                     <AppDrawer.Screen name="Districts" component={DistrictsMainScreen}/>
                     <AppDrawer.Screen name="MD 306" component={MultipleDistrictMainScreen}/>
                     <AppDrawer.Screen name="Members" component={MembersMainScreen}/>
-                    {/*<AppDrawer.Screen name="Documents" component={DocumentsMainScreen}/>*/}
+                    <AppDrawer.Screen name="Documents" component={DocumentsMainScreen}/>
                 </AppDrawer.Navigator>
             </>
         );
