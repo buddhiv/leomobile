@@ -40,11 +40,8 @@ target 'leomobile' do
 
   pod 'GoogleSignIn', '~> 5.0.2'
 
-  pod 'RNGoogleSignin', :path => '../node_modules/@react-native-community/google-signin'
 
-  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
 
-  pod 'RNFBAuth', :path => '../node_modules/@react-native-firebase/auth'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
