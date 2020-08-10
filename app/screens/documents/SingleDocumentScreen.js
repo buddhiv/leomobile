@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import Layout from '../../common/Layout';
 import CardComponent from '../../common/components/CardComponent';
-import HTML from 'react-native-render-html';
+// import HTML from 'react-native-render-html';
 
 
 class SingleDocumentsScreen extends React.Component {
@@ -37,8 +37,8 @@ class SingleDocumentsScreen extends React.Component {
                     <View style={{marginTop: 10}}>
                         <View>
                             <CardComponent>
-                                <HTML tagsStyles={tagsStyles} classStyles={classStyles}
-                                      html={this.state.languageSwitchAvailable ? this.state.selectedLanguage == 'en' ? this.document.en.content : this.document.si.content : this.document.content}/>
+                                {/*<HTML tagsStyles={tagsStyles} classStyles={classStyles}*/}
+                                {/*      html={this.state.languageSwitchAvailable ? this.state.selectedLanguage == 'en' ? this.document.en.content : this.document.si.content : this.document.content}/>*/}
                             </CardComponent>
                         </View>
                     </View>
