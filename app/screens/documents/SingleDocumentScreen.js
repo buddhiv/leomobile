@@ -6,7 +6,8 @@ import {
 } from 'react-native';
 import Layout from '../../common/Layout';
 import CardComponent from '../../common/components/CardComponent';
-// import HTML from 'react-native-render-html';
+import Markdown from 'react-native-markdown-display';
+
 
 
 class SingleDocumentsScreen extends React.Component {
@@ -24,12 +25,6 @@ class SingleDocumentsScreen extends React.Component {
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
-        let tagsStyles = {
-            p: {
-                // fontSize: 20
-            }
-        }
-        let classStyles = { 'ttt': { textAlign: 'right', color: 'teal', fontWeight: '800' } }
         return (
             <Layout loading={false} scrollEnabled={true}>
                 <View style={{paddingHorizontal: 15, paddingVertical: 10}}>
@@ -37,8 +32,9 @@ class SingleDocumentsScreen extends React.Component {
                     <View style={{marginTop: 10}}>
                         <View>
                             <CardComponent>
-                                {/*<HTML tagsStyles={tagsStyles} classStyles={classStyles}*/}
-                                {/*      html={this.state.languageSwitchAvailable ? this.state.selectedLanguage == 'en' ? this.document.en.content : this.document.si.content : this.document.content}/>*/}
+                                <Markdown>
+                                    {this.state.languageSwitchAvailable ? this.state.selectedLanguage == 'en' ? this.document.en.content : this.document.si.content : this.document.content}
+                                </Markdown>
                             </CardComponent>
                         </View>
                     </View>
