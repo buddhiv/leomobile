@@ -134,7 +134,7 @@ class LoginScreen extends React.Component {
 
                         <CardComponent>
                             <View>
-                                <Text>Login to MyLEO</Text>
+                                <Text>Login to MyLeo</Text>
                             </View>
 
                             <View style={{marginTop: 20}}>
@@ -184,7 +184,7 @@ class LoginScreen extends React.Component {
 
                     </View>
                     <View style={{alignItems: 'center'}}>
-                        <Text>MyLEO</Text>
+                        <Text>MyLeo</Text>
                         <Text style={{color: '#777777'}}>Powered by PulseQue.</Text>
                     </View>
                 </View>
