@@ -17,6 +17,9 @@ import {bindActionCreators} from 'redux';
 import {updateUser} from '../../redux/actions/UserActions';
 import {connect} from 'react-redux';
 import ImagePickerWidget from '../../common/widgets/ImagePickerWidget';
+import ImageResizer from 'react-native-image-resizer';
+import ImgToBase64 from 'react-native-image-base64';
+
 
 class EditMemberDetailsScreen extends React.Component {
     constructor(props) {
@@ -112,9 +115,22 @@ class EditMemberDetailsScreen extends React.Component {
                                     <ImagePickerWidget base64Image={this.state.memberProfilePicture}
                                                        label={'Profile Picture'}
                                                        onChange={(newBase64Image) => {
-                                                           this.setState({
-                                                               memberProfilePicture: 'data:image/jpeg;base64,' + newBase64Image.data,
-                                                           });
+                                                           ImageResizer.createResizedImage(newBase64Image.path, 600, 600, 'JPEG', 60)
+                                                               .then(({uri}) => {
+                                                                   ImgToBase64.getBase64String(uri)
+                                                                       .then((base64String) => {
+                                                                           this.setState({
+                                                                               memberProfilePicture: 'data:image/jpeg;base64,' + base64String,
+                                                                           });
+                                                                       })
+                                                                       .catch(err => {
+                                                                           console.log(err);
+                                                                       });
+                                                               })
+                                                               .catch(err => {
+                                                                   console.log(err);
+                                                                   console.log('Unable to resize the photo')
+                                                               });
                                                        }}/>
                                 </View>
 
