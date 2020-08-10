@@ -31,7 +31,7 @@ class AppScreen extends React.Component {
                                      drawerContent={this.getCustomDrawer}>
                     <AppDrawer.Screen name="Dashboard" component={DashboardScreen}/>
                     <AppDrawer.Screen name="My Profile" component={MyProfileMainScreen}/>
-                    {/*<AppDrawer.Screen name="Projects" component={ProjectsMainScreen}/>*/}
+                    <AppDrawer.Screen name="Projects" component={ProjectsMainScreen}/>
                     <AppDrawer.Screen name="Clubs" component={ClubsMainScreen}/>
                     <AppDrawer.Screen name="Districts" component={DistrictsMainScreen}/>
                     <AppDrawer.Screen name="MD 306" component={MultipleDistrictMainScreen}/>
