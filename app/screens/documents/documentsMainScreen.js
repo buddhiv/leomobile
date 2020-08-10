@@ -17,7 +17,7 @@ const DocumentsMainScreen: () => React$Node = (props) => {
                                  },
                              }}>
                 <Stack.Screen name="Documents" component={DocumentsScreen}/>
-                <Stack.Screen name="Document" component={SingleDocumentsScreen}/>
+                <Stack.Screen name="Document" component={SingleDocumentsScreen} options={({ route }) => ({ title: route.params.name })}/>
             </Stack.Navigator>
         </>
     );

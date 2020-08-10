@@ -39,9 +39,10 @@ class DocumentsScreen extends React.Component {
         }
     }
 
-    goToDocument = (type) => {
+    goToDocument = (docType) => {
         this.props.navigation.navigate('Document', {
-            document: type,
+            document: docType,
+            name: !!(docType.en && docType.si) ? docType.en.title : docType.title
         });
     };
 
