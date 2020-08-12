@@ -9,6 +9,7 @@ import {bindActionCreators} from 'redux';
 import {setUser} from '../../redux/actions/UserActions';
 import {setPermissions} from '../../redux/actions/PermissionActions';
 import {setAppState} from '../../redux/actions/AppStateActions';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const DrawerContentComponent: () => React$Node = (props) => {
 
@@ -18,6 +19,7 @@ const DrawerContentComponent: () => React$Node = (props) => {
         try {
             await LoginService.logOut();
         } finally {
+            await AsyncStorage.multiRemove(['username', 'password']);
             props.actions.setAppState(LoginService.NOT_LOGGED_IN);
         }
     };
@@ -28,7 +30,7 @@ const DrawerContentComponent: () => React$Node = (props) => {
 
                 <View style={{paddingHorizontal: 20, paddingVertical: 20}}>
                     <View>
-                        <MemberProfilePictureComponent size={60} border={false}/>
+                        <MemberProfilePictureComponent memberId={userObj.id} size={60} border={false} loadAutomatically={true}/>
                     </View>
                     <View style={{marginTop: 10}}>
                         <Text>{MemberDetailsService.getFullName(userObj)}</Text>

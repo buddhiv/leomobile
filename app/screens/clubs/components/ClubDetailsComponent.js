@@ -105,7 +105,7 @@ const ClubDetailsComponent: () => React$Node = (props) => {
                             </CardComponent>
 
                             <View style={{alignItems: 'center'}}>
-                                <ClubProfilePictureComponent size={100} border={false}/>
+                                <ClubProfilePictureComponent clubId={club.id} size={100} border={false}/>
                             </View>
                         </View>
 

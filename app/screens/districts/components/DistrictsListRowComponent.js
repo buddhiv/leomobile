@@ -15,7 +15,7 @@ const DistrictsListRowComponent: () => React$Node = (props) => {
             }}>
                 <View style={{paddingVertical: 5, paddingHorizontal: 15, flexDirection: 'row'}}>
                     <View>
-                        <DistrictProfilePictureComponent size={40}/>
+                        <DistrictProfilePictureComponent size={40} districtId={props.district.item.id}/>
                     </View>
                     <View style={{paddingLeft: 10}}>
                         <Text style={{fontSize: 16, fontWeight: 'bold'}}>{props.district.item.name}</Text>

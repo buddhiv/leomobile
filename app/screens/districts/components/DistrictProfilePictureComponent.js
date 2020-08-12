@@ -22,8 +22,7 @@ class DistrictProfilePictureComponent extends React.Component {
 
             console.log('district profilePictureResult');
             console.log(profilePictureResult);
-
-            await this.setState({districtBase64Image: profilePictureResult.data.data[0].profilePicture});
+            await this.setState({districtBase64Image: profilePictureResult.data.data[0].logo});
         } catch (e) {
             // console.log(e);
         }

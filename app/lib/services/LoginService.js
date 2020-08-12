@@ -38,7 +38,6 @@ const LoginService = {
     },
     logOut: async () => {
         await auth().signOut();
-        await AsyncStorage.multiRemove(['username', 'password']);
     },
 };
 

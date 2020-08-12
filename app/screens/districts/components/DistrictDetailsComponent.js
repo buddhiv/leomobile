@@ -77,7 +77,7 @@ const DistrictDetailsComponent: () => React$Node = (props) => {
                             </CardComponent>
 
                             <View style={{alignItems: 'center'}}>
-                                <DistrictProfilePictureComponent size={100} border={false}/>
+                                <DistrictProfilePictureComponent districtId={district.id} size={100} border={false}/>
                             </View>
                         </View>
 

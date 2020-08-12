@@ -121,7 +121,7 @@ class ClubDetailsScreen extends React.Component {
                         </CardComponent>
 
                         <View style={{alignItems: 'center'}}>
-                            <ClubProfilePictureComponent size={100} border={false} clubId={this.state.club.id}/>
+                            <ClubProfilePictureComponent size={100} border={false} clubId={this.state.clubId}/>
                         </View>
                     </View>
 

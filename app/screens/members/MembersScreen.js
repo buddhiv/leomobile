@@ -10,12 +10,13 @@ import IconComponent from '../../common/components/IconComponent';
 import TouchableComponent from '../../common/components/TouchableComponent';
 import ClubsAPIService from '../clubs/services/ClubsAPIService';
 import UserService from '../../common/services/UserService';
+import {connect} from 'react-redux';
 
 class MembersScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        this.user = UserService.getCurrentUser();
+        this.user = props.user.user;
         this.clubId = props.route.params ? props.route.params.clubId : undefined;
         this.filterable = props.route.params ? props.route.params.filterable : true;
 
@@ -143,4 +144,8 @@ class MembersScreen extends React.Component {
     }
 };
 
-export default MembersScreen;
+let mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps)(MembersScreen);

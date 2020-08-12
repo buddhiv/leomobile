@@ -15,7 +15,7 @@ const MembersListRowComponent: () => React$Node = (props) => {
             }}>
                 <View style={{paddingVertical: 5, paddingHorizontal: 15, flexDirection: 'row'}}>
                     <View>
-                        <MemberProfilePictureComponent size={40}/>
+                        <MemberProfilePictureComponent memberId={props.member.item.id} loadAutomatically={true} size={40}/>
                     </View>
                     <View style={{paddingLeft: 10}}>
                         <Text style={{

@@ -16,7 +16,7 @@ const ClubDirectoryItemComponent: () => React$Node = (props) => {
                                 props.onPressProfilePicture(member.id);
                             }}>
                                 <View>
-                                    <MemberProfilePictureComponent size={40}/>
+                                    <MemberProfilePictureComponent memberId={member.id} size={40} loadAutomatically={true}/>
                                 </View>
                             </TouchableComponent>
                             <View style={{flex: 1, paddingLeft: 10}}>
