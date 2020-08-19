@@ -8,7 +8,9 @@ import DrawerContentComponent from '../../common/components/DrawerContentCompone
 import DashboardScreen from '../dashboard/DashboardScreen';
 import DistrictsMainScreen from '../districts/DistrictsMainScreen';
 import MultipleDistrictMainScreen from '../multipleDistrict/MultipleDistrictMainScreen';
-import DocumentsMainScreen from '../documents/documentsMainScreen';
+import DocumentsMainScreen from '../documents/DocumentsMainScreen';
+import SettingsListScreen from '../settings/SettingsListScreen';
+import SettingsMainScreen from '../settings/SettingsMainScreen';
 
 class AppScreen extends React.Component {
     constructor(props) {
@@ -37,6 +39,7 @@ class AppScreen extends React.Component {
                     <AppDrawer.Screen name="MD 306" component={MultipleDistrictMainScreen}/>
                     <AppDrawer.Screen name="Members" component={MembersMainScreen}/>
                     <AppDrawer.Screen name="Documents" component={DocumentsMainScreen}/>
+                    <AppDrawer.Screen name="Settings" component={SettingsMainScreen}/>
                 </AppDrawer.Navigator>
             </>
         );

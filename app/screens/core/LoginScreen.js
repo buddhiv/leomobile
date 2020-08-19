@@ -119,6 +119,10 @@ class LoginScreen extends React.Component {
         }
     };
 
+    onForgotPasswordPress = () => {
+        this.props.navigation.navigate('Forgot Password');
+    };
+
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading} scrollEnabled={true}>
@@ -164,7 +168,7 @@ class LoginScreen extends React.Component {
                             </View>
 
                             <View style={{flex: 1, marginTop: 15, alignItems: 'flex-end'}}>
-                                <TouchableComponent>
+                                <TouchableComponent onPress={this.onForgotPasswordPress}>
                                     <View style={{}}>
                                         <Text>Forgot Password?</Text>
                                     </View>

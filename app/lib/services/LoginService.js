@@ -39,6 +39,16 @@ const LoginService = {
     logOut: async () => {
         await auth().signOut();
     },
+    generateResetPasswordToken: async (email) => {
+        return LoginAPIService.getGenerateResetPasswordTokenAPI({
+            email: email,
+        });
+    },
+    resetPasswordResult: async (verificationCode, password) => {
+        return LoginAPIService.getGenerateResetPasswordTokenAPI({
+            email: password,
+        });
+    },
 };
 
 export default LoginService;

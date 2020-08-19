@@ -49,6 +49,22 @@ const ToastService = {
             },
         });
     },
+    showInfoToast: (message) => {
+        Toast.show({
+            type: 'info',
+            position: 'top',
+            text1: 'Info',
+            text2: message,
+            visibilityTime: 5000,
+            autoHide: false,
+            topOffset: 10,
+            bottomOffset: 0,
+            onShow: () => {
+            },
+            onHide: () => {
+            },
+        });
+    },
 };
 
 export default ToastService;

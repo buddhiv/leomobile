@@ -13,6 +13,7 @@ import LoginAPIService from './services/LoginAPIService';
 import {bindActionCreators} from 'redux';
 import {setUser} from '../../redux/actions/UserActions';
 import {connect} from 'react-redux';
+import LoginMainScreen from './LoginMainScreen';
 
 class MainScreen extends React.Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class MainScreen extends React.Component {
                             appState.appState === LoginService.LOGGED_IN ? (
                                 <MainStack.Screen name="App" component={AppScreen}/>
                             ) : (
-                                <MainStack.Screen name="Login" component={LoginScreen}/>
+                                <MainStack.Screen name="Login" component={LoginMainScreen}/>
                             )
                         }
                     </MainStack.Navigator>
