@@ -129,9 +129,10 @@ class LoginScreen extends React.Component {
                 <View style={{flex: 1, padding: 15}}>
                     <View style={{flex: 1}}>
                         <View style={{alignItems: 'center', marginTop: 50}}>
-                            <Image source={require('../../assets/app-logo.png')}
+                            <Image source={require('../../assets/My-Leo-Logo-small.png')}
                                    style={{
                                        height: 100,
+                                       width: 150,
                                        resizeMode: 'contain',
                                    }}/>
                         </View>

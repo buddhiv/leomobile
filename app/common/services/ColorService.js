@@ -1,10 +1,10 @@
 const ColorService = {
-    PRIMARY_COLOR: '#297f9a',
-    PRIMARY_COLOR_LIGHT: '#61aecb',
-    PRIMARY_COLOR_DARK: '#00536c',
-    SECONDARY_COLOR: '#dfae13',
-    SECONDARY_COLOR_LIGHT: '#ffdf50',
-    SECONDARY_COLOR_DARK: '#a97f00',
+    PRIMARY_COLOR: '#274c8e',
+    PRIMARY_COLOR_LIGHT: '#5c77bf',
+    PRIMARY_COLOR_DARK: '#002560',
+    SECONDARY_COLOR: '#24cee9',
+    SECONDARY_COLOR_LIGHT: '#71ffff',
+    SECONDARY_COLOR_DARK: '#009db7',
 };
 
 export default ColorService;
