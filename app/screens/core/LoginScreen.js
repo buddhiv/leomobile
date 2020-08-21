@@ -143,7 +143,7 @@ class LoginScreen extends React.Component {
                             </View>
 
                             <View style={{marginTop: 20}}>
-                                <TextWidget label={'Username'}
+                                <TextWidget label={'Email'}
                                             value={this.state.username}
                                             onChangeText={(text) => {
                                                 this.setState({
