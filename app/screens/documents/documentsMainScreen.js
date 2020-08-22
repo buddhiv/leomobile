@@ -5,6 +5,7 @@ import DocumentsScreen from './DocumentsScreen';
 import SingleDocumentsScreen from './SingleDocumentScreen';
 
 import ColorService from '../../common/services/ColorService';
+import DrawerLeftButtonComponent from '../../common/components/DrawerLeftButtonComponent';
 
 const DocumentsMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -15,10 +16,15 @@ const DocumentsMainScreen: () => React$Node = (props) => {
                              screenOptions={{
                                  headerTintColor: 'white',
                                  headerStyle: {
-                                     backgroundColor: ColorService.PRIMARY_COLOR,
+                                     backgroundColor: ColorService.SECONDARY_COLOR_DARK,
                                  },
                              }}>
-                <Stack.Screen name="Documents" component={DocumentsScreen}/>
+                <Stack.Screen name="Documents" component={DocumentsScreen}
+                              options={({navigation}) => ({
+                                  headerLeft: () => (
+                                      <DrawerLeftButtonComponent onPress={navigation.toggleDrawer}/>
+                                  ),
+                              })}/>
                 <Stack.Screen name="Document" component={SingleDocumentsScreen}
                               options={({route}) => ({title: route.params.name})}/>
             </Stack.Navigator>

@@ -6,6 +6,7 @@ import MemberDetailsScreen from '../members/MemberDetailsScreen';
 import ClubDetailsMainScreen from './ClubDetailsMainScreen';
 import EditClubDetailsScreen from './EditClubDetailsScreen';
 import ColorService from '../../common/services/ColorService';
+import DrawerLeftButtonComponent from '../../common/components/DrawerLeftButtonComponent';
 
 const ClubsMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -16,15 +17,15 @@ const ClubsMainScreen: () => React$Node = (props) => {
                              screenOptions={{
                                  headerTintColor: 'white',
                                  headerStyle: {
-                                     backgroundColor: ColorService.PRIMARY_COLOR,
+                                     backgroundColor: ColorService.SECONDARY_COLOR_DARK,
                                  },
                              }}>
                 <Stack.Screen name="Clubs" component={ClubsScreen}
-                    // options={({navigation}) => ({
-                    //     headerLeft: () => (
-                    //         <DrawerLeftButtonComponent onPress={navigation.toggleDrawer}/>
-                    //     ),
-                    // })}
+                    options={({navigation}) => ({
+                        headerLeft: () => (
+                            <DrawerLeftButtonComponent onPress={navigation.toggleDrawer}/>
+                        ),
+                    })}
                 />
                 <Stack.Screen name="Club Details" component={ClubDetailsMainScreen}/>
                 <Stack.Screen name="Member Details" component={MemberDetailsScreen}/>

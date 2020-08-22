@@ -45,8 +45,9 @@ const LoginService = {
         });
     },
     resetPasswordResult: async (verificationCode, password) => {
-        return LoginAPIService.getGenerateResetPasswordTokenAPI({
-            email: password,
+        return LoginAPIService.forgetPasswordResetAPI({
+            token: verificationCode,
+            password: password,
         });
     },
 };

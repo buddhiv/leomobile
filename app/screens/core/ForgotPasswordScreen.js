@@ -44,6 +44,12 @@ class ForgotPasswordScreen extends React.Component {
 
                 let resetPassswordResult = await LoginService.resetPasswordResult(this.state.verificationCode, this.state.password);
 
+                if (!resetPassswordResult.error) {
+                    this.props.navigation.navigate('Login');
+                } else {
+                    ToastService.showErrorToast(resetPassswordResult.data.message);
+                }
+
             } else {
                 ToastService.showErrorToast('Passwords are not Equal.');
             }
@@ -58,9 +64,10 @@ class ForgotPasswordScreen extends React.Component {
                 <View style={{flex: 1, padding: 15}}>
                     <View style={{flex: 1}}>
                         <View style={{alignItems: 'center'}}>
-                            <Image source={require('../../assets/app-logo.png')}
+                            <Image source={require('../../assets/My-Leo-Logo-small.png')}
                                    style={{
                                        height: 100,
+                                       width: 150,
                                        resizeMode: 'contain',
                                    }}/>
                         </View>
@@ -105,6 +112,7 @@ class ForgotPasswordScreen extends React.Component {
                             <View style={{marginTop: 20}}>
                                 <TextWidget label={'Password'}
                                             value={this.state.password}
+                                            secured={true}
                                             onChangeText={(text) => {
                                                 this.setState({
                                                     password: text,
@@ -115,6 +123,7 @@ class ForgotPasswordScreen extends React.Component {
                             <View style={{marginTop: 20}}>
                                 <TextWidget label={'Repeat Password'}
                                             value={this.state.repeatedPassword}
+                                            secured={true}
                                             onChangeText={(text) => {
                                                 this.setState({
                                                     repeatedPassword: text,

@@ -10,6 +10,9 @@ const LoginAPIService = {
     getGenerateResetPasswordTokenAPI: (data) => {
         return WebService.call('/api/v1/auth/generateResetPasswordToken', 'POST', data);
     },
+    forgetPasswordResetAPI: (data) => {
+        return WebService.call('/api/v1/auth/forgetPasswordReset', 'POST', data);
+    },
 };
 
 export default LoginAPIService;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    View, Text, StyleSheet,
+    View, Text, StyleSheet, TouchableWithoutFeedback,
 } from 'react-native';
 import Layout from '../../common/Layout';
 import UserService from '../../common/services/UserService';
@@ -10,6 +10,7 @@ import MemberDetailsService from '../members/services/MemberDetailsService';
 import MemberProfilePictureComponent from '../members/components/MemberProfilePictureComponent';
 
 import {connect} from 'react-redux';
+import IconComponent from '../../common/components/IconComponent';
 
 class DashboardScreen extends React.Component {
     constructor(props) {
@@ -46,7 +47,8 @@ class DashboardScreen extends React.Component {
         return (
             <Layout loading={false} scrollEnabled={true}>
                 <View style={{paddingHorizontal: 15, paddingVertical: 10}}>
-                    <View style={{flexDirection: 'column-reverse', marginTop: 10}}>
+
+                    <View style={{flexDirection: 'column-reverse', marginTop: 0}}>
                         <CardComponent cardStyle={{
                             alignItems: 'center',
                             paddingTop: 50,
@@ -57,10 +59,22 @@ class DashboardScreen extends React.Component {
                             </Text>
                         </CardComponent>
 
-                        <View style={{alignItems: 'center'}}>
-                            <MemberProfilePictureComponent size={100} border={false}
-                                                           loadAutomatically={true}
-                                                           memberId={this.user.id}/>
+                        <View style={{alignItems: 'flex-start', flex: 1, flexDirection: 'row'}}>
+                            <View style={{flex: 1}}>
+                                <TouchableWithoutFeedback onPress={() => {
+                                    this.props.navigation.toggleDrawer();
+                                }}>
+                                    <View style={{paddingHorizontal: 0}}>
+                                        <IconComponent.MaterialCommunityIcons name={'menu'} size={30}/>
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            </View>
+                            <View style={{flex: 1, marginTop: 20}}>
+                                <MemberProfilePictureComponent size={100} border={false}
+                                                               loadAutomatically={true}
+                                                               memberId={this.user.id}/>
+                            </View>
+                            <View style={{'flex': 1}}/>
                         </View>
                     </View>
 

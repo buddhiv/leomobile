@@ -3,8 +3,7 @@ import {TouchableWithoutFeedback, View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import ProjectsScreen from './ProjectsScreen';
 import ProjectDetailsScreen from './ProjectDetailsScreen';
-import {Text} from 'react-native';
-import IconComponent from '../../common/components/IconComponent';
+import ColorService from '../../common/services/ColorService';
 import DrawerLeftButtonComponent from '../../common/components/DrawerLeftButtonComponent';
 
 const ProjectsMainScreen: () => React$Node = (props) => {
@@ -12,13 +11,19 @@ const ProjectsMainScreen: () => React$Node = (props) => {
 
     return (
         <>
-            <Stack.Navigator initialRouteName={'Projects'}>
+            <Stack.Navigator initialRouteName={'Projects'}
+                             screenOptions={{
+                                 headerTintColor: 'white',
+                                 headerStyle: {
+                                     backgroundColor: ColorService.SECONDARY_COLOR_DARK,
+                                 },
+                             }}>
                 <Stack.Screen name="Projects" component={ProjectsScreen}
-                              // options={({navigation}) => ({
-                              //     headerLeft: () => (
-                              //         <DrawerLeftButtonComponent onPress={navigation.toggleDrawer}/>
-                              //     ),
-                              // })}
+                    options={({navigation}) => ({
+                        headerLeft: () => (
+                            <DrawerLeftButtonComponent onPress={navigation.toggleDrawer}/>
+                        ),
+                    })}
                 />
                 <Stack.Screen name="Project Details" component={ProjectDetailsScreen}/>
             </Stack.Navigator>

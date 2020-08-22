@@ -8,7 +8,7 @@ const DrawerLeftButtonComponent: () => React$Node = (props) => {
         <>
             <TouchableWithoutFeedback onPress={props.onPress}>
                 <View style={{paddingHorizontal: 15}}>
-                    <IconComponent.MaterialCommunityIcons name={'menu'} size={30}/>
+                    <IconComponent.MaterialCommunityIcons name={'menu'} size={30} color={'white'}/>
                 </View>
             </TouchableWithoutFeedback>
         </>

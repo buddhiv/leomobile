@@ -8,6 +8,7 @@ import UserService from '../../common/services/UserService';
 import MultipleDistrictAPIService from './services/MultipleDistrictAPIService';
 import MemberDetailsService from '../members/services/MemberDetailsService';
 import Layout from '../../common/Layout';
+import {connect} from 'react-redux';
 
 class MultipleDistrictDetailsMainScreen extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class MultipleDistrictDetailsMainScreen extends React.Component {
 
     getMultipleDistrictDetails = async (districtId) => {
         try {
-            let currentUser = UserService.getCurrentUser();
+            let currentUser = this.props.user.user;
             let multipleDistrictResult = await MultipleDistrictAPIService.getMultipleDistrictDetailsApi(MemberDetailsService.getMultipleDistrictId(currentUser));
 
             if (!multipleDistrictResult.data.error) {
@@ -66,4 +67,8 @@ class MultipleDistrictDetailsMainScreen extends React.Component {
     }
 };
 
-export default MultipleDistrictDetailsMainScreen;
+let mapStateToProps = state => ({
+    user: state.user,
+});
+
+export default connect(mapStateToProps)(MultipleDistrictDetailsMainScreen);
