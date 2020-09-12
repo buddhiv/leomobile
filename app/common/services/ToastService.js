@@ -26,7 +26,7 @@ const ToastService = {
             visibilityTime: 5000,
             autoHide: false,
             topOffset: 10,
-            bottomOffset: 0,
+            bottomOffset: 10,
             onShow: () => {
             },
             onHide: () => {
@@ -42,7 +42,7 @@ const ToastService = {
             visibilityTime: 5000,
             autoHide: false,
             topOffset: 10,
-            bottomOffset: 0,
+            bottomOffset: 10,
             onShow: () => {
             },
             onHide: () => {
@@ -58,7 +58,7 @@ const ToastService = {
             visibilityTime: 5000,
             autoHide: false,
             topOffset: 10,
-            bottomOffset: 0,
+            bottomOffset: 10,
             onShow: () => {
             },
             onHide: () => {

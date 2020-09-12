@@ -16,6 +16,7 @@ import ClubsAPIService from './services/ClubsAPIService';
 import DistrictsAPIService from '../districts/services/DistrictsAPIService';
 
 import {connect} from 'react-redux';
+import ToastService from '../../common/services/ToastService';
 
 class ClubDetailsScreen extends React.Component {
 
@@ -61,6 +62,30 @@ class ClubDetailsScreen extends React.Component {
         }
     };
 
+    goToWebsite = () => {
+        //TODO: need to introduce a SocialMediaService
+    };
+
+    goToFacebook = () => {
+
+    };
+
+    goToInstagram = () => {
+
+    };
+
+    goToTwitter = () => {
+
+    };
+
+    goToLinkedin = () => {
+
+    };
+
+    goToEmail = () => {
+
+    };
+
     getClubGeneralInformation = () => {
         return this.state.club.id ? [
             ['Charter ID', this.state.club.charterId],
@@ -83,8 +108,8 @@ class ClubDetailsScreen extends React.Component {
     };
 
     isClubEditable = () => {
-        // return (PermissionsService.getPermission(this.props.permissions.permissions, 'club_profile').update && (MemberDetailsService.getClubId(this.props.user.user) === this.state.club.id));
-        return PermissionsService.getPermission(this.props.permissions.permissions, 'club_profile').update;
+        //TODO: need to be improved
+        return (PermissionsService.getPermission(this.props.permissions.permissions, 'club_profile').update && (MemberDetailsService.getClubId(this.props.user.user) === this.state.club.id));
     };
 
     goToEditClub = (sectionName) => {
@@ -131,32 +156,38 @@ class ClubDetailsScreen extends React.Component {
                             <View style={{flexDirection: 'row'}}>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.goToWebsite}>
-                                        <IconComponent.MaterialCommunityIcons name={'web'} size={28}/>
+                                        <IconComponent.MaterialCommunityIcons name={'web'} size={28}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent>
                                 </View>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.goToFacebook}>
-                                        <IconComponent.MaterialCommunityIcons name={'facebook'} size={28}/>
+                                        <IconComponent.MaterialCommunityIcons name={'facebook'} size={28}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent>
                                 </View>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.goToInstagram}>
-                                        <IconComponent.MaterialCommunityIcons name={'instagram'} size={28}/>
+                                        <IconComponent.MaterialCommunityIcons name={'instagram'} size={28}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent>
                                 </View>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.goToTwitter}>
-                                        <IconComponent.MaterialCommunityIcons name={'twitter'} size={28}/>
+                                        <IconComponent.MaterialCommunityIcons name={'twitter'} size={28}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent>
                                 </View>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.goToLinkedin}>
-                                        <IconComponent.MaterialCommunityIcons name={'linkedin'} size={28}/>
+                                        <IconComponent.MaterialCommunityIcons name={'linkedin'} size={28}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent>
                                 </View>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.goToEmail}>
-                                        <IconComponent.MaterialCommunityIcons name={'email'} size={28}/>
+                                        <IconComponent.MaterialCommunityIcons name={'email'} size={28}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent>
                                 </View>
                             </View>
