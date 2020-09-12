@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {SafeAreaView, ScrollView, View, Text, Image, StyleSheet} from 'react-native';
+import {SafeAreaView, ScrollView, View, Text, Image, StyleSheet, Button} from 'react-native';
 import moment from 'moment';
 import Layout from '../../common/Layout';
 import ClubDetailsService from './services/ClubDetailsService';
@@ -10,6 +10,11 @@ import ClubsAPIService from './services/ClubsAPIService';
 import DistrictsAPIService from '../districts/services/DistrictsAPIService';
 import MemberDetailsService from '../members/services/MemberDetailsService';
 import UserService from '../../common/services/UserService';
+import ColorService from '../../common/services/ColorService';
+import TouchableComponent from '../../common/components/TouchableComponent';
+import IconComponent from '../../common/components/IconComponent';
+import PermissionsService from '../../common/services/PermissionsService';
+import {connect} from 'react-redux';
 
 class ClubOfficersScreen extends React.Component {
 
@@ -55,6 +60,16 @@ class ClubOfficersScreen extends React.Component {
         });
     };
 
+    goToManageClubOfficers = () => {
+
+    };
+
+    isClubEditable = () => {
+        //TODO: need to be improved
+        // return (PermissionsService.getPermission(this.props.permissions.permissions, 'club_profile').update && (MemberDetailsService.getClubId(this.props.user.user) === this.state.club.id));
+        return true;
+    };
+
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading} scrollEnabled={true}>
@@ -66,8 +81,15 @@ class ClubOfficersScreen extends React.Component {
                                 borderBottomWidth: StyleSheet.hairlineWidth,
                                 borderBottomColor: '#dddddd',
                             }}>
-                                <View>
-                                    <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{flex: 1}}>
+                                        <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>
+                                    </View>
+
+                                    {this.isClubEditable() ? <TouchableComponent onPress={this.goToManageClubOfficers}>
+                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
+                                    </TouchableComponent> : null}
                                 </View>
 
                                 {/*<View style={{flexDirection: 'row', flexWrap: 'wrap', flex: 1}}>*/}
@@ -87,7 +109,7 @@ class ClubOfficersScreen extends React.Component {
                                     }
                                 </View>
                             </View>
-                        </CardComponent> : <View style={{flex: 1, alignItems: 'center', marginTop: 50}}>
+                        </CardComponent> : <View style={{flex: 1, alignItems: 'center', marginVertical: 50}}>
                             <Text style={{color: '#777777', textAlign: 'center'}}>
                                 No Club Officers Appointed.
                             </Text>
@@ -98,5 +120,10 @@ class ClubOfficersScreen extends React.Component {
     }
 };
 
-export default ClubOfficersScreen;
+let mapStateToProps = state => ({
+    user: state.user,
+    permissions: state.permissions,
+});
+
+export default connect(mapStateToProps)(ClubOfficersScreen);
 

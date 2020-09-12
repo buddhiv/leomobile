@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     View,
-    Text, FlatList, ScrollView, StyleSheet,
+    Text, FlatList, ScrollView, StyleSheet, Button,
 } from 'react-native';
 import Layout from '../../common/Layout';
 import DistrictsAPIService from './services/DistrictsAPIService';
@@ -15,6 +15,8 @@ import MemberProfilePictureComponent from '../members/components/MemberProfilePi
 import MemberDetailsService from '../members/services/MemberDetailsService';
 import DistrictDetailsService from './services/DistrictDetailsService';
 import DistrictDirectoryItemComponent from './components/DistrictDirectoryItemComponent';
+import ColorService from '../../common/services/ColorService';
+import {connect} from 'react-redux';
 
 class DistrictOfficersScreen extends React.Component {
     constructor(props) {
@@ -59,6 +61,15 @@ class DistrictOfficersScreen extends React.Component {
         });
     };
 
+    goToManageDistrictOfficers = () => {
+
+    };
+
+    isDistrictEditable = () => {
+        //TODO: need to be improved
+        return true;
+    };
+
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading} scrollEnabled={true}>
@@ -70,9 +81,17 @@ class DistrictOfficersScreen extends React.Component {
                                 borderBottomWidth: StyleSheet.hairlineWidth,
                                 borderBottomColor: '#dddddd',
                             }}>
-                                <View>
-                                    <Text style={{fontWeight: 'bold'}}>District Key Officers</Text>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{flex: 1}}>
+                                        <Text style={{fontWeight: 'bold'}}>District Key Officers</Text>
+                                    </View>
+
+                                    {this.isDistrictEditable() ? <TouchableComponent onPress={this.goToManageDistrictOfficers}>
+                                        <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
+                                    </TouchableComponent> : null}
                                 </View>
+
                                 <View>
                                     {
                                         this.state.directory.map((directoryItem, index) => {
@@ -84,7 +103,7 @@ class DistrictOfficersScreen extends React.Component {
                                     }
                                 </View>
                             </View>
-                        </CardComponent> : <View style={{flex: 1, alignItems: 'center', marginTop: 50}}>
+                        </CardComponent> : <View style={{flex: 1, alignItems: 'center', marginVertical: 50}}>
                             <Text style={{color: '#777777', textAlign: 'center'}}>
                                 No District Council Appointed.
                             </Text>
@@ -95,4 +114,9 @@ class DistrictOfficersScreen extends React.Component {
     }
 };
 
-export default DistrictOfficersScreen;
+let mapStateToProps = state => ({
+    user: state.user,
+    permissions: state.permissions,
+});
+
+export default connect(mapStateToProps)(DistrictOfficersScreen);

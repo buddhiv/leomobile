@@ -28,9 +28,15 @@ const DrawerContentComponent: () => React$Node = (props) => {
         <>
             <SafeAreaView style={{flex: 1}} forceInset={{top: 'always', horizontal: 'never'}}>
 
-                <View style={{paddingHorizontal: 20, paddingVertical: 20}}>
+                <View style={{
+                    paddingHorizontal: 20,
+                    paddingVertical: 20,
+                    borderBottomColor: '#dddddd',
+                    borderBottomWidth: StyleSheet.hairlineWidth,
+                }}>
                     <View>
-                        <MemberProfilePictureComponent memberId={userObj.id} size={60} border={false} loadAutomatically={true}/>
+                        <MemberProfilePictureComponent memberId={userObj.id} size={60} border={false}
+                                                       loadAutomatically={true}/>
                     </View>
                     <View style={{marginTop: 10}}>
                         <Text style={{fontWeight: 'bold'}}>{MemberDetailsService.getFullName(userObj)}</Text>
@@ -42,15 +48,12 @@ const DrawerContentComponent: () => React$Node = (props) => {
                     <DrawerItemList {...props} />
                 </ScrollView>
 
-                <View>
+                <View style={{borderTopColor: '#dddddd', borderTopWidth: StyleSheet.hairlineWidth}}>
                     <DrawerItem label={'Log Out'} onPress={logout}/>
                 </View>
 
                 <View style={{borderTopColor: '#dddddd', borderTopWidth: StyleSheet.hairlineWidth}}>
-                    <View style={{
-                        paddingVertical: 10,
-                        paddingHorizontal: 18,
-                    }}>
+                    <View style={{paddingVertical: 10, paddingHorizontal: 18}}>
                         <Text style={{fontSize: 10}}>MyLeo - 1.0-alpha.6</Text>
                         <Text style={{fontSize: 10, color: '#777777'}}>Powered by PulseQue.</Text>
                     </View>
