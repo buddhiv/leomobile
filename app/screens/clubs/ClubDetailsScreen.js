@@ -214,7 +214,6 @@ class ClubDetailsScreen extends React.Component {
     }
 };
 
-
 let mapStateToProps = state => ({
     user: state.user,
     permissions: state.permissions,

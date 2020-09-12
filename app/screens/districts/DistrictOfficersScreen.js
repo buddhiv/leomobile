@@ -1,44 +1,48 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {SafeAreaView, ScrollView, View, Text, Image, StyleSheet} from 'react-native';
-import moment from 'moment';
+import {
+    View,
+    Text, FlatList, ScrollView, StyleSheet,
+} from 'react-native';
 import Layout from '../../common/Layout';
-import ClubDetailsService from './services/ClubDetailsService';
-import ClubDirectoryItemComponent from './components/ClubDirectoryItemComponent';
+import DistrictsAPIService from './services/DistrictsAPIService';
+import DistrictsListRowComponent from './components/DistrictsListRowComponent';
 import CardComponent from '../../common/components/CardComponent';
-import ClubsAPIService from './services/ClubsAPIService';
-import DistrictsAPIService from '../districts/services/DistrictsAPIService';
+import DistrictProfilePictureComponent from './components/DistrictProfilePictureComponent';
+import TouchableComponent from '../../common/components/TouchableComponent';
+import IconComponent from '../../common/components/IconComponent';
+import TableComponent from '../../common/components/TableComponent';
+import MemberProfilePictureComponent from '../members/components/MemberProfilePictureComponent';
 import MemberDetailsService from '../members/services/MemberDetailsService';
-import UserService from '../../common/services/UserService';
+import DistrictDetailsService from './services/DistrictDetailsService';
+import DistrictDirectoryItemComponent from './components/DistrictDirectoryItemComponent';
 
-class ClubOfficersScreen extends React.Component {
-
+class DistrictOfficersScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        this.clubId = props.route.params.clubId;
+        this.districtId = props.route.params.districtId;
 
         this.state = {
-            clubId: this.clubId,
+            districtId: this.districtId,
             directory: [],
-            loading: false,
+            loading: true,
         };
     }
 
     componentDidMount(): void {
-        this.getClubDetails(this.state.clubId);
+        this.getDistrictDetails(this.state.districtId);
     }
 
-    getClubDetails = async (clubId) => {
+    getDistrictDetails = async (districtId) => {
         try {
-            let clubResult = await ClubsAPIService.getClubDetailsApi(clubId);
+            let districtResult = await DistrictsAPIService.getDistrictDetailsApi(districtId);
 
             let stateObj = {
-                directory: clubResult.data.data.directory,
+                directory: districtResult.data.data.directory,
                 loading: false,
             };
 
-            if (!clubResult.data.error) {
+            if (!districtResult.data.error) {
                 this.setState(stateObj);
             }
         } catch (e) {
@@ -59,7 +63,7 @@ class ClubOfficersScreen extends React.Component {
         return (
             <Layout loading={this.state.loading} scrollEnabled={true}>
                 <View style={{padding: 15}}>
-                    {ClubDetailsService.isClubKeyOfficersAdded(this.state.directory) ?
+                    {DistrictDetailsService.isDistrictKeyOfficersAdded(this.state.directory) ?
                         <CardComponent cardStyle={{padding: 0}}>
                             <View style={{
                                 padding: 15,
@@ -67,21 +71,14 @@ class ClubOfficersScreen extends React.Component {
                                 borderBottomColor: '#dddddd',
                             }}>
                                 <View>
-                                    <Text style={{fontWeight: 'bold'}}>Club Key Officers</Text>
+                                    <Text style={{fontWeight: 'bold'}}>District Key Officers</Text>
                                 </View>
-
-                                {/*<View style={{flexDirection: 'row', flexWrap: 'wrap', flex: 1}}>*/}
-                                {/*    <View style={{width: '50%', backgroundColor: 'green'}}><Text>sss</Text></View>*/}
-                                {/*    <View style={{width: '50%', backgroundColor: 'red'}}><Text>sss</Text></View>*/}
-                                {/*    <View style={{width: '50%', backgroundColor: 'green'}}><Text>sss</Text></View>*/}
-                                {/*</View>*/}
-
                                 <View>
                                     {
                                         this.state.directory.map((directoryItem, index) => {
-                                            return <ClubDirectoryItemComponent directoryItem={directoryItem}
-                                                                               key={index}
-                                                                               onPressProfilePicture={this.goToMemberDetails}
+                                            return <DistrictDirectoryItemComponent directoryItem={directoryItem}
+                                                                                   key={index}
+                                                                                   onPressProfilePicture={this.goToMemberDetails}
                                             />;
                                         })
                                     }
@@ -89,7 +86,7 @@ class ClubOfficersScreen extends React.Component {
                             </View>
                         </CardComponent> : <View style={{flex: 1, alignItems: 'center', marginTop: 50}}>
                             <Text style={{color: '#777777', textAlign: 'center'}}>
-                                No Club Officers Appointed.
+                                No District Council Appointed.
                             </Text>
                         </View>}
                 </View>
@@ -98,5 +95,4 @@ class ClubOfficersScreen extends React.Component {
     }
 };
 
-export default ClubOfficersScreen;
-
+export default DistrictOfficersScreen;

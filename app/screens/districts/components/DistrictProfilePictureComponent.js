@@ -20,8 +20,6 @@ class DistrictProfilePictureComponent extends React.Component {
         try {
             let profilePictureResult = await ProfilePictureService.getProfilePictureByDistrictId(this.props.districtId);
 
-            console.log('district profilePictureResult');
-            console.log(profilePictureResult);
             await this.setState({districtBase64Image: profilePictureResult.data.data[0].logo});
         } catch (e) {
             // console.log(e);

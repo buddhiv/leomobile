@@ -33,7 +33,7 @@ const DrawerContentComponent: () => React$Node = (props) => {
                         <MemberProfilePictureComponent memberId={userObj.id} size={60} border={false} loadAutomatically={true}/>
                     </View>
                     <View style={{marginTop: 10}}>
-                        <Text>{MemberDetailsService.getFullName(userObj)}</Text>
+                        <Text style={{fontWeight: 'bold'}}>{MemberDetailsService.getFullName(userObj)}</Text>
                         <Text>{userObj.leoClub ? userObj.leoClub.name : ''}</Text>
                     </View>
                 </View>
