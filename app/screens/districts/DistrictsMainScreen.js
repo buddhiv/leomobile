@@ -5,6 +5,8 @@ import DistrictDetailsMainScreen from './DistrictDetailsMainScreen';
 import MemberDetailsScreen from '../members/MemberDetailsScreen';
 import ColorService from '../../common/services/ColorService';
 import DrawerLeftButtonComponent from '../../common/components/DrawerLeftButtonComponent';
+import EditClubDetailsScreen from '../clubs/EditClubDetailsScreen';
+import EditDistrictDetailsScreen from './EditDistrictDetailsScreen';
 
 const DistrictsMainScreen: () => React$Node = (props) => {
     const Stack = createStackNavigator();
@@ -27,6 +29,7 @@ const DistrictsMainScreen: () => React$Node = (props) => {
                 />
                 <Stack.Screen name="District Details" component={DistrictDetailsMainScreen}/>
                 <Stack.Screen name="Member Details" component={MemberDetailsScreen}/>
+                <Stack.Screen name="Edit District" component={EditDistrictDetailsScreen}/>
             </Stack.Navigator>
         </>
     );

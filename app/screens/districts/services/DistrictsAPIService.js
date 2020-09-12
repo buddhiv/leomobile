@@ -10,6 +10,9 @@ const DistrictsAPIService = {
     getDistrictDetailsApi: (districtId) => {
         return WebService.call('/api/v1/leoDistrict/' + districtId + '?includedirectory=true', 'GET');
     },
+    getSaveDistrictDetailsAPI: (districtData) => {
+        return WebService.call('/api/v1/leoDistrict/' + districtData.id, 'PATCH', districtData);
+    },
 };
 
 export default DistrictsAPIService;

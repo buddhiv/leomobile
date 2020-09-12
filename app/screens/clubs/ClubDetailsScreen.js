@@ -83,7 +83,8 @@ class ClubDetailsScreen extends React.Component {
     };
 
     isClubEditable = () => {
-        return (PermissionsService.getPermission(this.props.permissions.permissions, 'club_profile').update && (MemberDetailsService.getClubId(this.props.user.user) === this.state.club.id));
+        // return (PermissionsService.getPermission(this.props.permissions.permissions, 'club_profile').update && (MemberDetailsService.getClubId(this.props.user.user) === this.state.club.id));
+        return PermissionsService.getPermission(this.props.permissions.permissions, 'club_profile').update;
     };
 
     goToEditClub = (sectionName) => {

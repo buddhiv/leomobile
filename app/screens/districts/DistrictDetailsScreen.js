@@ -12,6 +12,9 @@ import TouchableComponent from '../../common/components/TouchableComponent';
 import IconComponent from '../../common/components/IconComponent';
 import TableComponent from '../../common/components/TableComponent';
 import {connect} from 'react-redux';
+import ColorService from '../../common/services/ColorService';
+import PermissionsService from '../../common/services/PermissionsService';
+import MemberDetailsService from '../members/services/MemberDetailsService';
 
 class DistrictDetailsScreen extends React.Component {
     constructor(props) {
@@ -87,6 +90,22 @@ class DistrictDetailsScreen extends React.Component {
         });
     };
 
+    isDistrictEditable = () => {
+        return (PermissionsService.getPermission(this.props.permissions.permissions, 'district_profile').update);
+    };
+
+    goToEditDistrict = (sectionName) => {
+        this.props.navigation.navigate('Edit District', {
+            district: Object.assign({}, this.state.district),
+            sectionName: sectionName,
+            saveCallback: this.saveCallback,
+        });
+    };
+
+    saveCallback = (newDistrictObj) => {
+        this.setState({district: newDistrictObj});
+    };
+
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <Layout loading={this.state.loading} scrollEnabled={true}>
@@ -148,7 +167,20 @@ class DistrictDetailsScreen extends React.Component {
                     <View style={{paddingTop: 10}}>
                         <CardComponent>
                             <View>
-                                <Text style={{fontWeight: 'bold'}}>Social</Text>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{flex: 1}}>
+                                        <Text style={{fontWeight: 'bold'}}>Social</Text>
+                                    </View>
+
+                                    {this.isDistrictEditable() ?
+                                        <TouchableComponent onPress={() => {
+                                            this.goToEditDistrict('social');
+                                        }}>
+                                            <IconComponent.MaterialCommunityIcons name={'playlist-edit'} size={18}
+                                                                                  color={ColorService.SECONDARY_COLOR_DARK}/>
+                                        </TouchableComponent>
+                                        : null}
+                                </View>
 
                                 <View style={{paddingTop: 10}}>
                                     <TableComponent data={this.getDistrictSocialInformation()}

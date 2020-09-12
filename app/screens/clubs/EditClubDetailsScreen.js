@@ -27,8 +27,6 @@ class EditClubDetailsScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props.route.params.club);
-
         this.club = props.route.params.club;
         this.sectionName = props.route.params.sectionName;
         this.districtsList = DistrictDetailsService.formatDistrictsListForPicker(props.route.params.districtsList);
@@ -38,7 +36,6 @@ class EditClubDetailsScreen extends React.Component {
 
         this.state = {
             club: Object.assign({}, this.club),
-            messages: [],
             regionId: ClubDetailsService.getRegionId(this.club),
             zoneId: ClubDetailsService.getZoneId(this.club),
             zonesList: DistrictDetailsService.getZonesListForPickerFromRegionId(this.regionsListWithZones, ClubDetailsService.getRegionId(this.club)),
@@ -68,37 +65,29 @@ class EditClubDetailsScreen extends React.Component {
                     twitter: this.state.club.twitter,
                 };
 
-                let saveResult = await ClubsAPIService.saveClubDetailsApi(tempClubObj);
-
-                console.log('saveResult');
-                console.log(saveResult);
+                let saveResult = await ClubsAPIService.getSaveClubDetailsApi(tempClubObj);
 
                 if (!saveResult.data.error) {
                     ToastService.showSuccessToast('Successfully Saved!');
+                    await this.setState({club: saveResult.data.data, loading: false});
 
-                    this.setState({
-                        club: saveResult.data.data,
-                        loading: false,
-                    }, () => {
-                        this.club = {...this.club, ...saveResult.data.data};
-                        this.saveCallback(this.club);
-                    });
+                    this.club = {...this.club, ...saveResult.data.data};
+                    this.saveCallback(this.club);
+                } else {x
+                    ToastService.showErrorToast('Error Occurred!');
                 }
             } catch (e) {
                 console.log(e);
 
-                this.state.messages.push('Error Occured!');
-
-                this.setState({
-                    loading: false,
-                });
+                ToastService.showErrorToast('Error Occurred!');
+                this.setState({loading: false});
             }
         });
     };
 
     render(): React.ReactElement<any> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
-            <Layout loading={this.state.loading} scrollEnabled={false} messages={this.state.messages}>
+            <Layout loading={this.state.loading} scrollEnabled={false}>
                 <View style={{flex: 1, justifyContent: 'space-between'}}>
                     <ScrollView>
                         <View style={{padding: 15}}>
