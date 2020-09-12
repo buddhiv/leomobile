@@ -109,7 +109,7 @@ class MemberDetailsScreen extends React.Component {
     saveCallback = (newMemberObj) => {
         this.setState({
             member: newMemberObj,
-            memberBase64Image: newMemberObj.profilePicture
+            memberBase64Image: newMemberObj.profilePicture,
         });
     };
 
@@ -174,19 +174,19 @@ class MemberDetailsScreen extends React.Component {
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.makePhoneCall}>
                                         <IconComponent.MaterialCommunityIcons name={'phone'} size={28}
-                                                                              color={ColorService.PRIMARY_COLOR}/>
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent>
                                 </View>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.makeSms}>
                                         <IconComponent.MaterialCommunityIcons name={'message-text'} size={28}
-                                                                              color={ColorService.PRIMARY_COLOR}/>
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent>
                                 </View>
                                 <View style={{flex: 1, alignItems: 'center'}}>
                                     <TouchableComponent onPress={this.makeEmail}>
                                         <IconComponent.MaterialCommunityIcons name={'email'} size={28}
-                                                                              color={ColorService.PRIMARY_COLOR}/>
+                                                                              color={ColorService.SECONDARY_COLOR_DARK}/>
                                     </TouchableComponent>
                                 </View>
                             </View>
