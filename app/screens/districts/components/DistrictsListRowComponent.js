@@ -13,11 +13,11 @@ const DistrictsListRowComponent: () => React$Node = (props) => {
             <TouchableComponent onPress={() => {
                 props.onPress(props.district.item);
             }}>
-                <View style={{paddingVertical: 5, paddingHorizontal: 15, flexDirection: 'row'}}>
+                <View style={{paddingVertical: 10, paddingHorizontal: 15, flexDirection: 'row'}}>
                     <View>
                         <DistrictProfilePictureComponent size={40} districtId={props.district.item.id}/>
                     </View>
-                    <View style={{paddingLeft: 10}}>
+                    <View style={{paddingLeft: 10, justifyContent: 'center'}}>
                         <Text style={{fontSize: 16, fontWeight: 'bold'}}>{props.district.item.name}</Text>
                     </View>
                 </View>

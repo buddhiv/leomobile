@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
-    Text
+    Text,
 } from 'react-native';
 import ClubProfilePictureComponent from './ClubProfilePictureComponent';
 import ClubDetailsService from '../services/ClubDetailsService';
@@ -14,11 +14,11 @@ const ClubsListRowComponent: () => React$Node = (props) => {
             <TouchableComponent onPress={() => {
                 props.onPress(props.club.item);
             }}>
-                <View style={{paddingVertical: 5, paddingHorizontal: 15, flexDirection: 'row'}}>
+                <View style={{paddingVertical: 10, paddingHorizontal: 15, flexDirection: 'row'}}>
                     <View>
                         <ClubProfilePictureComponent clubId={props.club.item.id} size={40}/>
                     </View>
-                    <View style={{paddingLeft: 10}}>
+                    <View style={{paddingLeft: 10, justifyContent: 'center'}}>
                         <Text style={{fontSize: 16, fontWeight: 'bold'}}>{props.club.item.name}</Text>
                         {/*<Text>{ClubDetailsService.getDistrictName(props.club.item)}</Text>*/}
                     </View>

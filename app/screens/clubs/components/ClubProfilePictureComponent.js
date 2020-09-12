@@ -21,9 +21,6 @@ class ClubProfilePictureComponent extends React.Component {
         try {
             let profilePictureResult = await ProfilePictureService.getProfilePictureByClubId(this.props.clubId);
 
-            console.log('club profilePictureResult');
-            console.log(profilePictureResult);
-
             await this.setState({clubBase64Image: profilePictureResult.data.data[0].logo});
         } catch (e) {
             // console.log(e);
