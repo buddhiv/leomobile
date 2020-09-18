@@ -19,7 +19,7 @@ const store = configureStore();
 const App: () => React$Node = () => {
 
     useEffect(() => {
-        // SplashScreen.hide();
+        SplashScreen.hide();
     }, []);
 
     return (
