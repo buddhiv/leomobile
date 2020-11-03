@@ -1,7 +1,7 @@
 import UrlHelper from '../helpers/URLHelper';
 import axios from 'axios';
 
-const apiLocation = 'https://leomd306.el.r.appspot.com';
+const apiLocation = 'http://173.82.105.136:3000';
 
 let getAxiosFunction = (api, method, params) => {
     let url = apiLocation + api;
